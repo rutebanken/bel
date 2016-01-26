@@ -1,0 +1,5 @@
+{
+	"myApp": {
+		"baseUrl": "http://localhost:1871/jersey"
+	}
+}
