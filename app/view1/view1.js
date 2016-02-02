@@ -38,6 +38,12 @@ angular.module('bel.view1', ['ngRoute'])
       )
     };
 
+    $scope.reload = function() {
+      location.reload();
+    }
+
   }
+
+
 
 ])
