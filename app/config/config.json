@@ -1,5 +1,5 @@
 {
-	"bel": {
-		"baseUrl": "http://localhost:1871/jersey"
+	"nabu": {
+		"baseUrl": "http://nabu:9004"
 	}
 }

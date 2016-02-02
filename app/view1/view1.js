@@ -9,32 +9,35 @@ angular.module('bel.view1', ['ngRoute'])
   });
 }])
 
-.controller('View1Ctrl', ['$scope', '$http', function($scope, $http) {
+.controller('View1Ctrl', ['$scope', '$http', 'operationalStatusService', function($scope, $http,
+    operationalStatusService) {
+
+    //TODO Hard-coded for POC
     $scope.providerId = 2
 
-    $scope.add = function(){
+    $scope.init = function() {
+      console.log("Init")
+      updateStatus()
+    }
+
+    var updateStatus = function() {
+      console.log("Update status");
+      operationalStatusService.getStatuses($scope.providerId).then(
+        function(statuses) {
+          $scope.statuses = statuses;
+          console.log($scope.statuses)
+        })
+    };
+
+    $scope.add = function() {
       var file = document.getElementById('file').files[0];
-      var backendUrl = 'http://localhost:8080/opstatus/' + $scope.providerId + '/uploadFile';
-      console.log("Uploading file with name '" + file.name + "' to '" + backendUrl + "'.");
+      operationalStatusService.uploadFile(file, $scope.providerId).then(
+        function() {
+          updateStatus()
+        }
+      )
+    };
 
-      var fd = new FormData();
-      fd.append('file', file, file.name);
-      console.log("Posting to server");
-      $http.post(backendUrl, fd, {
-        // this cancels AngularJS normal serialization of request
-        transformRequest: angular.identity,
-        // this lets browser set `Content-Type: multipart/form-data`
-        // header and proper data boundary
-        headers: {'Content-Type': undefined}
-        // headers: {'Content-Type':'multipart/form-data'}
-      })
+  }
 
-      .success(function(){
-        console.log("Success")
-      })
-
-      .error(function(){
-        console.log("Something went wrong")
-      });
-
-}}])
+])
