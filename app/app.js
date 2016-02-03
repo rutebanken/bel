@@ -4,15 +4,15 @@ angular.module('bel.services', []);
 
 var module = angular.module('bel', [
   'ngRoute',
-  'bel.view1',
-  'bel.view2',
+  'bel.status-list',
+  'bel.import-result',
   'bel.version',
   'bel.statusFilters',
   'bel.services'
 ]).
 config(['$routeProvider', function($routeProvider) {
   $routeProvider.otherwise({
-    redirectTo: '/view1'
+    redirectTo: '/status-list'
   });
 }]);
 

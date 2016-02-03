@@ -1,19 +1,22 @@
 'use strict';
 
-angular.module('bel.view1', ['ngRoute'])
+angular.module('bel.status-list', ['ngRoute'])
 
 .config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/view1', {
-    templateUrl: 'view1/view1.html',
-    controller: 'View1Ctrl'
+  $routeProvider.when('/status-list', {
+    templateUrl: 'status-list/status-list.html',
+    controller: 'StatusListCtrl'
   });
 }])
 
-.controller('View1Ctrl', ['$scope', '$http', 'operationalStatusService', function($scope, $http,
+.controller('StatusListCtrl', ['$scope', '$http', 'operationalStatusService', function($scope, $http,
     operationalStatusService) {
 
     //TODO Hard-coded for POC
-    $scope.providerId = 2
+    $scope.provider = {
+      providerId: 2,
+      providerName: "Leverandør_2"
+    }
 
     $scope.init = function() {
       console.log("Init")
@@ -22,7 +25,7 @@ angular.module('bel.view1', ['ngRoute'])
 
     var updateStatus = function() {
       console.log("Update status");
-      operationalStatusService.getStatuses($scope.providerId).then(
+      operationalStatusService.getStatuses($scope.provider.providerId).then(
         function(statuses) {
           $scope.statuses = statuses;
           console.log($scope.statuses)
@@ -31,7 +34,7 @@ angular.module('bel.view1', ['ngRoute'])
 
     $scope.add = function() {
       var file = document.getElementById('file').files[0];
-      operationalStatusService.uploadFile(file, $scope.providerId).then(
+      operationalStatusService.uploadFile(file, $scope.provider.providerId).then(
         function() {
           updateStatus()
         }
@@ -43,7 +46,5 @@ angular.module('bel.view1', ['ngRoute'])
     }
 
   }
-
-
 
 ])

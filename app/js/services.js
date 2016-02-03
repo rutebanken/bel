@@ -7,6 +7,7 @@ angular.module("bel.services").factory('operationalStatusService', ['$http', 'ap
 	}
 
 	function getStatuses(providerId) {
+		console.log("HTTP: getStatuses()");
 		return $http.get(config.nabu.baseUrl + '/opstatus/' + providerId + '/status').
 		then(function(data) {
 			console.log(data);
@@ -17,7 +18,7 @@ angular.module("bel.services").factory('operationalStatusService', ['$http', 'ap
 
 	function uploadFile(file, providerId) {
 		var backendUrl = config.nabu.baseUrl + '/opstatus/' + providerId + '/uploadFile';
-		console.log("Uploading file with name '" + file.name + "' to '" + backendUrl + "'.");
+		console.log("HTTP: Uploading file with name '" + file.name + "' to '" + backendUrl + "'.");
 
 		var fd = new FormData();
 		fd.append('file', file, file.name);
