@@ -1,6 +1,6 @@
 ---
-#- set_fact: build_home="/usr/src/jenkinsbuild/workspace/bel"
-- set_fact: build_home="/home/en/git/rutebanken/bel"
+- set_fact: build_home="/usr/src/jenkinsbuild/workspace/bel"
+# - set_fact: build_home="/home/en/git/rutebanken/bel"
 
 - name: Make bel target directory structure
   file: path={{bel_root}}/ state=directory mode=0755 group=users
