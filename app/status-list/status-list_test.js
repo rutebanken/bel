@@ -1,15 +1,15 @@
 'use strict';
 
-describe('bel.view1 module', function() {
+describe('bel.status-list module', function() {
 
-  beforeEach(module('bel.view1'));
+  beforeEach(module('bel.status-list'));
 
-  describe('view1 controller', function(){
+  describe('status-list controller', function() {
 
     it('should ....', inject(function($controller) {
       //spec body
-      var view1Ctrl = $controller('View1Ctrl');
-      expect(view1Ctrl).toBeDefined();
+      var statusListCtrl = $controller('StatusListCtrl');
+      expect(statusListCtrl).toBeDefined();
     }));
 
   });

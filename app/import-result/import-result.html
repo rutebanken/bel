@@ -1,5 +1,19 @@
-<p>This is the partial for import-result.</p>
-<p>
-  Showing of 'interpolate' filter:
-  {{ 'Current version is v%VERSION%.' | interpolate }}
-</p>
+  <a href="#/status-list">Tilbake til oversikt</a>
+
+    <div ng-controller="ImportResultCtrl" ng-init="init()">
+      <h4>Import-resultat for: {{file}}</h4>
+
+      <ul>
+          <li>Linjer? - {{result.stats.line_count}}</li>
+            <li>Ruter - {{result.stats.route_count}}</li>
+            <li>Videreforbindelser - {{result.stats.connection_link_count}}</li>
+            <li>Rutetabeller - {{result.stats.time_table_count}}</li>
+            <li>Stoppesteder - {{result.stats.stop_area_count}}</li>
+            <li>Aksesspunkter? - {{result.stats.access_point_count}}</li>
+            <li>Reiser? - {{result.stats.vehicle_journey_count}}</li>
+            <li>Reisemønster? - {{result.stats.journey_pattern_count}}</li>
+      </ul>
+
+      <!--      <json-formatter json="result" open="2"></json-formatter>-->
+
+    </div>

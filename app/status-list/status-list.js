@@ -9,8 +9,8 @@ angular.module('bel.status-list', ['ngRoute'])
   });
 }])
 
-.controller('StatusListCtrl', ['$scope', '$http', 'operationalStatusService', function($scope, $http,
-    operationalStatusService) {
+.controller('StatusListCtrl', ['$scope', '$http', '$location', 'operationalStatusService',
+  function($scope, $http, $location, operationalStatusService) {
 
     //TODO Hard-coded for POC
     $scope.provider = {
@@ -39,6 +39,10 @@ angular.module('bel.status-list', ['ngRoute'])
           updateStatus()
         }
       )
+    };
+
+    $scope.importResult = function(correlationId) {
+      $location.path("/import-result/" + correlationId);
     };
 
     $scope.reload = function() {

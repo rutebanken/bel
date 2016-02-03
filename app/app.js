@@ -8,7 +8,8 @@ var module = angular.module('bel', [
   'bel.import-result',
   'bel.version',
   'bel.statusFilters',
-  'bel.services'
+  'bel.services',
+  'jsonFormatter'
 ]).
 config(['$routeProvider', function($routeProvider) {
   $routeProvider.otherwise({

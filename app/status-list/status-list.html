@@ -1,4 +1,3 @@
-
     <div ng-controller="StatusListCtrl" ng-init="init()">
       <h4>Status for: {{provider.providerName}}</h4>
 
@@ -12,21 +11,18 @@
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="status in statuses">
+          <tr ng-repeat="status in statuses" class="row-hover" ng-click="importResult(status.correlation_id)">
             <td ng-bind="status.date | date:'dd.MM.yyyy kl. H.mm.ss'"></td>
-            <td>{{status.file_name}}</td>
-            <td>{{status.action | capitalize}}</td>
-            <td>{{status.state | capitalize}}</td>
+            <td>{{ status.file_name }}</td>
+            <td>{{ status.action | capitalize }}</td>
+            <td>{{ status.state | capitalize }}</td>
           </tr>
         </tbody>
       </table>
 
-      <h4>Datagyldighet</h4>
-      <p>Dine data er gyldig til og med mars 2016</p>
-
       <h4>Last opp filer</h4>
-          <input type="file" id="file" name="file"/>
-          <button ng-click="add()">Legg til</button>
-          <button ng-click="reload()">Last siden på nytt</button>
+      <input type="file" id="file" name="file"/>
+      <button ng-click="add()">Legg til</button>
+      <button ng-click="reload()">Last siden på nytt</button>
 
     </div>
