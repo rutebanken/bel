@@ -7,8 +7,9 @@ angular.module("bel.services").factory('operationalStatusService', ['$http', 'ap
 	}
 
 	function getStatuses(providerId) {
-		console.log("HTTP: getStatuses()");
-		return $http.get(config.nabu.baseUrl + '/opstatus/' + providerId + '/status').
+		var backendUrl = config.nabu.baseUrl + '/opstatus/' + providerId + '/status'
+		console.log("HTTP: getStatuses() on " + backendUrl);
+		return $http.get(backendUrl).
 		then(function(data) {
 			console.log(data);
 			return data.data;
