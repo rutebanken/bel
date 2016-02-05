@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('bel.status-list', ['ngRoute'])
+angular.module('bel.status-list', ['ngRoute', 'ngFileUpload'])
 
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/status-list', {
@@ -9,13 +9,41 @@ angular.module('bel.status-list', ['ngRoute'])
   });
 }])
 
-.controller('StatusListCtrl', ['$scope', '$http', '$location', 'operationalStatusService',
-  function($scope, $http, $location, operationalStatusService) {
+.controller('StatusListCtrl', ['$scope', '$http', '$location', 'Upload', '$timeout', 'operationalStatusService',
+  function($scope, $http, $location, Upload, $timeout, operationalStatusService) {
 
     //TODO Hard-coded for POC
     $scope.provider = {
       providerId: 2,
-      providerName: "Leverandør_2"
+      providerName: "Flybussekspressen"
+    }
+
+    $scope.uploadFiles = function(file, errFiles) {
+      $scope.f = file;
+      $scope.errFile = errFiles && errFiles[0];
+      if (file) {
+        var backendUrl = 'http://localhost:9004/jersey/opstatus/' + $scope.provider.providerId +
+          '/uploadFile';
+        console.log("HTTP: Uploading file with name '" + file.name + "' to '" + backendUrl + "'.");
+        file.upload = Upload.upload({
+          url: backendUrl,
+          data: {
+            file: file
+          }
+        });
+
+        file.upload.then(function(response) {
+          $timeout(function() {
+            file.result = response.data;
+          });
+        }, function(response) {
+          if (response.status > 0)
+            $scope.errorMsg = response.status + ': ' + response.data;
+        }, function(evt) {
+          file.progress = Math.min(100, parseInt(100.0 *
+            evt.loaded / evt.total));
+        });
+      }
     }
 
     $scope.init = function() {

@@ -5,6 +5,7 @@
   background-color: #DFE6E6;
 }
 
+/*
 .file-upload {
   position: relative;
   overflow: hidden;
@@ -20,3 +21,30 @@
   cursor: pointer;
   opacity: 0;
   filter: alpha(opacity=0); }
+*/
+
+
+    .thumb {
+      width: 24px;
+      height: 24px;
+      float: none;
+      position: relative;
+      top: 7px;
+  }
+
+
+  form .upload-progress {
+      line-height: 15px;
+  }
+
+  .upload-progress {
+      display: inline-block;
+      width: 100px;
+      border: 3px groove #CCC;
+  }
+
+  .upload-progress div {
+      font-size: smaller;
+      background: #16c1f3;
+      width: 0;
+  }
