@@ -1,5 +1,5 @@
 <div ng-controller="StatusListCtrl" ng-init="init()">
-  <h3>Status for: {{provider.providerName}}</h3>
+  <h3>Status for: {{provider.providerName}} (id: {{provider.providerId}})</h3>
   <p>Klikk på en rad for å se detaljer om en import</p>
 
   <button class="btn" type="file" ngf-select="uploadFiles($file, $invalidFiles)"

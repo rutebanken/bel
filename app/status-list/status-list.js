@@ -9,12 +9,17 @@ angular.module('bel.status-list', ['ngRoute', 'ngFileUpload'])
   });
 }])
 
-.controller('StatusListCtrl', ['$scope', '$http', '$location', 'Upload', '$timeout', 'operationalStatusService',
-  function($scope, $http, $location, Upload, $timeout, operationalStatusService) {
+.controller('StatusListCtrl', ['$scope', '$http', '$location', 'Upload', '$timeout', 'appConfig',
+  'operationalStatusService',
+  function($scope, $http, $location, Upload, $timeout, config, operationalStatusService) {
+
+    if (!config.nabu || !config.nabu.baseUrl) {
+      console.log("Expected configuration config.nabu.baseUrl");
+    }
 
     //TODO Hard-coded for POC
     $scope.provider = {
-      providerId: 2,
+      providerId: 42,
       providerName: "Flybussekspressen"
     }
 
@@ -22,7 +27,7 @@ angular.module('bel.status-list', ['ngRoute', 'ngFileUpload'])
       $scope.f = file;
       $scope.errFile = errFiles && errFiles[0];
       if (file) {
-        var backendUrl = 'http://localhost:9004/jersey/opstatus/' + $scope.provider.providerId +
+        var backendUrl = config.nabu.baseUrl + '/opstatus/' + $scope.provider.providerId +
           '/uploadFile';
         console.log("HTTP: Uploading file with name '" + file.name + "' to '" + backendUrl + "'.");
         file.upload = Upload.upload({
@@ -36,6 +41,7 @@ angular.module('bel.status-list', ['ngRoute', 'ngFileUpload'])
           $timeout(function() {
             file.result = response.data;
           });
+          updateStatus();
         }, function(response) {
           if (response.status > 0)
             $scope.errorMsg = response.status + ': ' + response.data;
@@ -45,6 +51,8 @@ angular.module('bel.status-list', ['ngRoute', 'ngFileUpload'])
         });
       }
     }
+
+
 
     $scope.init = function() {
       console.log("Init")
