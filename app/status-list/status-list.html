@@ -26,6 +26,7 @@
   <button class="btn" type="file" ngf-select="uploadFiles($file, $invalidFiles)"
   accept="application/zip" ngf-max-height="1000" ngf-max-size="50MB">
   Last opp fil</button>
+  <button class="btn" ng-click="reload()">Oppdater status</button>
   <br><br>
   Fil:
   <div style="font:smaller">{{f.name}} {{errFile.name}} {{errFile.$error}} {{errFile.$errorParam}}
@@ -35,6 +36,6 @@
   </div>
   {{errorMsg}}
   <br>
-  <button class="btn" ng-click="reload()">Oppdater status</button>
+
 
 </div>
