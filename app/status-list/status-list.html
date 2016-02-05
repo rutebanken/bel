@@ -13,7 +13,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="status in statuses" class="row-hover" ng-click="importResult(status.correlation_id)">
+        <tr ng-repeat="status in statuses | orderBy: '-date'" class="row-hover" ng-click="importResult(status.correlation_id)">
           <td ng-bind="status.date | date:'dd.MM.yyyy kl. H.mm.ss'"></td>
           <td>{{ status.file_name }}</td>
           <td>{{ status.action | capitalize }}</td>
