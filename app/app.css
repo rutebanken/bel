@@ -22,7 +22,9 @@
   opacity: 0;
   filter: alpha(opacity=0); }
 */
-
+a {
+  color:black
+}
 
     .thumb {
       width: 24px;
