@@ -19,8 +19,8 @@ angular.module('bel.status-list', ['ngRoute', 'ngFileUpload'])
 
     //TODO Hard-coded for POC
     $scope.provider = {
-      providerId: 42,
-      providerName: "Flybussekspressen"
+      providerId: 2,
+      providerName: "Oslo og Akershus / Ruter"
     }
 
     $scope.uploadFiles = function(file, errFiles) {
