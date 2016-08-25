@@ -1,5 +1,5 @@
 {
 	"nabu": {
-		"baseUrl": "http://mottak.rutebanken.org/jersey"
+		"baseUrl": "//test.rutebanken.org/admin/mottak/jersey"
 	}
 }
