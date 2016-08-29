@@ -1,7 +1,6 @@
 var webpack = require('webpack')
 var webpackDevMiddleware = require('webpack-dev-middleware')
 var webpackHotMiddleware = require('webpack-hot-middleware')
-var config = require('./webpack.config')
 var convict = require('./config/convict.js')
 
 var ENDPOINTBASE = "/admin/bel/"
@@ -9,10 +8,15 @@ var ENDPOINTBASE = "/admin/bel/"
 var app = new (require('express'))()
 var port = process.env.port || 8988
 
+var config = require('./webpack.config')
 var compiler = webpack(config)
-app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output.publicPath }))
-app.use(webpackHotMiddleware(compiler))
 
+app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output.publicPath }))
+
+
+if (process.env.NODE_ENV !== 'production') {
+  app.use(webpackHotMiddleware(compiler))
+}
 
 if (process.env.NODE_ENV == 'development') {
   app.get('/', function(req, res) {

@@ -56,6 +56,7 @@ class EventsContainer extends React.Component {
 
         <div>
           <Container fluid={true}>
+
             <Row>
               <Col md="10">
                 <div className="page-link-parent">
@@ -70,26 +71,21 @@ class EventsContainer extends React.Component {
                 <Button variant="fab" onClick={ () => this.handleUploadFile() } color="primary">+</Button>
               </Col>
             </Row>
+
             <Row>
-              <Col md="4">
+              <Col md="3">
               <div className="table-header" onClick={ () => this.handleSortForField("fileName") }>Filename</div>
               </Col>
-              <Col md="1">
+              <Col md="3">
                 <div className="table-header" onClick={ () => this.handleSortForField("endState") }>Status</div>
               </Col>
-              <Col md="2">
+              <Col md="3">
               <div className="table-header" onClick={ () => this.handleSortForField("firstEvent") }>Started</div>
-              </Col>
-              <Col md="2">
-              <div className="table-header" onClick={ () => this.handleSortForField("lastEvent") }>Ended</div>
               </Col>
               <Col md="2">
               <div className="table-header" onClick={ () => this.handleSortForField("duration") }>Duration</div>
               </Col>
             </Row>
-          </Container>
-
-          <Container fluid={true}>
 
             {currentPage.map ( (pageItem, index) => {
 
@@ -101,11 +97,10 @@ class EventsContainer extends React.Component {
 
                 <div className="jobstatus-wrapper" key={"jobstatus-wrapper-" + index}>
                   <Row key={"k-" + index}>
-                    <Col md="4"><p><span className="long-text">{pageItem.fileName}</span></p></Col>
-                    <Col md="1">{ !endStateFailed ? <FaCheck color="green"/> : <FaError color="red"/>}</Col>
-                    <Col md="2"><p>{pageItem.firstEvent}</p></Col>
-                    <Col md="2"><p>{pageItem.lastEvent}</p></Col>
-                    <Col md="2"><p>{pageItem.duration}</p></Col>
+                    <Col md="3"><p><span className="long-text">{pageItem.fileName}</span></p></Col>
+                    <Col md="3">{ !endStateFailed ? <FaCheck color="green"/> : <FaError color="red"/>}</Col>
+                    <Col md="3"><p>{pageItem.firstEvent}</p></Col>
+                    <Col md="2"><div className="tooltip">{pageItem.duration} <span className="tooltiptext">{"Ended: " + pageItem.lastEvent}</span></div></Col>
                     <Col md="1">
                       <div onClick={() => this.handleExpandContent(index)}>
                         { contracted ? <FaChevronDown/> : <FaChevronUp/> }

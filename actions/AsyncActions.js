@@ -74,13 +74,11 @@ AsyncActions.uploadFiles = () => {
     .then(function(response) {
         console.log("success", response)
         alert("Files uploaded successfully")
-    }) // then
+    })
     .catch(function(response) {
       console.log("error", response)
       alert("Failed to upload file(s)")
-
     })
-
   }
 }
 
@@ -98,6 +96,10 @@ const formatProviderStatusDate = (list) => {
     listItem.firstEvent = moment(listItem.firstEvent).locale("nb").format("YYYY-MM-DD HH:mm:ss")
     listItem.lastEvent = moment(listItem.lastEvent).locale("nb").format("YYYY-MM-DD HH:mm:ss")
     listItem.duration = moment(listItem.durationMillis).locale("nb").utc().format("HH:mm:ss")
+
+    listItem.events.forEach(function (event) {
+      event.date = moment(event.date).locale("nb").format("YYYY-MM-DD HH:mm:ss")
+    })
 
     return listItem
   })
