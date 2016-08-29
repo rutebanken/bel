@@ -38,7 +38,6 @@ class EventsContainer extends React.Component {
   handleSortForField(fieldName) {
     const {dispatch} = this.props
     dispatch(UserActions.sortEventsByField(fieldName))
-    console.log("this happens??")
   }
 
   handleUploadFile() {
