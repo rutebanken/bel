@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack --config ./webpack.prod.config.js --progress --colors",
     "start": "node server.js",
-    "test": "mocha -r jsdom-global/register --compilers js:babel-core/register ./tests/nock/index.js",
+    "test": "./node_modules/.bin/mocha -r jsdom-global/register --compilers js:babel-core/register index.js",
     "smoke-test": "nightwatch",
     "dev": "NODE_ENV=development node server.js"
   },
