@@ -10,6 +10,7 @@ AsyncActions.getProviderStatus = (id) => {
 
   return function(dispatch) {
     dispatch(sendData(null,types.REQUESTED_EVENTS))
+    dispatch(sendData(id, types.CHANGED_ACTIVE_PROVIDER))
     return axios({
       url: url,
       timeout: 20000,

@@ -17,6 +17,9 @@ const nabuReducer = (state = intialState, action) => {
     case types.RECEIVED_EVENTS:
       return Object.assign({}, state, {events: action.payLoad})
 
+    case types.CHANGED_ACTIVE_PROVIDER:
+      return Object.assign({}, state, {providerId: action.payLoad})
+
     case types.CHANGED_SORT_EVENTS_SORT_ORDER:
       let newOrder = 0, oldProperty = state.eventsSort.property, newProperty = action.payLoad
 

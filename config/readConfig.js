@@ -8,6 +8,7 @@ var configreader = {}
 var config
 
 configreader.readConfig = (callback) => {
+
   if ( config && typeof config !== 'undefined' ) {
     callback ( config )
     return

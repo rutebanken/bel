@@ -25,7 +25,7 @@ const userReducer = (state = intialState, action) => {
 
     case types.CHOSE_FILES_TO_UPLOAD:
       return Object.assign ( {}, state, {filesToUpload: action.payLoad})
-
+      
     default:
       return state
   }
