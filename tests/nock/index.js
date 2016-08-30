@@ -80,6 +80,4 @@ describe('async actions', () => {
       })
   })
 
-
-
 })

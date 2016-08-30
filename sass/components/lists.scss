@@ -9,3 +9,23 @@
   padding: 10px;
   border: 1px solid #e5e5e5;
 }
+
+@mixin tab-svg($url) {
+  background: url($url);
+  background-size: 28px 28px;
+  height: 24px;
+  width: 24px;
+  vertical-align: sub;
+  margin-right: 10px;
+  content: ' ';
+  display: inline-block;
+  background-repeat: no-repeat;
+}
+
+ul.mui-tabs__bar.mui-tabs__bar--justified > li:first-child > a:before {
+  @include tab-svg('../svg/md/ic_event_48px.svg');
+}
+
+ul.mui-tabs__bar.mui-tabs__bar--justified > li:last-child > a:before {
+  @include tab-svg('../svg/md/ic_report_48px.svg');
+}

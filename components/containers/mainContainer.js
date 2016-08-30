@@ -18,9 +18,12 @@ class MainContainer extends React.Component {
   }
 
   handleSupplierchange(event) {
-    const {dispatch} = this.props
     const id = event.target.value
-    dispatch(AsyncActions.getProviderStatus(id))
+    if (id > -1) {
+      const {dispatch} = this.props
+      dispatch(AsyncActions.getProviderStatus(id))
+    }
+
   }
 
   render() {
@@ -31,6 +34,7 @@ class MainContainer extends React.Component {
       <div>
         <span style={ {marginRight: "5px"}}>Current supplier (DEV only)</span>
         <select onChange={ (event) => this.handleSupplierchange(event)}>
+          <option key="supplier-default" value="-1">Select a provider</option>
           { suppliers.map( (supplier, index) => ( <option key={"supplier-" + index} value={supplier.id}> {supplier.id} {supplier.name}</option> ) )}
         </select>
         <div className="tabsContainerWrapper">

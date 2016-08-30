@@ -5,7 +5,8 @@ import cfgreader from './../../config/readConfig'
 import Tabs from 'muicss/lib/react/tabs'
 import Tab from 'muicss/lib/react/tab'
 import EventsContainer from './eventsContainer'
-
+import MdEvents from 'react-icons/lib/md/event'
+import MdReport from 'react-icons/lib/md/report'
 import AsyncActions from './../../actions/AsyncActions'
 
 class TabsContainer extends React.Component {
@@ -21,7 +22,7 @@ class TabsContainer extends React.Component {
 
     return (
       <Tabs justified={true} initialSelectedIndex={0}>
-        <Tab value="events" label="events">
+        <Tab className="event-header" value="events" label={"Events"}>
           <EventsContainer/>
         </Tab>
         <Tab value="status" label="status">
