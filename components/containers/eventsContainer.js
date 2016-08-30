@@ -15,7 +15,6 @@ const FaError = require('react-icons/lib/fa/close')
 import UserActions from './../../actions/UserActions'
 import ExpandableEvent from '../views/expandableEvent'
 
-
 class EventsContainer extends React.Component {
 
   componentWillMount(){
@@ -121,7 +120,7 @@ class EventsContainer extends React.Component {
       return (
         <Container fluid={true}>
           <Row>
-            <Col md="8">
+            <Col md="10">
               <p>No events found</p>
             </Col>
             <Col md="2">

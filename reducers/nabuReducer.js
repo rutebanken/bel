@@ -1,7 +1,7 @@
 import * as types from './../actions/actionTypes'
 
 const intialState = {
-  providerId: 1,
+  providerId: -1,
   events: [],
   eventsSort: {
     order: 0,
@@ -27,7 +27,8 @@ const nabuReducer = (state = intialState, action) => {
       return Object.assign( {}, state, {events: sortEvents(state.events, newOrder, newProperty), eventsSort: { order: newOrder, property: newProperty } } )
 
     case types.RECEIVED_SUPPLIERS:
-      return Object.assign( {}, state, {suppliers: action.payLoad} )
+      let activeProviderId = (state.providerId == -1 && action.payLoad.length) ? action.payLoad[0].id : -1
+      return Object.assign( {}, state, {providerId: activeProviderId, suppliers: action.payLoad} )
 
     default:
       return state

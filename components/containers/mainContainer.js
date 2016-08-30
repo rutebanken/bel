@@ -12,10 +12,8 @@ class MainContainer extends React.Component {
   componentDidMount() {
     cfgreader.readConfig( (function(config) {
       window.config = config
-
       const {dispatch} = this.props
       dispatch(AsyncActions.getAllSuppliers())
-
     }).bind(this))
   }
 

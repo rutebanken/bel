@@ -3,6 +3,8 @@ import Row from 'muicss/lib/react/row'
 import Col from 'muicss/lib/react/col'
 const FaCheck = require('react-icons/lib/fa/check')
 const FaError = require('react-icons/lib/fa/close')
+import actionsEN from '../../translations/en/actions'
+
 
 export default class ExpandableEvent extends React.Component {
 
@@ -24,7 +26,7 @@ export default class ExpandableEvent extends React.Component {
               const endStateFailed = (event.state === 'TIMEOUT' || event.state === 'ERROR' || event.state === 'FAILED')
               return (
                 <Row key={"action-" + index}>
-                  <Col md="4" key={"event-action-" + index}>{event.action}</Col>
+                  <Col md="4" key={"event-action-" + index}>{actionsEN[event.action]}</Col>
                   <Col md="4" key={"event-date-" + index}>{event.date}</Col>
                   <Col md="4" key={"event-state-" + index}>{!endStateFailed ? <FaCheck color="green"/> : <FaError color="red"/>}</Col>
                 </Row>
