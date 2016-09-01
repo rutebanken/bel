@@ -5,7 +5,6 @@ import cfgreader from './../../config/readConfig'
 import TabsContainer from './TabsContainer'
 import ModalFileUploadContainer from './modalFileUploadContainer'
 
-
 import AsyncActions from './../../actions/AsyncActions'
 
 class MainContainer extends React.Component {
@@ -28,7 +27,7 @@ class MainContainer extends React.Component {
 
   render() {
 
-    const {providerId, events, suppliers} = this.props
+    const {events, suppliers, supplier} = this.props
 
     return (
       <div>
@@ -38,6 +37,7 @@ class MainContainer extends React.Component {
           { suppliers.map( (supplier, index) => ( <option key={"supplier-" + index} value={supplier.id}> {supplier.id} {supplier.name}</option> ) )}
         </select>
         <div className="tabsContainerWrapper">
+          { supplier ? <h2>{supplier.name}</h2> : null }
           <TabsContainer/>
         </div>
         <ModalFileUploadContainer/>
@@ -48,8 +48,8 @@ class MainContainer extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    providerId: state.nabuReducer.providerId,
-    suppliers: state.nabuReducer.suppliers
+    suppliers: state.nabuReducer.suppliers,
+    supplier: state.nabuReducer.currentSupplier
   }
 }
 

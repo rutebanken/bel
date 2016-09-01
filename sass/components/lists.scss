@@ -22,10 +22,10 @@
   background-repeat: no-repeat;
 }
 
-ul.mui-tabs__bar.mui-tabs__bar--justified > li:first-child > a:before {
+ul.mui-tabs__bar.mui-tabs__bar--justified > li:last-child > a:before {
   @include tab-svg('../svg/md/ic_event_48px.svg');
 }
 
-ul.mui-tabs__bar.mui-tabs__bar--justified > li:last-child > a:before {
+ul.mui-tabs__bar.mui-tabs__bar--justified > li:first-child > a:before {
   @include tab-svg('../svg/md/ic_report_48px.svg');
 }

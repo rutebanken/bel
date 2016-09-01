@@ -4,45 +4,23 @@ import cfgreader from './../../config/readConfig'
 
 import AsyncActions from './../../actions/AsyncActions'
 
-import HeaderContainer from './headerContainer'
+import HeaderView from '../views/HeaderView'
 import MainContainer from './mainContainer'
-import FooterContainer from './footerContainer'
+import FooterView from '../views/footerView'
 
-
-class App extends React.Component {
+export default class App extends React.Component {
   componentDidMount() {
     cfgreader.readConfig( (function(config) {
       window.config = config
     }).bind(this))
   }
-
   render() {
-
-    const {providerId, statusList} = this.props
-
     return (
       <div className="app">
-        <HeaderContainer/>
+        <HeaderView/>
         <MainContainer/>
-        <FooterContainer/>
+        <FooterView/>
       </div>
     )
   }
 }
-
-const mapStateToProps = (state, ownProps) => {
-  return {
-      providerId: state.nabuReducer.providerId
-  }
-}
-
-const mapDispatchToProps = (dispatch, ownProps) => {
-  return {
-    dispatch: dispatch
-  }
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App)

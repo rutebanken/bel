@@ -19,7 +19,7 @@ AsyncActions.getProviderStatus = (id) => {
     })
     .then(function(response) {
       let providerStatus = formatProviderStatusDate(response.data)
-      dispatch(sendData(response.data, types.RECEIVED_EVENTS))
+      dispatch(sendData(providerStatus, types.RECEIVED_EVENTS))
     })
     .catch(function(response){
       dispatch(sendData(response.data, types.ERROR_EVENTS))
