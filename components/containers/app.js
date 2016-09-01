@@ -4,7 +4,7 @@ import cfgreader from './../../config/readConfig'
 
 import AsyncActions from './../../actions/AsyncActions'
 
-import HeaderView from '../views/HeaderView'
+import HeaderView from '../views/headerView'
 import MainContainer from './mainContainer'
 import FooterView from '../views/footerView'
 
