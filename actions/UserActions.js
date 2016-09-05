@@ -46,6 +46,19 @@ UserActions.dismissFileUploadDialog = () => {
   }
 }
 
+UserActions.dismissReportsModal = () => {
+  return {
+    type: types.DISMISSED_REPORTS_MODAL
+  }
+}
+
+UserActions.openReportsModal = (reportViewType) => {
+  return {
+    type: types.OPENED_REPORTS_MODAL,
+    payLoad: reportViewType
+  }
+}
+
 UserActions.choseFilesToUpload = (files) => {
   return {
     type: types.CHOSE_FILES_TO_UPLOAD,

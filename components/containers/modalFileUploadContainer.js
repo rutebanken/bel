@@ -3,10 +3,7 @@ import React, { Component, PropTypes } from 'react'
 import Modal from './../views/modal.js'
 import UserActions from '../../actions/UserActions'
 import AsyncActions from '../../actions/AsyncActions'
-
-
 import Button from 'muicss/lib/react/button'
-
 import Dropzone from 'react-dropzone'
 
 class ModalFileUploadContainer extends React.Component {

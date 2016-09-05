@@ -3,8 +3,6 @@ import React, { Component, PropTypes } from 'react'
 import cfgreader from './../../config/readConfig'
 
 import TabsContainer from './TabsContainer'
-import ModalFileUploadContainer from './modalFileUploadContainer'
-
 import AsyncActions from './../../actions/AsyncActions'
 
 class MainContainer extends React.Component {
@@ -40,7 +38,6 @@ class MainContainer extends React.Component {
           { supplier ? <h2>{supplier.name}</h2> : null }
           <TabsContainer/>
         </div>
-        <ModalFileUploadContainer/>
       </div>
     )
   }

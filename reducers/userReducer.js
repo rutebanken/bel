@@ -4,7 +4,9 @@ const intialState = {
   eventPageIndex: 0,
   expandedEvents: [],
   isModalOpen: false,
-  filesToUpload: []
+  filesToUpload: [],
+  isReportModalOpen: false,
+  reportViewType: "ALL"
 }
 
 const userReducer = (state = intialState, action) => {
@@ -20,12 +22,18 @@ const userReducer = (state = intialState, action) => {
     case types.DISMISSED_FILEUPLOAD_MODAL:
       return Object.assign( {}, state, {isModalOpen: false} )
 
+    case types.OPENED_REPORTS_MODAL:
+      return Object.assign( {}, state, {reportViewType: action.payLoad, isReportModalOpen: true})
+
+    case types.DISMISSED_REPORTS_MODAL:
+      return Object.assign( {}, state, {isReportModalOpen: false})
+
     case types.OPENED_FILEUPLOAD_MODAL:
       return Object.assign( {}, state, {isModalOpen: true} )
 
     case types.CHOSE_FILES_TO_UPLOAD:
       return Object.assign ( {}, state, {filesToUpload: action.payLoad})
-      
+
     default:
       return state
   }
