@@ -2,4 +2,4 @@
 docker_build_root: /usr/src
 build_log_directory: /usr/src/log
 bel_root: "{{docker_build_root}}/bel"
-bel_docker_image: "dr.rutebanken.org/rutebanken/bel"
+bel_docker_image: "eu.gcr.io/carbon-1287/bel"
