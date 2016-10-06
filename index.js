@@ -1,14 +1,10 @@
 import 'babel-polyfill'
-
 import React from 'react'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 import Keycloak from 'keycloak-js'
-
-import App from './components/containers/app'
-
+import App from './containers/app'
 import configureStore from './store/store'
-
 require('./sass/main.scss')
 
 renderIndex()
@@ -27,7 +23,7 @@ function renderIndex() {
 
   render(
     <Provider store={store}>
-      <App></App>
+      <App/>
       </Provider>,
     document.getElementById('root')
   )

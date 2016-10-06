@@ -54,7 +54,7 @@ AsyncActions.uploadFiles = () => {
   return function (dispatch, getState) {
 
     const state = getState()
-    const id = state.nabuReducer.providerId
+    const id = state.nabuReducer.currentSupplier.id
 
     const url = `${window.config.nabuBaseUrl}jersey/files/${id}`
     const files = state.userReducer.filesToUpload

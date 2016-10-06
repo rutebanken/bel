@@ -1,13 +1,12 @@
 import { connect } from 'react-redux'
 import React, { Component, PropTypes } from 'react'
-import cfgreader from './../../config/readConfig'
-
-import AsyncActions from './../../actions/AsyncActions'
+import cfgreader from '../config/readConfig'
+import AsyncActions from '../actions/AsyncActions'
 import ModalFileUploadContainer from './modalFileUploadContainer'
 import ValidationReportContainer from './validationReportContainer'
-import HeaderView from '../views/headerView'
+import HeaderView from '../components/headerView'
 import MainContainer from './mainContainer'
-import FooterView from '../views/footerView'
+import FooterView from '../components/footerView'
 import Appbar from 'muicss/lib/react/appbar';
 const FaCog = require('react-icons/lib/fa/cog')
 

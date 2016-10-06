@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import React, { Component, PropTypes } from 'react'
-import cfgreader from './../../config/readConfig'
+import cfgreader from '../config/readConfig'
 
 import Tabs from 'muicss/lib/react/tabs'
 import Tab from 'muicss/lib/react/tab'
@@ -8,7 +8,7 @@ import EventsContainer from './eventsContainer'
 import StatusContainer from './statusContainer'
 import MdEvents from 'react-icons/lib/md/event'
 import MdReport from 'react-icons/lib/md/report'
-import AsyncActions from './../../actions/AsyncActions'
+import AsyncActions from '../actions/AsyncActions'
 
 class TabsContainer extends React.Component {
   componentDidMount() {

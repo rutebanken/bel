@@ -1,8 +1,8 @@
 import { connect } from 'react-redux'
 import React, { Component, PropTypes } from 'react'
-import Modal from './../views/modal.js'
-import UserActions from '../../actions/UserActions'
-import AsyncActions from '../../actions/AsyncActions'
+import Modal from '../components/modal.js'
+import UserActions from '../actions/UserActions'
+import AsyncActions from '../actions/AsyncActions'
 import Button from 'muicss/lib/react/button'
 import Dropzone from 'react-dropzone'
 

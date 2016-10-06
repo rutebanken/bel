@@ -1,9 +1,9 @@
 import { connect } from 'react-redux'
 import React, { Component, PropTypes } from 'react'
-import Modal from './../views/modal.js'
+import Modal from '../components/modal.js'
 import Button from 'muicss/lib/react/button'
-import UserActions from '../../actions/UserActions'
-import ReportView from './../views/reportView.js'
+import UserActions from '../actions/UserActions'
+import ReportView from '../components/reportView.js'
 
 class ValidationReportContainer extends React.Component {
 

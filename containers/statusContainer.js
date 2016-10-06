@@ -2,7 +2,7 @@ import React from 'react'
 import {Pie as PieChart} from "react-chartjs"
 import Chart from 'chartjs'
 const FaError = require('react-icons/lib/fa/close')
-import UserActions from '../../actions/UserActions'
+import UserActions from '../actions/UserActions'
 
 class StatusContainer extends React.Component {
 

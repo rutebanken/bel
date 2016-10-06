@@ -3,8 +3,7 @@ import Row from 'muicss/lib/react/row'
 import Col from 'muicss/lib/react/col'
 const FaCheck = require('react-icons/lib/fa/check')
 const FaError = require('react-icons/lib/fa/close')
-import actionsEN from '../../translations/en/actions'
-
+import actionsEN from '../translations/en/actions'
 
 export default class ExpandableEvent extends React.Component {
 

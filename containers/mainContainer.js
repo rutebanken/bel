@@ -1,9 +1,8 @@
 import { connect } from 'react-redux'
 import React, { Component, PropTypes } from 'react'
-import cfgreader from './../../config/readConfig'
-
+import cfgreader from '../config/readConfig'
 import TabsContainer from './TabsContainer'
-import AsyncActions from './../../actions/AsyncActions'
+import AsyncActions from '../actions/AsyncActions'
 
 class MainContainer extends React.Component {
   componentDidMount() {

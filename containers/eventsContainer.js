@@ -1,8 +1,7 @@
 import { connect } from 'react-redux'
 import React, { Component, PropTypes } from 'react'
-import cfgreader from '../../config/readConfig'
+import cfgreader from '../config/readConfig'
 import { bindActionCreators } from 'redux'
-
 import Container from 'muicss/lib/react/container'
 import Row from 'muicss/lib/react/row'
 import Col from 'muicss/lib/react/col'
@@ -12,8 +11,8 @@ const FaChevronUp  = require('react-icons/lib/fa/chevron-up')
 const FaCheck = require('react-icons/lib/fa/check')
 const FaError = require('react-icons/lib/fa/close')
 
-import UserActions from './../../actions/UserActions'
-import ExpandableEvent from '../views/expandableEvent'
+import UserActions from '../actions/UserActions'
+import ExpandableEvent from '../components/expandableEvent'
 
 class EventsContainer extends React.Component {
 
