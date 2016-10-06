@@ -49,7 +49,7 @@ AsyncActions.getAllSuppliers = () => {
 }
 
 
-AsyncActions.uploadFiles = () => {
+AsyncActions.uploadFiles = (files) => {
 
   return function (dispatch, getState) {
 
@@ -57,7 +57,6 @@ AsyncActions.uploadFiles = () => {
     const id = state.nabuReducer.currentSupplier.id
 
     const url = `${window.config.nabuBaseUrl}jersey/files/${id}`
-    const files = state.userReducer.filesToUpload
 
     var data = new FormData()
     // TODO : service currently only supports one file

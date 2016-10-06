@@ -31,18 +31,8 @@ UserActions.openFileUploadDialog = () => {
 }
 
 UserActions.dismissFileUploadDialog = () => {
-
-  return function(dispatch) {
-
-    dispatch(UserActions.choseFilesToUpload([]))
-
-    function dismiss() {
-      return {
-        type: types.DISMISSED_FILEUPLOAD_MODAL
-      }
-    }
-
-    dispatch(dismiss())
+  return {
+    type: types.DISMISSED_FILEUPLOAD_MODAL
   }
 }
 
@@ -58,13 +48,5 @@ UserActions.openReportsModal = (reportViewType) => {
     payLoad: reportViewType
   }
 }
-
-UserActions.choseFilesToUpload = (files) => {
-  return {
-    type: types.CHOSE_FILES_TO_UPLOAD,
-    payLoad: files
-  }
-}
-
 
 export default UserActions
