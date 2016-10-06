@@ -24,7 +24,7 @@ class ModalFileUploadContainer extends React.Component {
     dispatch(UserActions.dismissFileUploadDialog())
   }
 
-  onDrop(files, e) {
+  handleOnDrop(files, e) {
 
     if (files.length) {
       this.setState({
@@ -55,7 +55,10 @@ class ModalFileUploadContainer extends React.Component {
         <Modal isOpen={isModalOpen} onClose={() => this.closeModal()}>
           <span style={headerStyle}>Upload file</span>
           <Button style={closeStyle} onClick={() => this.closeModal()}>X</Button>
-          <Dropzone style={dropStyle} accept="application/zip" onDragOver="return false;" onDrop={(files, event) => this.onDrop(files, event)}>
+          <Dropzone
+              style={dropStyle}
+              accept="application/zip,application/octet-stream,application/x-zip,application/x-zip-compressed"
+              onDrop={(files, event) => { this.handleOnDrop(files, event) }}>
             <p style={{padding: "10%"}}>Try dropping some files here, or click to select files to upload.</p>
            </Dropzone>
            <select style={filesStyle} multiple>
