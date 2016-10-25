@@ -7,7 +7,7 @@ const AsyncActions = {}
 
 AsyncActions.getProviderStatus = (id) => {
 
-  const url = `${window.config.nabuBaseUrl}/jobs/${id}`
+  const url = `${window.config.nabuBaseUrl}jobs/${id}`
 
   return function(dispatch) {
     dispatch(sendData(null,types.REQUESTED_EVENTS))
@@ -30,7 +30,7 @@ AsyncActions.getProviderStatus = (id) => {
 
 AsyncActions.getAllSuppliers = () => {
 
-  const url = window.config.nabuBaseUrl+'/providers/all'
+  const url = window.config.nabuBaseUrl+'providers/all'
 
   return function(dispatch, getState) {
     dispatch( sendData(null,types.REQUESTED_SUPPLIERS) )
@@ -57,7 +57,7 @@ AsyncActions.uploadFiles = (files) => {
     const state = getState()
     const id = state.nabuReducer.currentSupplier.id
 
-    const url = `${window.config.nabuBaseUrl}/files/${id}`
+    const url = `${window.config.nabuBaseUrl}files/${id}`
 
     var data = new FormData()
     // TODO : service currently only supports one file
