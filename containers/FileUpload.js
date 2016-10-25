@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import React, { Component, PropTypes } from 'react'
-import Modal from '../components/Modal.js'
+import Modal from '../components/Modal'
 import UserActions from '../actions/UserActions'
 import AsyncActions from '../actions/AsyncActions'
 import FlatButton from 'material-ui/FlatButton'
