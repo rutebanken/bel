@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import React, { Component, PropTypes } from 'react'
-import Modal from '../components/Modal.js'
+import ModalDialog from '../components/ModalDialog.js'
 import FlatButton from 'material-ui/FlatButton'
 import UserActions from '../actions/UserActions'
 import Report from '../components/Report.js'
@@ -38,11 +38,11 @@ class ValidationReport extends React.Component {
     }
 
     return (
-        <Modal minHeight="600px" minWidth="800px" isOpen={isModalOpen} onClose={() => this.closeModal()}>
+        <ModalDialog minHeight="600px" minWidth="800px" isOpen={isModalOpen} onClose={() => this.closeModal()}>
           <span style={headerSyle}>Validation reports ({reportViewType})</span>
           <FlatButton label="X" style={closeStyle} onClick={() => this.closeModal()}/>
           <Report status={reportViewType}/>
-        </Modal>
+        </ModalDialog>
     )
   }
 }

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import React, { Component, PropTypes } from 'react'
-import Modal from '../components/Modal'
+import ModalDialog from '../components/ModalDialog'
 import UserActions from '../actions/UserActions'
 import AsyncActions from '../actions/AsyncActions'
 import FlatButton from 'material-ui/FlatButton'
@@ -53,7 +53,7 @@ class FileUpload extends React.Component {
     const { files } = this.state
 
     return (
-        <Modal isOpen={isModalOpen} onClose={() => this.closeModal()}>
+        <ModalDialog isOpen={isModalOpen} onClose={() => this.closeModal()}>
           <span style={headerStyle}>Upload file</span>
           <FlatButton style={closeStyle} label="X" onClick={() => this.closeModal()}/>
           <Dropzone
@@ -66,7 +66,7 @@ class FileUpload extends React.Component {
             { files.map( (file, index) => { return (<option key={"file-" + index}>{file.name}</option>) } ) }
            </select>
           <RaisedButton label="Upload" primary={true} onClick={ () => this.handleUpload() } style={uploadBtnStyle}/>
-        </Modal>
+        </ModalDialog>
     )
   }
 }
