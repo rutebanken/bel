@@ -1,6 +1,6 @@
 export const closeStyle = {
   float: "right",
-  marginRight: "5px"
+  marginTop: 2
 }
 
 export const selectStyle = {
@@ -37,7 +37,7 @@ export const dropStyle = {
 export const uploadBtnStyle = {
   position: "fixed",
   top: "90%",
-  left: "70%"
+  right: "3%"
 }
 
 export const filesStyle = {

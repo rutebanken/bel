@@ -1,33 +1,47 @@
 import { connect } from 'react-redux'
 import React, { Component, PropTypes } from 'react'
 import cfgreader from '../config/readConfig'
-
-import Tabs from 'muicss/lib/react/tabs'
-import Tab from 'muicss/lib/react/tab'
-import EventsContainer from './eventsContainer'
-import StatusContainer from './statusContainer'
-import MdEvents from 'react-icons/lib/md/event'
-import MdReport from 'react-icons/lib/md/report'
+import {Tabs, Tab} from 'material-ui/Tabs'
+import Events from './Events'
+import Status from './Status'
 import AsyncActions from '../actions/AsyncActions'
 
 class TabsContainer extends React.Component {
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      value: 'status'
+    }
+  }
+
   componentDidMount() {
     cfgreader.readConfig( (function(config) {
       window.config = config
     }).bind(this))
   }
 
+  handleChange(value) {
+    this.setState({
+      value: value
+    })
+  }
+
   render() {
 
-    const {events, dispatch} = this.props
+    const { events, dispatch } = this.props
 
     return (
-      <Tabs justified={true} initialSelectedIndex={0}>
+      <Tabs
+          value={this.state.value}
+          onChange={this.handleChange.bind(this)}
+          tabItemContainerStyle={{background: '#2F2F2F'}}
+       >
         <Tab value="status" label="status">
-          <StatusContainer dispatch={dispatch}/>
+          <Status dispatch={dispatch}/>
         </Tab>
         <Tab className="event-header" value="events" label={"Events"}>
-          <EventsContainer/>
+          <Events/>
         </Tab>
       </Tabs>
     )

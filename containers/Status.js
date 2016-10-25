@@ -1,10 +1,10 @@
 import React from 'react'
-import {Pie as PieChart} from "react-chartjs"
+import { Pie as PieChart } from 'react-chartjs'
 import Chart from 'chartjs'
-const FaError = require('react-icons/lib/fa/close')
 import UserActions from '../actions/UserActions'
+import Error from 'material-ui/svg-icons/alert/error'
 
-class StatusContainer extends React.Component {
+class Status extends React.Component {
 
   render() {
 
@@ -50,16 +50,19 @@ class StatusContainer extends React.Component {
       }
     ]
 
-    const captionClass = { fontSize: "1.1em", marginBottom: "20px" }
-
-    const chartClass = { marginTop: "50px", marginLeft: "20%"}
-
-    const viewAllStyle = {cursor: "pointer", textDecoration: "underline", color: "#2196F3"}
+    const viewAllStyle = {cursor: "pointer", color: "#2196F3"}
 
     return (
-      <div>
-        <span style={captionClass}><FaError height="42px" width="42px" color="#cc0000"/> Your data expired 2016-07-07 00:00:00!</span>
-        <PieChart ref="chart" onClick={(e) => { handlePieOnClick(e) } } style={chartClass} data={pieData} width="400px" height="300px" options={pieOptions}/>
+      <div style={{verticalAlign: 'flex', flexRow: 'row wrap', justifyContent: 'space-around', padding: '10%'}}>
+        <div style={{marginTop: 20, fontSize: '2em', flex: '1 100%'}}>
+          <div style={{textAlign: 'center', padding: 10}}>
+            <Error style={{verticalAlign: 'middle', height: 44, width: 44}} color="#cc0000"/>
+            <span>Your data expired 2016-07-07 00:00:00</span>
+          </div>
+        </div>
+        <div style={{textAlign: 'center'}}>
+          <PieChart ref="chart" onClick={(e) => { handlePieOnClick(e) } } data={pieData} width="auto" height="600px" options={pieOptions}/>
+        </div>
         <div>
           <span onClick={() => handleViewAll()} style={ viewAllStyle }>[ View all ]</span>
         </div>
@@ -68,4 +71,4 @@ class StatusContainer extends React.Component {
   }
 }
 
-export default StatusContainer
+export default Status

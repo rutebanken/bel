@@ -1,13 +1,14 @@
 import { connect } from 'react-redux'
 import React, { Component, PropTypes } from 'react'
-import Modal from '../components/modal.js'
+import Modal from '../components/Modal.js'
 import UserActions from '../actions/UserActions'
 import AsyncActions from '../actions/AsyncActions'
-import Button from 'muicss/lib/react/button'
+import FlatButton from 'material-ui/FlatButton'
 import Dropzone from 'react-dropzone'
+import RaisedButton from 'material-ui/RaisedButton'
 import { closeStyle, selectStyle, inputStyle, filesStyle, headerStyle, dropStyle, uploadBtnStyle } from '../styles/modalFileUploadContainer'
 
-class ModalFileUploadContainer extends React.Component {
+class FileUpload extends React.Component {
 
   constructor(props) {
     super(props)
@@ -54,7 +55,7 @@ class ModalFileUploadContainer extends React.Component {
     return (
         <Modal isOpen={isModalOpen} onClose={() => this.closeModal()}>
           <span style={headerStyle}>Upload file</span>
-          <Button style={closeStyle} onClick={() => this.closeModal()}>X</Button>
+          <FlatButton style={closeStyle} label="X" onClick={() => this.closeModal()}/>
           <Dropzone
               style={dropStyle}
               accept="application/zip,application/octet-stream,application/x-zip,application/x-zip-compressed"
@@ -64,7 +65,7 @@ class ModalFileUploadContainer extends React.Component {
            <select style={filesStyle} multiple>
             { files.map( (file, index) => { return (<option key={"file-" + index}>{file.name}</option>) } ) }
            </select>
-          <Button onClick={ () => this.handleUpload() } style={uploadBtnStyle} color="primary">Upload</Button>
+          <RaisedButton label="Upload" primary={true} onClick={ () => this.handleUpload() } style={uploadBtnStyle}/>
         </Modal>
     )
   }
@@ -85,4 +86,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ModalFileUploadContainer)
+)(FileUpload)

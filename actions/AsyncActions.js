@@ -1,6 +1,7 @@
 import axios from 'axios'
 import * as types from './actionTypes'
 import moment from 'moment'
+import actionNames from '../translations/en/actions'
 
 const AsyncActions = {}
 
@@ -31,7 +32,7 @@ AsyncActions.getAllSuppliers = () => {
 
   const url = window.config.nabuBaseUrl+'jersey/providers/all'
 
-  return function(dispatch) {
+  return function(dispatch, getState) {
     dispatch( sendData(null,types.REQUESTED_SUPPLIERS) )
     return axios({
       url: url,
@@ -72,11 +73,9 @@ AsyncActions.uploadFiles = (files) => {
 
     return axios.post(url, data, config)
     .then(function(response) {
-        console.log("success", response)
         alert("Files uploaded successfully")
     })
     .catch(function(response) {
-      console.log("error", response)
       alert("Failed to upload file(s)")
     })
   }
@@ -99,6 +98,7 @@ const formatProviderStatusDate = (list) => {
 
     listItem.events.forEach(function (event) {
       event.date = moment(event.date).locale("nb").format("YYYY-MM-DD HH:mm:ss")
+      event.actionString = actionNames[event.action]
     })
 
     return listItem

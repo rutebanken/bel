@@ -1,35 +1,34 @@
 import { connect } from 'react-redux'
 import React, { Component, PropTypes } from 'react'
-import Modal from '../components/modal.js'
-import Button from 'muicss/lib/react/button'
+import Modal from '../components/Modal.js'
+import FlatButton from 'material-ui/FlatButton'
 import UserActions from '../actions/UserActions'
-import ReportView from '../components/reportView.js'
+import Report from '../components/Report.js'
 
-class ValidationReportContainer extends React.Component {
+class ValidationReport extends React.Component {
 
   closeModal() {
-    const {dispatch} = this.props
-    dispatch(UserActions.dismissReportsModal())
+    this.props.dispatch(UserActions.dismissReportsModal())
   }
 
   render() {
 
-    const {isModalOpen, reportViewType} = this.props
+    const { isModalOpen, reportViewType } = this.props
 
-    const closeStyle = { float: "right", marginRight: "5px" }
+    const closeStyle = { float: "right", marginRight: 5, marginTop: 5 }
 
     const headerSyle = {
       width: "95%",
-      marginLeft: "10px",
+      marginLeft: 10,
       fontSize: "1.5em",
       position: "absolute",
-      marginTop: "10px",
-      fontWeight: "600"
+      marginTop: 10,
+      fontWeight: 600
     }
 
     const dropStyle = {
       width: "95%",
-      height: "150px",
+      height: 150,
       borderWidth: 1,
       borderColor: '#666',
       borderStyle: 'dashed',
@@ -41,8 +40,8 @@ class ValidationReportContainer extends React.Component {
     return (
         <Modal minHeight="600px" minWidth="800px" isOpen={isModalOpen} onClose={() => this.closeModal()}>
           <span style={headerSyle}>Validation reports ({reportViewType})</span>
-          <Button style={closeStyle} onClick={() => this.closeModal()}>X</Button>
-          <ReportView status={reportViewType}/>
+          <FlatButton label="X" style={closeStyle} onClick={() => this.closeModal()}/>
+          <Report status={reportViewType}/>
         </Modal>
     )
   }
@@ -64,4 +63,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ValidationReportContainer)
+)(ValidationReport)

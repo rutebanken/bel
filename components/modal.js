@@ -5,18 +5,17 @@ export default class Modal extends React.Component {
 
   render() {
 
-    if (this.props.isOpen === false)
-    return null
+    if (this.props.isOpen === false) return null
 
-    const minWidth = this.props.minWidth || '500px'
-    const minHeight = this.props.minHeight || '600px'
+    const minWidth = this.props.minWidth || 500
+    const minHeight = this.props.minHeight || 600
 
     let modalStyle = {
       position: 'absolute',
       top: '50%',
       left: '50%',
       transform: 'translate(-50%, -50%)',
-      zIndex: '9999',
+      zIndex: 9999,
       minWidth: minWidth,
       minHeight: minHeight,
       background: '#fff'
@@ -40,8 +39,8 @@ export default class Modal extends React.Component {
       position: 'absolute',
       width: '100%',
       height: '150%',
-      top: '0px',
-      left: '0px',
+      top: 0,
+      left: 0,
       zIndex: '9998',
       background: 'rgba(0, 0, 0, 0.3)'
     }

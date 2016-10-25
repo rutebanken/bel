@@ -1,37 +1,66 @@
 import React, { Component, PropTypes } from 'react'
-import Row from 'muicss/lib/react/row'
-import Col from 'muicss/lib/react/col'
-const FaCheck = require('react-icons/lib/fa/check')
-const FaError = require('react-icons/lib/fa/close')
-import actionsEN from '../translations/en/actions'
+import Error from 'material-ui/svg-icons/alert/error'
+import Success from 'material-ui/svg-icons/action/done'
+import { TableRow, TableRowColumn } from 'material-ui/Table'
 
 export default class ExpandableEvent extends React.Component {
 
   render() {
 
-    const {content, contracted} = this.props
-    const className = "expandable-content " + (contracted ? "contracted" : "expanded")
+    const { pageItem, index, hidden } = this.props
+    const eventPropStyle = { display: 'inline-block'}
+    const headerStyle = { fontWeight: 600, marginTop: 10 }
+    const itemStyle = { display: 'block', lineHeight: 2, marginTop: 10}
+
+    if (hidden) {
+      return null
+    }
 
     return (
-      <div className={className}>
-        <Row>
-          <Col md="4"><b>Action</b></Col>
-          <Col md="4"><b>Date</b></Col>
-          <Col md="4"><b>State</b></Col>
-        </Row>
-        { (content && content.length) ?
 
-          <div>{content.map( (event, index) => {
-              const endStateFailed = (event.state === 'TIMEOUT' || event.state === 'ERROR' || event.state === 'FAILED')
+      <TableRow
+        key={"expanded-row-" + index}
+        style={{background: '#f5f8f8', borderBottom: '1px solid black'}}
+        selectable={false}
+        >
+
+        <TableRowColumn colSpan="4"
+          style={{padding: 20}}
+          >
+          <span style={headerStyle}>Action</span>
+          { pageItem.events.map( (event, index) => (
+            <span key={"action-"+index} style={itemStyle}>{event.actionString}</span>
+          ))}
+        </TableRowColumn>
+        <TableRowColumn colSpan="5"
+          style={{padding: 20}}>
+          <span style={headerStyle}>Date</span>
+          { pageItem.events.map( (event, index) => (
+            <span key={"date-"+index}  style={itemStyle}>{event.date}</span>
+          ))}
+        </TableRowColumn>
+        <TableRowColumn colSpan="2"
+          style={{padding: 20}}
+          >
+          <span style={headerStyle}>End state</span>
+            { pageItem.events.map( (event, index) => {
+
+              const endStateFailed = (event.state === 'TIMEOUT' || event.state === 'ERROR'
+                || event.state === 'FAILED')
+
               return (
-                <Row key={"action-" + index}>
-                  <Col md="4" key={"event-action-" + index}>{actionsEN[event.action]}</Col>
-                  <Col md="4" key={"event-date-" + index}>{event.date}</Col>
-                  <Col md="4" key={"event-state-" + index}>{!endStateFailed ? <FaCheck color="green"/> : <FaError color="red"/>}</Col>
-                </Row>
+                  <div key={"status-"+index} style={{marginLeft: 15, marginTop: 10}}>
+                    {endStateFailed ? <Success color="green"/> : <Error color="red"/>}
+                  </div>
               )
-            })}</div> : <div>No events found</div> }
-      </div>
+          })}
+        </TableRowColumn>
+        <TableRowColumn
+          style={{background: '#d7e5e3'}}
+          colSpan="1"
+          >
+        </TableRowColumn>
+      </TableRow>
     )
   }
 }
