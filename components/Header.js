@@ -87,7 +87,7 @@ class Header extends React.Component {
            targetOrigin={{horizontal: 'left', vertical: 'top'}}
            onRequestClose={this.handleRequestClose.bind(this)}
           >
-            { this.props.supplerList
+            { this.props.supplierList
               ? <Menu>
                 { this.props.supplierList.map( (supplier, index) => (
                   <MenuItem
