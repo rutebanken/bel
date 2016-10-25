@@ -38,3 +38,6 @@ jspm_packages
 
 # Nightwatch reports
 reports
+
+# Build output
+public
