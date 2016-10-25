@@ -87,17 +87,20 @@ class Header extends React.Component {
            targetOrigin={{horizontal: 'left', vertical: 'top'}}
            onRequestClose={this.handleRequestClose.bind(this)}
           >
-            <Menu>
-              { this.props.supplierList.map( (supplier, index) => (
-                <MenuItem
-                  key={'supplier'+index}
-                  onClick={() => { this.handleSupplierChange(supplier.id) }}
-                  primaryText={supplier.name}
-                  secondaryText={supplier.id}
-                />
-              ))
-              }
-            </Menu>
+            { this.props.supplerList
+              ? <Menu>
+                { this.props.supplierList.map( (supplier, index) => (
+                  <MenuItem
+                    key={'supplier'+index}
+                    onClick={() => { this.handleSupplierChange(supplier.id) }}
+                    primaryText={supplier.name}
+                    secondaryText={supplier.id}
+                  />
+                ))
+                }
+              </Menu>
+              : <div style={{padding: 20}}>No providers found</div>
+            }
           </Popover>
         </div>
       )

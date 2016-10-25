@@ -4,11 +4,11 @@
   "description": "Seed ...",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --config ./webpack.prod.config.js --progress --colors",
-    "start": "node server.js",
+    "build": "BABEL_ENV=production NODE_ENV=production webpack --config ./webpack.prod.config.js",
+    "dev": "NODE_ENV=development node server.js",
+    "prod": "NODE_ENV=production node server.js",
     "test": "./node_modules/.bin/mocha -r jsdom-global/register --compilers js:babel-core/register ./tests/nock/index.js",
-    "smoke-test": "nightwatch",
-    "dev": "NODE_ENV=development node server.js"
+    "smoke-test": "nightwatch"
   },
   "author": "Sean Erik Scully",
   "license": "MIT",

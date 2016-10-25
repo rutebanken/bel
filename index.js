@@ -3,15 +3,17 @@ import React from 'react'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 import Keycloak from 'keycloak-js'
-import App from './containers/App'
+import Root from './containers/Root'
 import configureStore from './store/store'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import cfgreader from './config/readConfig'
+
 // used by material-ui, will be removed once the official React version of MI is relased
 import injectTapEventPlugin from 'react-tap-event-plugin'
 import './styles/css/main.css'
+injectTapEventPlugin()
 
-renderIndex()
-/* use authWithKeyCloak(renderIndex) for keycloak authentification */
+// use authWithKeyCloak(renderIndex) for keycloak authentification
 function authWithKeyCloak(renderCallback) {
   let keycloakAuth = new Keycloak('config/keycloak.json')
 
@@ -20,16 +22,18 @@ function authWithKeyCloak(renderCallback) {
   })
 }
 
-function renderIndex() {
+cfgreader.readConfig( (function(config) {
+  window.config = config
+  renderIndex(config.endpointBase)
+}).bind(this))
+
+function renderIndex(path) {
 
   const store = configureStore()
-  injectTapEventPlugin()
 
   render(
     <Provider store={store}>
-      <MuiThemeProvider>
-        <App/>
-      </MuiThemeProvider>
+        <Root/>
       </Provider>,
     document.getElementById('root')
   )

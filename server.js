@@ -1,54 +1,98 @@
 var webpack = require('webpack')
-var webpackDevMiddleware = require('webpack-dev-middleware')
-var webpackHotMiddleware = require('webpack-hot-middleware')
-var convict = require('./config/convict.js')
+var convictPromise = require('./config/convict-promise.js')
+var express = require('express')
+var app = express()
+var port = process.env.port || 9000
 
-var ENDPOINTBASE = "/admin/bel/"
+convictPromise.then( (convict) => {
 
-var app = new (require('express'))()
-var port = process.env.port || 8988
+  var ENDPOINTBASE = convict.get('endpointBase')
 
-var config = require('./webpack.config')
-var compiler = webpack(config)
+  console.info("ENDPOINTBASE is set to", ENDPOINTBASE)
 
-app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output.publicPath }))
+  app.use(ENDPOINTBASE + 'public/', express.static(__dirname + '/public'))
 
+  if (process.env.NODE_ENV !== 'production') {
 
-if (process.env.NODE_ENV !== 'production') {
-  app.use(webpackHotMiddleware(compiler))
-}
+    let config = require('./webpack.config')
 
-if (process.env.NODE_ENV == 'development') {
-  app.get('/', function(req, res) {
-    res.redirect('/admin/bel/')
-  })
-}
-app.get(ENDPOINTBASE, function(req, res) {
-  res.sendFile(__dirname + '/index.html')
-})
+    config.output.publicPath = ENDPOINTBASE + 'public/'
 
-app.get(ENDPOINTBASE + '_health', function(req, res) {
-  res.sendStatus(200)
-})
+    var compiler = new webpack(config)
 
+    app.use(require("webpack-dev-middleware")(compiler, {
+      noInfo: true, publicPath: config.output.publicPath, stats: {colors: true}
+    }))
+    app.use(require("webpack-hot-middleware")(compiler))
 
-app.get(ENDPOINTBASE + "config/keycloak.json", function(req, res) {
-  res.sendFile(__dirname + '/config/keycloak.json')
-})
-
-app.get(ENDPOINTBASE + "config.json", function(req, res) {
-  var cfg = {
-    nabuBaseUrl: convict.get('nabuBaseUrl'),
-    mardukBaseUrl: convict.get('mardukBaseUrl')
-  }
-  res.send(cfg)
-})
-
-app.listen(port, function(error) {
-  if (error) {
-    console.error(error)
   } else {
-    const url = process.env.NODE_ENV == 'development' ? ' ' : '/admin/bel/'
-    console.info("==> Listening on port %s. Open up http://localhost:%s/%s in your browser.", port, port, url)
+
+    // expose build bundle for production
+    app.get(ENDPOINTBASE + 'public/bundle.js', function(req, res) {
+      res.sendFile(__dirname + '/public/bundle.js')
+    })
+
+    app.get(ENDPOINTBASE + 'public/react.bundle.js', function(req, res) {
+      res.sendFile(__dirname + '/public/react.bundle.js')
+    })
   }
+
+  app.get(ENDPOINTBASE + 'config.json', function(req, res) {
+    var cfg = {
+      nabuBaseUrl: convict.get('nabuBaseUrl'),
+      endpointBase: convict.get('endpointBase')
+    }
+    res.send(cfg)
+  })
+
+  app.get(ENDPOINTBASE + '_health', function(req, res) {
+    res.sendStatus(200)
+  })
+
+  app.get(ENDPOINTBASE + "config/keycloak.json", function(req, res) {
+    res.sendFile(__dirname + '/config/keycloak.json')
+  })
+
+  app.get(ENDPOINTBASE + 'translations/en/actions.js', function(req, res) {
+    res.sendFile(__dirname + '/translations/translations/en/actions.js')
+  })
+
+  app.get(ENDPOINTBASE, function(req, res) {
+    res.send(getPage())
+  })
+
+  app.listen(port, function(error) {
+    if (error) {
+      console.error(error)
+    } else {
+      console.info("==> Listening on port %s. Open up http://localhost:%s%s in your browser.", port, port, ENDPOINTBASE)
+    }
+  })
+
+  const getPage = () =>
+    `<!DOCTYPE html>
+     <html>
+      <head>
+        <title>BEL: Operational status</title>
+      </head>
+      <body>
+        <div id="root">
+        </div>
+        ${getBundles()}
+      </body>
+    </html>`
+
+  const getBundles = () => {
+    if (process.env.NODE_ENV === 'production') {
+      return (`
+        <script src="${ENDPOINTBASE}public/react.bundle.js"></script>
+        <script src="${ENDPOINTBASE}public/bundle.js"></script>
+      `)
+    }
+    return `<script src="${ENDPOINTBASE}public/bundle.js"></script>`
+  }
+
+
+}).catch(function(err) {
+  console.error("Unable to load convict configuration", err)
 })

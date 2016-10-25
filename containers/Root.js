@@ -6,8 +6,9 @@ import ValidationReport from './ValidationReport'
 import Header from '../components/Header'
 import Main from './Main'
 import Footer from '../components/Footer'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
-export default class App extends React.Component {
+export default class Root extends React.Component {
   componentDidMount() {
     cfgreader.readConfig( (function(config) {
       window.config = config
@@ -15,7 +16,7 @@ export default class App extends React.Component {
   }
   render() {
     return (
-      <div className="app">
+      <MuiThemeProvider>
         <div className="appContent">
           <Header/>
           <Main/>
@@ -23,7 +24,7 @@ export default class App extends React.Component {
           <ValidationReport/>
           <Footer/>
         </div>
-      </div>
+      </MuiThemeProvider>
     )
   }
 }
