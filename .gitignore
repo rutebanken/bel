@@ -41,3 +41,6 @@ reports
 
 # Build output
 public
+
+#Ignore OSX specific folder
+.DS_Store

@@ -3,69 +3,147 @@ import { Pie as PieChart } from 'react-chartjs'
 import Chart from 'chartjs'
 import UserActions from '../actions/UserActions'
 import Error from 'material-ui/svg-icons/alert/error'
+import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card'
+import {List, ListItem} from 'material-ui/List'
 
 class Status extends React.Component {
 
+  constructor(props) {
+    super(props)
+    this.state = {
+      sliderEnabled: false,
+      selectedSegment: 'valid'
+    }
+
+    this.segmentMap = {
+      'Valid lines' : 'valid',
+      'Soon expiring lines' : 'soonInvalid',
+      'Expired lines' : 'invalid',
+      'valid' : 'Valid lines',
+      'soonInvalid' : 'Soon expiring lines',
+      'invalid' : 'Expired lines'
+    }
+
+  }
+
+  handleHideSlider() {
+    this.setState({
+      ...this.state,
+      sliderEnabled: false
+    })
+  }
+
+  handlePieOnClick(e, refId) {
+    let chart = this.refs[refId].getChart()
+    let clickedSegmentLabel = chart.getSegmentsAtEvent(e)[0].label
+
+    this.setState({
+      sliderEnabled: true,
+      selectedSegment: this.segmentMap[clickedSegmentLabel]
+    })
+  }
+
   render() {
 
-    const pieOptions = {
-      animatable: true,
+    let pieOptionsFull = {
+      animation: false,
       showTooltips: true,
       onAnimationComplete: function() {
-          console.log("animation complete")
+        //
       },
       tooltipTemplate: "<%= label %> - <%= value %>"
     }
 
-    const handlePieOnClick = (e) => {
-      let chart = this.refs.chart.getChart()
-      let clickedSegment = chart.getSegmentsAtEvent(e)
-      const {dispatch} = this.props
-      dispatch(UserActions.openReportsModal(clickedSegment[0].label))
-    }
+    let pieOptionsReduced = { ...pieOptionsFull, animation: false}
 
-    const handleViewAll = () => {
-      const {dispatch} = this.props
-      dispatch(UserActions.openReportsModal("ALL"))
-    }
+    const { stats } = this.props
+
+    if (!stats) return null
+
+    const valid = stats.valid.lineNumbers.length
+    const invalid = stats.invalid.lineNumbers.length
+    const soonInvalid = stats.soonInvalid.lineNumbers.length
+
 
     const pieData = [
       {
-        value: 82,
+        value: valid,
         highlight: "#4caf50",
         color: "#449d48",
-        label: "Succesful validations"
+        label: "Valid lines",
       },
       {
-        value: 50,
+        value: soonInvalid,
         color: "#FDB45C",
         highlight: "#FFC870",
-        label: "Warnings"
+        label: "Soon expiring lines",
       },
       {
-        value: 592,
+        value: invalid,
         color: "#b20000",
         highlight: "#cc0000",
-        label: "Errors"
+        label: "Expired lines",
       }
     ]
 
-    const viewAllStyle = {cursor: "pointer", color: "#2196F3"}
+    const { sliderEnabled, selectedSegment } = this.state
 
     return (
-      <div style={{verticalAlign: 'flex', flexRow: 'row wrap', justifyContent: 'space-around', padding: '10%'}}>
-        <div style={{marginTop: 20, fontSize: '2em', flex: '1 100%'}}>
-          <div style={{textAlign: 'center', padding: 10}}>
-            <Error style={{verticalAlign: 'middle', height: 44, width: 44}} color="#cc0000"/>
-            <span>Your data expired 2016-07-07 00:00:00</span>
-          </div>
-        </div>
-        <div style={{textAlign: 'center'}}>
-          <PieChart ref="chart" onClick={(e) => { handlePieOnClick(e) } } data={pieData} width="auto" height="600px" options={pieOptions}/>
-        </div>
-        <div>
-          <span onClick={() => handleViewAll()} style={ viewAllStyle }>[ View all ]</span>
-        </div>
+      <div>
+        <Card
+          expanded={true}
+          >
+          <CardHeader
+            title='Status'
+            subtitle='Lines validation'
+            avatar={<Error style={{verticalAlign: 'middle', height: 44, width: 44}} color="#cc0000"/>}
+            />
+            <CardTitle
+              title="Your data expired 2016-07-07 00:00:00"
+              subtitle="Some useful information"
+              expandable={true}
+              />
+            <CardText>
+              <div style={{overflow: 'auto'}}>
+                { sliderEnabled
+                  ?
+                  <div>
+                    <div style={{float: 'left', minHeight: 700, width: '72%', border: '1px solid black', background: 'rgba(96, 125, 139, 0.04)'}}>
+                      <div onClick={this.handleHideSlider.bind(this)} style={{float: 'right', cursor: 'pointer', marginTop: 5, marginRight: 5}}>X</div>
+                        <span style={{padding: 10, fontSize: '3em'}}>{this.segmentMap[selectedSegment]}</span>
+                        <div style={{maxHeight: 900, overflowY: 'scroll'}}>
+                          <List>
+                          { stats[selectedSegment].lineNumbers.map( (line, index) => (
+                              <ListItem
+                                key={'line'+index}
+                                primaryText={line}
+                                secondaryText={stats.linesMap[line].lineNames.join(' <=> ')}
+                                nestedItems={
+                                  [
+                                    <ListItem key={'line-n'+index} primaryText="More information" />,
+                                  ]
+                                }
+                                >
+                              </ListItem>
+                          ))}
+                          </List>
+                        </div>
+                    </div>
+                    <div style={{float: 'right', width: '20%'}}>
+                      <PieChart ref="chartSmall"  onClick={(e) => { this.handlePieOnClick(e, "chartSmall") } } data={pieData} width="auto" height="300"  options={pieOptionsFull}/>
+                    </div>
+                  </div>
+                  :
+                  <div style={{width: '100%', textAlign: 'center'}}>
+                    <PieChart ref="chartFull"  onClick={(e) => { this.handlePieOnClick(e, "chartFull") } } data={pieData} width="500" height="800"  options={pieOptionsFull}/>
+                  </div>
+                }
+              </div>
+            </CardText>
+            <CardText expandable={false}>
+              <div>Heaps of important information below</div>
+            </CardText>
+        </Card>
       </div>
     )
   }

@@ -29,7 +29,7 @@ class TabsContainer extends React.Component {
 
   render() {
 
-    const { events, dispatch } = this.props
+    const { events, dispatch, lineStats } = this.props
 
     return (
       <Tabs
@@ -38,7 +38,7 @@ class TabsContainer extends React.Component {
           tabItemContainerStyle={{background: '#2F2F2F'}}
        >
         <Tab value="status" label="status">
-          <Status dispatch={dispatch}/>
+          <Status stats={lineStats} dispatch={dispatch}/>
         </Tab>
         <Tab className="event-header" value="events" label={"Events"}>
           <Events/>
@@ -50,7 +50,8 @@ class TabsContainer extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    events: state.nabuReducer.events
+    events: state.nabuReducer.events,
+    lineStats: state.nabuReducer.lineStats
   }
 }
 

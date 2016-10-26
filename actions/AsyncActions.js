@@ -2,7 +2,7 @@ import axios from 'axios'
 import * as types from './actionTypes'
 import moment from 'moment'
 import actionNames from '../translations/en/actions'
-
+import lineStats from '../mock/lineStats.js'
 const AsyncActions = {}
 
 AsyncActions.getProviderStatus = (id) => {
@@ -20,6 +20,7 @@ AsyncActions.getProviderStatus = (id) => {
     })
     .then(function(response) {
       let providerStatus = formatProviderStatusDate(response.data)
+      dispatch(AsyncActions.getLineStats(id))
       dispatch(sendData(providerStatus, types.RECEIVED_EVENTS))
     })
     .catch(function(response){
@@ -42,10 +43,39 @@ AsyncActions.getAllSuppliers = () => {
     })
     .then(function(response) {
       dispatch( sendData(response.data, types.RECEIVED_SUPPLIERS) )
+      dispatch( AsyncActions.getProviderStatus(response.data[0].id))
     })
     .catch(function(response){
       dispatch( sendData(response.data, types.ERROR_SUPPLIERS) )
     })
+  }
+}
+
+
+AsyncActions.getLineStats = (id) => {
+
+  return function(dispatch) {
+
+    const defaultObject = { lineNumbers: []}
+
+    let formattedLines = {
+      invalid: lineStats.validityCategories
+        .filter( (category) => category.numDaysAtLeastValid < 120)[0] || defaultObject,
+      valid: lineStats.validityCategories
+        .filter( (category) => category.numDaysAtLeastValid >= 127)[0] || defaultObject,
+      soonInvalid: lineStats.validityCategories
+        .filter( (category) => (category.numDaysAtLeastValid > 120 && category.numDaysAtLeastValid < 127))[0] || defaultObject,
+    }
+
+    let linesMap = {}
+
+    lineStats.publicLines.forEach ( (lineStat) => {
+        linesMap[lineStat.lineNumber] = lineStat
+    })
+
+    formattedLines.linesMap = linesMap
+
+    dispatch( sendData(formattedLines, types.RECEIVED_LINE_STATS) )
   }
 }
 

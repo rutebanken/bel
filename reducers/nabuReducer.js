@@ -1,12 +1,13 @@
 import * as types from './../actions/actionTypes'
 
-const intialState = {
+const initialState = {
   currentSupplier: null,
   events: [],
-  suppliers: []
+  suppliers: [],
+  lineStats: null
 }
 
-const nabuReducer = (state = intialState, action) => {
+const nabuReducer = (state = initialState, action) => {
 
   switch (action.type) {
 
@@ -21,6 +22,9 @@ const nabuReducer = (state = intialState, action) => {
       // set default supplier to first retrieved from list
       let currentSupplier = (action.payLoad.length) ? action.payLoad[0] : null
       return Object.assign( {}, state, {currentSupplier: currentSupplier, suppliers: action.payLoad} )
+
+    case types.RECEIVED_LINE_STATS:
+      return Object.assign({}, state, {lineStats: action.payLoad})
 
     default:
       return state
