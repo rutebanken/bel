@@ -2,7 +2,7 @@ import axios from 'axios'
 import * as types from './actionTypes'
 import moment from 'moment'
 import actionNames from '../translations/en/actions'
-import lineStats from '../mock/lineStats.js'
+import lineStatsMock from '../mock/lineStats.js'
 const AsyncActions = {}
 
 AsyncActions.getProviderStatus = (id) => {
@@ -31,10 +31,10 @@ AsyncActions.getProviderStatus = (id) => {
 
 AsyncActions.getAllSuppliers = () => {
 
-  const url = window.config.nabuBaseUrl+'providers/all'
-
   return function(dispatch, getState) {
     dispatch( sendData(null,types.REQUESTED_SUPPLIERS) )
+    const url = window.config.nabuBaseUrl+'providers/all'
+
     return axios({
       url: url,
       timeout: 20000,
@@ -51,10 +51,32 @@ AsyncActions.getAllSuppliers = () => {
   }
 }
 
-
 AsyncActions.getLineStats = (id) => {
-
   return function(dispatch) {
+
+    dispatch( sendData(null, types.REQUESTED_LINE_STATS) )
+    return axios({
+      url: `${window.config.mardukBaseUrl}admin/services/chouette/${id}/lineStats`,
+      timeout: 10000,
+      method: 'get',
+      responseType: 'json'
+    })
+    .then( (response) => {
+      let formattedLines = formatLineStats(response.data)
+      dispatch( sendData(formattedLines, types.RECEIVED_LINE_STATS))
+    })
+    .catch( (response) => {
+      console.error("error", response)
+    })
+  }
+
+
+}
+
+
+const formatLineStats = (lineStats) => {
+
+  try {
 
     const defaultObject = { lineNumbers: []}
 
@@ -69,13 +91,84 @@ AsyncActions.getLineStats = (id) => {
 
     let linesMap = {}
 
-    lineStats.publicLines.forEach ( (lineStat) => {
-        linesMap[lineStat.lineNumber] = lineStat
+    let startDate = moment(lineStats.startDate, 'YYYY-MM-DD')
+    formattedLines.startDate = startDate.format('YYYY-MM-DD')
+    formattedLines.days = 180
+    formattedLines.endDate = startDate.add(formattedLines.days, 'days').format('YYYY-MM-DD')
+
+    lineStats.publicLines.forEach ( (publicLine) => {
+
+        publicLine.effectivePeriods.forEach( (effectivePeriod) => {
+
+          let fromDiff = moment(lineStats.startDate, 'YYYY-MM-DD').diff(moment(effectivePeriod.from, 'YYYY-MM-DD'), 'days', true)
+
+          if (fromDiff > 0) {
+            // now is after start date of effective period
+            effectivePeriod.timelineStartPosition = 0
+          } else {
+            effectivePeriod.timelineStartPosition = ( Math.abs(fromDiff) / formattedLines.days ) * 100
+          }
+
+          let timelineEndPosition = 100
+
+          let toDiff = moment(formattedLines.endDate, 'YYYY-MM-DD').diff(moment(effectivePeriod.to, 'YYYY-MM-DD'), 'days', true)
+
+          if (toDiff > 0) {
+            timelineEndPosition = 100 - (toDiff / (formattedLines.days/100))
+          }
+
+          effectivePeriod.timelineEndPosition = timelineEndPosition
+
+          effectivePeriod.validationLevel = 'INVALID'
+          let daysForward = (effectivePeriod.timelineEndPosition / 100) * formattedLines.days
+
+          if (daysForward >= 120 && daysForward < 127) {
+            effectivePeriod.validationLevel = 'SOON_INVALID'
+          } else if (daysForward > 127) {
+            effectivePeriod.validationLevel = 'VALID'
+          }
+
+        })
+
+        publicLine.lines.forEach( (line) => {
+
+          line.timetables.forEach( (timetable) => {
+            timetable.periods.forEach( (period) => {
+
+              // default start position in timeline, if from < startDate
+              let timelineStartPosition = 0
+              let fromDiff = moment(period.from, 'YYYY-MM-DD').diff(startDate, 'days', true)
+
+              if (fromDiff > 0) {
+                timelineStartPosition = (fromDiff / (100/formattedLines.days))
+              }
+
+              period.timelineStartPosition = timelineStartPosition
+              // default end position in timeline, if to > endDate
+              let timelineEndPosition = 100
+
+              let toDiff = moment(formattedLines.endDate, 'YYYY-MM-DD').diff(moment(period.to, 'YYYY-MM-DD'), 'days', true)
+
+              if (toDiff > 0) {
+                timelineEndPosition = 100 - (toDiff / (formattedLines.days/100))
+              }
+
+              period.timelineEndPosition = timelineEndPosition
+
+            })
+          })
+        })
+
+        linesMap[publicLine.lineNumber] = publicLine
+
     })
 
     formattedLines.linesMap = linesMap
 
-    dispatch( sendData(formattedLines, types.RECEIVED_LINE_STATS) )
+    return formattedLines
+
+  } catch (e) {
+    console.error("error in getLineStats", e)
   }
 }
 

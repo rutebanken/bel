@@ -5,6 +5,8 @@ import UserActions from '../actions/UserActions'
 import Error from 'material-ui/svg-icons/alert/error'
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card'
 import {List, ListItem} from 'material-ui/List'
+import Timeline from '../components/Timeline'
+import HeaderTimeline from '../components/HeaderTimeline'
 
 class Status extends React.Component {
 
@@ -48,6 +50,7 @@ class Status extends React.Component {
     let pieOptionsFull = {
       animation: false,
       showTooltips: true,
+      responsive: true,
       onAnimationComplete: function() {
         //
       },
@@ -108,7 +111,7 @@ class Status extends React.Component {
                 { sliderEnabled
                   ?
                   <div>
-                    <div style={{float: 'left', minHeight: 700, width: '72%', border: '1px solid black', background: 'rgba(96, 125, 139, 0.04)'}}>
+                    <div style={{float: 'left', minHeight: 700, width: '70%', border: '1px solid black', background: 'rgba(96, 125, 139, 0.04)'}}>
                       <div onClick={this.handleHideSlider.bind(this)} style={{float: 'right', cursor: 'pointer', marginTop: 5, marginRight: 5}}>X</div>
                         <span style={{padding: 10, fontSize: '3em'}}>{this.segmentMap[selectedSegment]}</span>
                         <div style={{maxHeight: 900, overflowY: 'scroll'}}>
@@ -116,11 +119,17 @@ class Status extends React.Component {
                           { stats[selectedSegment].lineNumbers.map( (line, index) => (
                               <ListItem
                                 key={'line'+index}
+                                disabled
                                 primaryText={line}
                                 secondaryText={stats.linesMap[line].lineNames.join(' <=> ')}
+                                children={<HeaderTimeline index={index} key={'HeaderTimeline'+index} effectivePeriods={stats.linesMap[line].effectivePeriods} startDate={stats.startDate} endDate={stats.endDate}/>}
                                 nestedItems={
                                   [
-                                    <ListItem key={'line-n'+index} primaryText="More information" />,
+                                    <ListItem disabled key={'line-n'+index} children={
+                                        stats.linesMap[line].lines.map( (l,i) => (
+                                          <Timeline key={'timelineItem'+index+'-'+i} timetables={l.timetables} startDate={stats.startDate} endDate={stats.endDate}/>
+                                        ))
+                                      } />,
                                   ]
                                 }
                                 >
@@ -129,13 +138,13 @@ class Status extends React.Component {
                           </List>
                         </div>
                     </div>
-                    <div style={{float: 'right', width: '20%'}}>
-                      <PieChart ref="chartSmall"  onClick={(e) => { this.handlePieOnClick(e, "chartSmall") } } data={pieData} width="auto" height="300"  options={pieOptionsFull}/>
+                    <div style={{float: 'right', marginRight: '5%'}}>
+                      <PieChart ref="chartSmall"  onClick={(e) => { this.handlePieOnClick(e, "chartSmall") } } data={pieData} width="auto" height="250"  options={pieOptionsFull}/>
                     </div>
                   </div>
                   :
                   <div style={{width: '100%', textAlign: 'center'}}>
-                    <PieChart ref="chartFull"  onClick={(e) => { this.handlePieOnClick(e, "chartFull") } } data={pieData} width="500" height="800"  options={pieOptionsFull}/>
+                    <PieChart ref="chartFull"  onClick={(e) => { this.handlePieOnClick(e, "chartFull") } } data={pieData} width="auto" height="80"  options={pieOptionsFull}/>
                   </div>
                 }
               </div>

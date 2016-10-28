@@ -22,6 +22,12 @@ module.exports = new Promise(function(resolve, reject){
       default: "http://localhost:1888/jersey/",
       env: "NABU_BASE_URL"
     },
+    mardukBaseUrl: {
+      doc: "Base URL for for Marduk including slash",
+      format: "url",
+      default: "http://localhost:10011/",
+      env: "MARDUK_BASE_URL"
+    },
     endpointBase: {
       doc: "Namespace for client including slash, e.g. /admin/bel/",
       format: String,
