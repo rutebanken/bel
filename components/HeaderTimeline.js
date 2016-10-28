@@ -18,7 +18,7 @@ class HeaderTimeline extends React.Component {
         border: '1px solid black',
         borderRadius: 2,
         background: '#fff',
-        height: '100%',
+        height: 30,
         width: '90%',
         margin: 'auto',
         display: 'block',
@@ -31,19 +31,11 @@ class HeaderTimeline extends React.Component {
         paddingTop: 35
       }
 
-      const timelineHeader = {
-        display: 'block',
-        fontSize: '0.9em',
-        fontWeight: 600
-      }
-
       let timeBlock = {
         background: '#4caf50',
-        height: 'auto',
+        height: 29,
         color: '#fff',
         fontWeight: 500,
-        display: 'block',
-        borderTop: '1px solid #fff',
         fontSize: '0.8em',
         textAlign: 'center'
       }
@@ -56,16 +48,20 @@ class HeaderTimeline extends React.Component {
 
       return (
         <div style={timelineWrapper}>
-          <div style={timelineHeader}>
-            <span style={{float: 'left'}}>{startDate}</span>
-            <span style={{float: 'right'}}>{endDate}</span>
-          </div>
+          <div style={{display: 'inline-block', transform: 'translateY(25px)'}}>{this.props.line}</div>
           <div style={timelineStyle}>
-            <div key={'timetable-header-'+this.props.index}>
+              <div key={'timeline-header-wrapper'+this.props.index} style={{borderBottom: '1px dotted #74766d'}}>
               { effectivePeriods.map( (effectivePeriod, index) => {
+
                 let periodBlock = {...timeBlock}
                 periodBlock.width = (effectivePeriod.timelineEndPosition - effectivePeriod.timelineStartPosition) + '%'
-                periodBlock.marginLeft = (effectivePeriod.timelineStartPosition + '%')
+
+                if (index == 0) {
+                  periodBlock.marginLeft = (effectivePeriod.timelineStartPosition + '%')
+                } else {
+                  periodBlock.marginLeft = (effectivePeriod.timelineStartPosition - effectivePeriods[index-1].timelineEndPosition) + '%'
+                }
+
                 periodBlock.background = this.validationColors[effectivePeriod.validationLevel]
 
                 let itemText = effectivePeriod.to
@@ -75,14 +71,11 @@ class HeaderTimeline extends React.Component {
                 }
 
                 return (
-                  <div key={'timeline-header-wrapper'+index} style={{borderBottom: '1px dotted #74766d'}}>
                     <div
                       key={'timeline-header-block'+index}
                       style={periodBlock}>
-                      {itemText}
+                      <span style={{color: '#fff'}}>{itemText}</span>
                     </div>
-                    <div></div>
-                  </div>
                 )
               })
               }

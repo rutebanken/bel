@@ -5,6 +5,7 @@ import {Tabs, Tab} from 'material-ui/Tabs'
 import Events from './Events'
 import Status from './Status'
 import AsyncActions from '../actions/AsyncActions'
+import CircularProgress from 'material-ui/CircularProgress'
 
 class TabsContainer extends React.Component {
 
@@ -38,7 +39,10 @@ class TabsContainer extends React.Component {
           tabItemContainerStyle={{background: '#2F2F2F'}}
        >
         <Tab value="status" label="status">
-          <Status stats={lineStats} dispatch={dispatch}/>
+          { lineStats.isLoading
+            ? <CircularProgress size={120} thickness={5}/>
+            : <Status stats={lineStats} dispatch={dispatch}/>
+          }
         </Tab>
         <Tab className="event-header" value="events" label={"Events"}>
           <Events/>

@@ -61,12 +61,9 @@ class Status extends React.Component {
 
     const { stats } = this.props
 
-    if (!stats) return null
-
-    const valid = stats.valid.lineNumbers.length
-    const invalid = stats.invalid.lineNumbers.length
-    const soonInvalid = stats.soonInvalid.lineNumbers.length
-
+    const valid = stats.data.valid.lineNumbers.length
+    const invalid = stats.data.invalid.lineNumbers.length
+    const soonInvalid = stats.data.soonInvalid.lineNumbers.length
 
     const pieData = [
       {
@@ -102,8 +99,6 @@ class Status extends React.Component {
             avatar={<Error style={{verticalAlign: 'middle', height: 44, width: 44}} color="#cc0000"/>}
             />
             <CardTitle
-              title="Your data expired 2016-07-07 00:00:00"
-              subtitle="Some useful information"
               expandable={true}
               />
             <CardText>
@@ -116,18 +111,17 @@ class Status extends React.Component {
                         <span style={{padding: 10, fontSize: '3em'}}>{this.segmentMap[selectedSegment]}</span>
                         <div style={{maxHeight: 900, overflowY: 'scroll'}}>
                           <List>
-                          { stats[selectedSegment].lineNumbers.map( (line, index) => (
+                          { stats.data[selectedSegment].lineNumbers.map( (line, index) => (
                               <ListItem
                                 key={'line'+index}
                                 disabled
-                                primaryText={line}
-                                secondaryText={stats.linesMap[line].lineNames.join(' <=> ')}
-                                children={<HeaderTimeline index={index} key={'HeaderTimeline'+index} effectivePeriods={stats.linesMap[line].effectivePeriods} startDate={stats.startDate} endDate={stats.endDate}/>}
+                                primaryText={stats.data.linesMap[line].lineNames.join('\n')}
+                                children={<HeaderTimeline line={line} index={index} key={'HeaderTimeline'+index} effectivePeriods={stats.data.linesMap[line].effectivePeriods}/>}
                                 nestedItems={
                                   [
                                     <ListItem disabled key={'line-n'+index} children={
-                                        stats.linesMap[line].lines.map( (l,i) => (
-                                          <Timeline key={'timelineItem'+index+'-'+i} timetables={l.timetables} startDate={stats.startDate} endDate={stats.endDate}/>
+                                        stats.data.linesMap[line].lines.map( (l,i) => (
+                                          <Timeline key={'timelineItem'+index+'-'+i} timetables={l.timetables}/>
                                         ))
                                       } />,
                                   ]

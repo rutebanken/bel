@@ -2,7 +2,6 @@ import axios from 'axios'
 import * as types from './actionTypes'
 import moment from 'moment'
 import actionNames from '../translations/en/actions'
-import lineStatsMock from '../mock/lineStats.js'
 const AsyncActions = {}
 
 AsyncActions.getProviderStatus = (id) => {

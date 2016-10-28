@@ -4,7 +4,10 @@ const initialState = {
   currentSupplier: null,
   events: [],
   suppliers: [],
-  lineStats: null
+  lineStats: {
+    isLoading: true,
+    data: null
+  },
 }
 
 const nabuReducer = (state = initialState, action) => {
@@ -24,7 +27,10 @@ const nabuReducer = (state = initialState, action) => {
       return Object.assign( {}, state, {currentSupplier: currentSupplier, suppliers: action.payLoad} )
 
     case types.RECEIVED_LINE_STATS:
-      return Object.assign({}, state, {lineStats: action.payLoad})
+      return Object.assign({}, state, {lineStats: { isLoading: false, data: action.payLoad} })
+
+    case types.REQUESTED_LINE_STATS:
+      return Object.assign({}, state, {lineStats: { isLoading: true, data: null} })
 
     default:
       return state

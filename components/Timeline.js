@@ -17,8 +17,6 @@ class Timeline extends React.Component {
       let { periods } = timetables[0]
       let period = periods[0]
 
-      console.log("period", period)
-
       const timelineStyle = {
         border: '1px solid black',
         borderRadius: 2,
@@ -32,14 +30,7 @@ class Timeline extends React.Component {
 
       const timelineWrapper = {
         width: '100%',
-        paddingTop: 30,
-        paddingBottom: 30
-      }
-
-      const timelineHeader = {
-        display: 'block',
-        fontSize: '0.9em',
-        fontWeight: 600
+        paddingBottom: 20
       }
 
       let timeBlock = {
@@ -52,10 +43,6 @@ class Timeline extends React.Component {
 
       return (
         <div style={timelineWrapper}>
-          <div style={timelineHeader}>
-            <span style={{float: 'left'}}>{startDate}</span>
-            <span style={{float: 'right'}}>{endDate}</span>
-          </div>
           <div style={timelineStyle}>
             {
               periods.map( (period, index) => {
