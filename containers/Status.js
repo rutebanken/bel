@@ -45,6 +45,14 @@ class Status extends React.Component {
     })
   }
 
+  handleToggleListItem(index) {
+    let ref = this.refs['listItem'+index]
+    ref.setState({
+      ...ref.state,
+      open: !ref.state.open
+    })
+  }
+
   render() {
 
     let pieOptionsFull = {
@@ -108,18 +116,32 @@ class Status extends React.Component {
                   <div>
                     <div style={{float: 'left', minHeight: 700, width: '70%', border: '1px solid black', background: 'rgba(96, 125, 139, 0.04)'}}>
                       <div onClick={this.handleHideSlider.bind(this)} style={{float: 'right', cursor: 'pointer', marginTop: 5, marginRight: 5}}>X</div>
-                        <span style={{padding: 10, fontSize: '3em'}}>{this.segmentMap[selectedSegment]}</span>
+                        <span style={{padding: '5 10', fontSize: '3em'}}>{this.segmentMap[selectedSegment]}</span>
                         <div style={{maxHeight: 900, overflowY: 'scroll'}}>
                           <List>
                           { stats.data[selectedSegment].lineNumbers.map( (line, index) => (
                               <ListItem
                                 key={'line'+index}
                                 disabled
-                                primaryText={stats.data.linesMap[line].lineNames.join('\n')}
-                                children={<HeaderTimeline line={line} index={index} key={'HeaderTimeline'+index} effectivePeriods={stats.data.linesMap[line].effectivePeriods}/>}
+                                ref={'listItem'+index}
+                                style={{padding: 0, marginLeft: 0, marginTop: 0, lineHeight: 0}}
+                                children={
+                                  <div
+                                    key={'ht-wrapper'+index}
+                                    onClick={() => { this.handleToggleListItem(index) }}
+                                    >
+                                    <HeaderTimeline line={line}
+                                      hoverText={stats.data.linesMap[line].lineNames.join(', ')}
+                                      index={index} key={'HeaderTimeline'+index}
+                                      effectivePeriods={stats.data.linesMap[line].effectivePeriods}
+                                    />
+                                  </div>
+                                }
                                 nestedItems={
                                   [
-                                    <ListItem disabled key={'line-n'+index} children={
+                                    <ListItem style={{zIndex: 999}} disabled key={'line-n'+index}
+                                      style={{padding: 0, marginLeft: 0}}
+                                      children={
                                         stats.data.linesMap[line].lines.map( (l,i) => (
                                           <Timeline key={'timelineItem'+index+'-'+i} timetables={l.timetables}/>
                                         ))
@@ -142,9 +164,6 @@ class Status extends React.Component {
                   </div>
                 }
               </div>
-            </CardText>
-            <CardText expandable={false}>
-              <div>Heaps of important information below</div>
             </CardText>
         </Card>
       </div>

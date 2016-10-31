@@ -73,7 +73,7 @@ AsyncActions.getLineStats = (id) => {
 }
 
 
-const formatLineStats = (lineStats) => {
+export const formatLineStats = (lineStats) => {
 
   try {
 
@@ -92,7 +92,7 @@ const formatLineStats = (lineStats) => {
 
     let startDate = moment(lineStats.startDate, 'YYYY-MM-DD')
     formattedLines.startDate = startDate.format('YYYY-MM-DD')
-    formattedLines.days = 180
+    formattedLines.days = lineStats.days
     formattedLines.endDate = startDate.add(formattedLines.days, 'days').format('YYYY-MM-DD')
 
     lineStats.publicLines.forEach ( (publicLine) => {
@@ -134,16 +134,14 @@ const formatLineStats = (lineStats) => {
           line.timetables.forEach( (timetable) => {
             timetable.periods.forEach( (period) => {
 
-              // default start position in timeline, if from < startDate
-              let timelineStartPosition = 0
-              let fromDiff = moment(period.from, 'YYYY-MM-DD').diff(startDate, 'days', true)
+              let fromDiff = moment(lineStats.startDate, 'YYYY-MM-DD').diff(moment(period.from, 'YYYY-MM-DD'), 'days', true)
 
-              if (fromDiff > 0) {
-                timelineStartPosition = (fromDiff / (100/formattedLines.days))
+              if (fromDiff < 0) {
+                period.timelineStartPosition = ( Math.abs(fromDiff) / formattedLines.days ) * 100
+              } else {
+                period.timelineStartPosition = 0
               }
 
-              period.timelineStartPosition = timelineStartPosition
-              // default end position in timeline, if to > endDate
               let timelineEndPosition = 100
 
               let toDiff = moment(formattedLines.endDate, 'YYYY-MM-DD').diff(moment(period.to, 'YYYY-MM-DD'), 'days', true)
@@ -153,13 +151,11 @@ const formatLineStats = (lineStats) => {
               }
 
               period.timelineEndPosition = timelineEndPosition
-
             })
           })
         })
 
         linesMap[publicLine.lineNumber] = publicLine
-
     })
 
     formattedLines.linesMap = linesMap
@@ -182,8 +178,10 @@ AsyncActions.uploadFiles = (files) => {
     const url = `${window.config.nabuBaseUrl}files/${id}`
 
     var data = new FormData()
-    // TODO : service currently only supports one file
-    data.append("file", files[0])
+
+    files.forEach( (file) => {
+      data.append("files", file)
+    })
 
     var config = {
       onUploadProgress: function(progressEvent) {

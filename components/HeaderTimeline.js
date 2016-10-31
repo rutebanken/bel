@@ -10,6 +10,16 @@ class HeaderTimeline extends React.Component {
       'VALID' : '#4caf50',
       'SOON_INVALID' : '#FDB45C'
     }
+
+    this.state = {
+      showTooltip: false
+    }
+  }
+
+  handleToggleToolTip() {
+    this.setState({
+      showTooltip: !this.state.showTooltip
+    })
   }
 
   render() {
@@ -17,41 +27,78 @@ class HeaderTimeline extends React.Component {
       const timelineStyle = {
         border: '1px solid black',
         borderRadius: 2,
-        background: '#fff',
+        background: '#b20000',
         height: 'auto',
-        width: '90%',
+        width: '85%',
         margin: 'auto',
         display: 'block',
-        overflow: 'auto'
+        overflow: 'auto',
+        fontSize: '0%'
       }
 
       const timelineWrapper = {
-        width: '100%',
-        paddingBottom: 30,
-        paddingTop: 35
+        width: '100%'
       }
 
       let timeBlock = {
         background: '#4caf50',
-        height: 29,
-        color: '#fff',
+        height: 30,
+        color: '#449d48',
         fontWeight: 500,
-        fontSize: '0.8em',
+        fontSize: '0.8rem',
         textAlign: 'center',
         display: 'inline-block'
       }
 
+      const toolTipStyle = {
+        position: 'absolute',
+        fontSize: '0.8em',
+        color: '#fff',
+        background: '#191919',
+        padding: 8,
+        display: 'inline-block',
+        width: 600,
+        zIndex: 999999
+      }
+
+      const textSpanStyle = {
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        color: '#fff',
+        verticalAlign: 'text-bottom'
+      }
+
       const { startDate, endDate, effectivePeriods } = this.props
+      const { showTooltip } = this.state
 
       if(!effectivePeriods || !effectivePeriods.length) {
         return null
       }
 
       return (
-        <div style={timelineWrapper}>
-          <div style={{display: 'inline-block', transform: 'translateY(25px)'}}>{this.props.line}</div>
-          <div style={timelineStyle}>
-              <div key={'timeline-header-wrapper'+this.props.index} style={{borderBottom: '1px dotted #74766d'}}>
+        <div style={timelineWrapper}
+          >
+          <div
+            style={{display: 'inline-block', cursor: 'pointer', transform: 'translate(12px, 36px)'}}
+            onMouseOver={this.handleToggleToolTip.bind(this)}
+            onMouseLeave={this.handleToggleToolTip.bind(this)}
+            >
+            {this.props.line}
+            { showTooltip
+              ?
+              <div style={toolTipStyle}>
+                {this.props.hoverText}
+             </div>
+             : null
+           }
+          </div>
+            <hr style={{transform: 'rotate(90deg)', borderTop: '1px dotted #eee', marginLeft: '33%'}}/>
+            <div style={timelineStyle}
+              >
+              <div
+                key={'timeline-header-wrapper'+this.props.index}
+                >
               { effectivePeriods.map( (effectivePeriod, index) => {
 
                 let periodBlock = {...timeBlock}
@@ -63,8 +110,6 @@ class HeaderTimeline extends React.Component {
                   periodBlock.marginLeft = (effectivePeriod.timelineStartPosition - effectivePeriods[index-1].timelineEndPosition) + '%'
                 }
 
-                periodBlock.background = this.validationColors[effectivePeriod.validationLevel]
-
                 let itemText = effectivePeriod.to
 
                 if (effectivePeriod.timelineStartPosition > 0) {
@@ -75,7 +120,7 @@ class HeaderTimeline extends React.Component {
                     <div
                       key={'timeline-header-block'+index}
                       style={periodBlock}>
-                      <span style={{color: '#fff'}}>{itemText}</span>
+                      <span style={textSpanStyle}>{itemText}</span>
                     </div>
                 )
               })

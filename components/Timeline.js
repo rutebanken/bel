@@ -21,8 +21,8 @@ class Timeline extends React.Component {
         border: '1px solid black',
         borderRadius: 2,
         background: '#fff',
-        height: 30,
-        width: '80%',
+        height: '100%',
+        width: '85%',
         margin: 'auto',
         display: 'block',
         overflowY: 'auto'
@@ -30,7 +30,8 @@ class Timeline extends React.Component {
 
       const timelineWrapper = {
         width: '100%',
-        paddingBottom: 20
+        paddingTop: 10,
+        zIndex: 99999
       }
 
       let timeBlock = {
@@ -39,6 +40,17 @@ class Timeline extends React.Component {
         height: '100%',
         color: '#fff',
         fontWeight: 600
+      }
+
+      let textStyle = {
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        display: 'block',
+        margin: 'auto 10px',
+        color: '#fff',
+        fontSize: '0.7em',
+        fontWeight: 300
       }
 
       return (
@@ -51,7 +63,7 @@ class Timeline extends React.Component {
                 periodBlock.marginLeft = (period.timelineStartPosition + '%')
                 return (
                   <div key={'timetable-period-'+index} style={periodBlock}>
-                    <div style={{display: 'block', margin: 'auto 10px', color: '#fff', fontSize: '0.7em', fontWeight: 300}}>{timetables[0].objectId}</div>
+                    <div style={textStyle}>{timetables[0].objectId}</div>
                   </div>)
               })
             }
