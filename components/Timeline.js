@@ -22,7 +22,7 @@ class Timeline extends React.Component {
         borderRadius: 2,
         background: '#fff',
         height: 30,
-        width: '95%',
+        width: '80%',
         margin: 'auto',
         display: 'block',
         overflowY: 'auto'

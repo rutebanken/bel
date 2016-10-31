@@ -18,7 +18,7 @@ class HeaderTimeline extends React.Component {
         border: '1px solid black',
         borderRadius: 2,
         background: '#fff',
-        height: 30,
+        height: 'auto',
         width: '90%',
         margin: 'auto',
         display: 'block',
@@ -37,7 +37,8 @@ class HeaderTimeline extends React.Component {
         color: '#fff',
         fontWeight: 500,
         fontSize: '0.8em',
-        textAlign: 'center'
+        textAlign: 'center',
+        display: 'inline-block'
       }
 
       const { startDate, endDate, effectivePeriods } = this.props
