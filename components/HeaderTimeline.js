@@ -28,7 +28,7 @@ class HeaderTimeline extends React.Component {
         border: '1px solid black',
         borderRadius: 2,
         background: '#b20000',
-        height: 'auto',
+        height: 18,
         width: '85%',
         margin: 'auto',
         display: 'block',
@@ -42,7 +42,7 @@ class HeaderTimeline extends React.Component {
 
       let timeBlock = {
         background: '#4caf50',
-        height: 30,
+        height: 18,
         color: '#449d48',
         fontWeight: 500,
         fontSize: '0.8rem',
@@ -98,7 +98,7 @@ class HeaderTimeline extends React.Component {
         <div style={timelineWrapper}
           >
           <div
-            style={{display: 'inline-block', cursor: 'pointer', transform: 'translate(12px, 36px)'}}
+            style={{display: 'inline-block', cursor: 'pointer', transform: 'translate(12px, 28px)'}}
             onMouseOver={this.handleToggleToolTip.bind(this)}
             onMouseLeave={this.handleToggleToolTip.bind(this)}
             >

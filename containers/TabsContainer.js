@@ -40,7 +40,7 @@ class TabsContainer extends React.Component {
        >
         <Tab value="status" label="status">
           { lineStats.isLoading
-            ? <CircularProgress size={120} thickness={5}/>
+            ? <div style={{position: 'absolute', marginLeft: '40%', marginTop: '20%'}}><CircularProgress size={120} thickness={5}/></div>
             : <Status stats={lineStats} dispatch={dispatch}/>
           }
         </Tab>

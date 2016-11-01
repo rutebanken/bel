@@ -6,6 +6,7 @@ import AsyncActions from '../actions/AsyncActions'
 import FlatButton from 'material-ui/FlatButton'
 import Dropzone from 'react-dropzone'
 import RaisedButton from 'material-ui/RaisedButton'
+import LinearProgress from 'material-ui/LinearProgress'
 import { closeStyle, selectStyle, inputStyle, filesStyle, headerStyle, dropStyle, uploadBtnStyle } from '../styles/modalFileUploadContainer'
 
 class FileUpload extends React.Component {
@@ -49,7 +50,7 @@ class FileUpload extends React.Component {
 
   render() {
 
-    const {isModalOpen } = this.props
+    const { isModalOpen, uploadCompleted } = this.props
     const { files } = this.state
 
     return (
@@ -65,6 +66,9 @@ class FileUpload extends React.Component {
            <select style={filesStyle} multiple>
             { files.map( (file, index) => { return (<option key={"file-" + index}>{file.name}</option>) } ) }
            </select>
+           <div style={{marginTop: 20, width: 300, marginLeft: 14}}>
+             <LinearProgress mode="determinate" value={uploadCompleted} />
+           </div>
           <RaisedButton label="Upload" primary={true} onClick={ () => this.handleUpload() } style={uploadBtnStyle}/>
         </ModalDialog>
     )
@@ -72,8 +76,11 @@ class FileUpload extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
+  let progress = state.userReducer.progressBarFileUpload*100
+
   return {
     isModalOpen: state.userReducer.isModalOpen,
+    uploadCompleted: progress
   }
 }
 

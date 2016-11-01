@@ -177,6 +177,8 @@ AsyncActions.uploadFiles = (files) => {
     const state = getState()
     const id = state.nabuReducer.currentSupplier.id
 
+    dispatch( sendData(0, types.UPDATED_FILE_UPLOAD_PROGRESS_BAR))
+
     const url = `${window.config.nabuBaseUrl}files/${id}`
 
     var data = new FormData()
@@ -188,8 +190,7 @@ AsyncActions.uploadFiles = (files) => {
     var config = {
       onUploadProgress: function(progressEvent) {
         var percentCompleted = progressEvent.loaded / progressEvent.total
-        // TODO : add progress bar
-        console.log("percentage", percentCompleted)
+        dispatch( sendData(percentCompleted, types.UPDATED_FILE_UPLOAD_PROGRESS_BAR))
       }
     }
 
@@ -222,10 +223,8 @@ const formatProviderStatusDate = (list) => {
       event.date = moment(event.date).locale("nb").format("YYYY-MM-DD HH:mm:ss")
       event.actionString = actionNames[event.action]
     })
-
     return listItem
   })
-
 }
 
 export default AsyncActions

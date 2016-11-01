@@ -36,13 +36,20 @@ class Status extends React.Component {
   }
 
   handlePieOnClick(e, refId) {
-    let chart = this.refs[refId].getChart()
-    let clickedSegmentLabel = chart.getSegmentsAtEvent(e)[0].label
 
-    this.setState({
-      sliderEnabled: true,
-      selectedSegment: this.segmentMap[clickedSegmentLabel]
-    })
+    let chart = this.refs[refId].getChart()
+
+    if (chart.getSegmentsAtEvent(e)[0]) {
+
+      let clickedSegmentLabel = chart.getSegmentsAtEvent(e)[0].label
+      let clickedSegmentValue = chart.getSegmentsAtEvent(e)[0].value
+
+      this.setState({
+        sliderEnabled: true,
+        selectedSegment: this.segmentMap[clickedSegmentLabel],
+        segmentValue: clickedSegmentValue
+      })
+    }
   }
 
   handleToggleListItem(index) {
@@ -94,7 +101,7 @@ class Status extends React.Component {
       }
     ]
 
-    const { sliderEnabled, selectedSegment } = this.state
+    const { sliderEnabled, selectedSegment, segmentValue } = this.state
 
     return (
       <div>
@@ -115,16 +122,25 @@ class Status extends React.Component {
                   ?
                   <div>
                     <div style={{float: 'left', minHeight: 700, width: '70%', border: '1px solid black', background: 'rgba(96, 125, 139, 0.04)'}}>
-                      <div onClick={this.handleHideSlider.bind(this)} style={{float: 'right', cursor: 'pointer', marginTop: 5, marginRight: 5}}>X</div>
-                        <span style={{padding: '5 10', fontSize: '3em'}}>{this.segmentMap[selectedSegment]}</span>
-                        <div style={{maxHeight: 900, overflowY: 'scroll'}}>
-                          <List>
+                      <div onClick={this.handleHideSlider.bind(this)}
+                        style={{float: 'right', cursor: 'pointer', marginTop: 10, marginRight: 20}}>
+                        X
+                      </div>
+                        <span style={{padding: '5 10', fontSize: '3em'}}>
+                          {`${this.segmentMap[selectedSegment]} (${segmentValue})`}
+                        </span>
+                        <div
+                          style={{maxHeight: 900, overflowY: 'scroll', overflowX: 'hidden', margin: 'auto'}}
+                          >
+                          <List
+                            style={{width: '100%'}}
+                            >
                           { stats.data[selectedSegment].lineNumbers.map( (line, index) => (
                               <ListItem
                                 key={'line'+index}
                                 disabled
                                 ref={'listItem'+index}
-                                style={{padding: 0, marginLeft: 0, marginTop: 0, lineHeight: 0}}
+                                style={{padding: 0, marginLeft: 0, marginRight: 0, marginTop: 0, lineHeight: 0}}
                                 children={
                                   <div
                                     key={'ht-wrapper'+index}
