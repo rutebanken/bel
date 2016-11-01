@@ -69,12 +69,30 @@ class HeaderTimeline extends React.Component {
         verticalAlign: 'text-bottom'
       }
 
-      const { startDate, endDate, effectivePeriods } = this.props
+      const { startDate, endDate, effectivePeriods, validDaysOffset, validFromDate } = this.props
       const { showTooltip } = this.state
 
       if(!effectivePeriods || !effectivePeriods.length) {
         return null
       }
+
+      let hrStyle = {
+        transform: 'rotate(90deg)',
+        borderTop: '1px dotted #eee'
+      }
+
+      hrStyle.marginLeft = validDaysOffset + '%'
+
+      let validDateStyle = {
+        position: 'absolute',
+        width: '100%',
+        textAlign: 'center',
+        zIndex: 999999,
+        marginTop: 5,
+        fontWeight: 600
+      }
+
+      validDateStyle.marginLeft = (50 - validDaysOffset) + '%'
 
       return (
         <div style={timelineWrapper}
@@ -93,7 +111,8 @@ class HeaderTimeline extends React.Component {
              : null
            }
           </div>
-            <hr style={{transform: 'rotate(90deg)', borderTop: '1px dotted #eee', marginLeft: '33%'}}/>
+            { this.props.index ? null : <div style={validDateStyle}>{validFromDate}</div>}
+            <hr style={hrStyle}/>
             <div style={timelineStyle}
               >
               <div

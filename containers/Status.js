@@ -133,6 +133,8 @@ class Status extends React.Component {
                                     <HeaderTimeline line={line}
                                       hoverText={stats.data.linesMap[line].lineNames.join(', ')}
                                       index={index} key={'HeaderTimeline'+index}
+                                      validDaysOffset={stats.data.validDaysOffset}
+                                      validFromDate={stats.data.validFromDate}
                                       effectivePeriods={stats.data.linesMap[line].effectivePeriods}
                                     />
                                   </div>

@@ -159,6 +159,8 @@ export const formatLineStats = (lineStats) => {
     })
 
     formattedLines.linesMap = linesMap
+    formattedLines.validDaysOffset = 33
+    formattedLines.validFromDate = moment(lineStats.startDate, 'YYYY-MM-DD').add(120, 'days').format('YYYY-MM-DD')
 
     return formattedLines
 
