@@ -12,7 +12,6 @@ import Menu from 'material-ui/Menu'
 import { connect } from 'react-redux'
 import AsyncActions from '../actions/AsyncActions'
 
-
 class Header extends React.Component {
 
   constructor(props) {
@@ -49,8 +48,7 @@ class Header extends React.Component {
   render() {
     // reactintl these
     const { activeSupplier } = this.props
-    let help = "Help", title = 'Operational Status', signOut = 'Sign out'
-    title += ' - ' + (activeSupplier ? activeSupplier.name : '')
+    let help = "Hjelp", title = activeSupplier ? activeSupplier.name : '', signOut = 'Logg ut'
 
     return (
 

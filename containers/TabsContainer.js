@@ -38,13 +38,13 @@ class TabsContainer extends React.Component {
           onChange={this.handleChange.bind(this)}
           tabItemContainerStyle={{background: '#2F2F2F'}}
        >
-        <Tab value="status" label="status">
+        <Tab value="status" label="Linjestatus">
           { lineStats.isLoading
             ? <div style={{position: 'absolute', marginLeft: '40%', marginTop: '20%'}}><CircularProgress size={120} thickness={5}/></div>
             : <Status stats={lineStats} dispatch={dispatch}/>
           }
         </Tab>
-        <Tab className="event-header" value="events" label={"Events"}>
+        <Tab className="event-header" value="events" label="Last opp datasett">
           <Events/>
         </Tab>
       </Tabs>

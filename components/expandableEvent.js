@@ -27,14 +27,14 @@ export default class ExpandableEvent extends React.Component {
         <TableRowColumn colSpan="4"
           style={{padding: 20}}
           >
-          <span style={headerStyle}>Action</span>
+          <span style={headerStyle}>Type</span>
           { pageItem.events.map( (event, index) => (
             <span key={"action-"+index} style={itemStyle}>{event.actionString}</span>
           ))}
         </TableRowColumn>
         <TableRowColumn colSpan="5"
           style={{padding: 20}}>
-          <span style={headerStyle}>Date</span>
+          <span style={headerStyle}>Dato</span>
           { pageItem.events.map( (event, index) => (
             <span key={"date-"+index}  style={itemStyle}>{event.date}</span>
           ))}
@@ -42,7 +42,7 @@ export default class ExpandableEvent extends React.Component {
         <TableRowColumn colSpan="2"
           style={{padding: 20}}
           >
-          <span style={headerStyle}>End state</span>
+          <span style={headerStyle}>Sluttilstand</span>
             { pageItem.events.map( (event, index) => {
 
               const endStateFailed = (event.state === 'TIMEOUT' || event.state === 'ERROR'

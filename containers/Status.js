@@ -18,12 +18,12 @@ class Status extends React.Component {
     }
 
     this.segmentMap = {
-      'Valid lines' : 'valid',
-      'Soon expiring lines' : 'soonInvalid',
-      'Expired lines' : 'invalid',
-      'valid' : 'Valid lines',
-      'soonInvalid' : 'Soon expiring lines',
-      'invalid' : 'Expired lines'
+      'Linjer i gyldig periode' : 'valid',
+      'Linjer med gyldighetsperiode som snart utgår' : 'soonInvalid',
+      'Linjer med manglende gyldighetsperiode' : 'invalid',
+      'valid' : 'Linjer i gyldig periode',
+      'soonInvalid' : 'Linjer med gyldighetsperiode som snart utgår',
+      'invalid' : 'Linjer med manglende gyldighetsperiode'
     }
 
   }
@@ -66,9 +66,6 @@ class Status extends React.Component {
       animation: false,
       showTooltips: true,
       responsive: true,
-      onAnimationComplete: function() {
-        //
-      },
       tooltipTemplate: "<%= label %> - <%= value %>"
     }
 
@@ -85,19 +82,19 @@ class Status extends React.Component {
         value: valid,
         highlight: "#4caf50",
         color: "#449d48",
-        label: "Valid lines",
+        label: this.segmentMap['valid'],
       },
       {
         value: soonInvalid,
         color: "#FDB45C",
         highlight: "#FFC870",
-        label: "Soon expiring lines",
+        label: this.segmentMap['soonInvalid'],
       },
       {
         value: invalid,
         color: "#b20000",
         highlight: "#cc0000",
-        label: "Expired lines",
+        label: this.segmentMap['invalid'],
       }
     ]
 
@@ -109,9 +106,6 @@ class Status extends React.Component {
           expanded={true}
           >
           <CardHeader
-            title='Status'
-            subtitle='Lines validation'
-            avatar={<Error style={{verticalAlign: 'middle', height: 44, width: 44}} color="#cc0000"/>}
             />
             <CardTitle
               expandable={true}
@@ -126,7 +120,7 @@ class Status extends React.Component {
                         style={{float: 'right', cursor: 'pointer', marginTop: 10, marginRight: 20}}>
                         X
                       </div>
-                        <span style={{padding: '5 10', fontSize: '3em'}}>
+                        <span style={{padding: '5 10', marginLeft: 10, fontSize: '2em'}}>
                           {`${this.segmentMap[selectedSegment]} (${segmentValue})`}
                         </span>
                         <div

@@ -71,7 +71,7 @@ class Events extends React.Component {
       <div>
         <div style={{padding: 20}}>
           <FlatButton
-            label="Upload file"
+            label="Last opp datasett"
             labelPosition="before"
             primary={true}
             onClick={this.handleUploadFile.bind(this)}
@@ -109,10 +109,10 @@ class Events extends React.Component {
                 adjustForCheckbox={false}
                 >
                 <TableRow>
-                  <TableHeaderColumn colSpan="4">Filename</TableHeaderColumn>
+                  <TableHeaderColumn colSpan="4">Filnavn</TableHeaderColumn>
                   <TableHeaderColumn colSpan="2">Status</TableHeaderColumn>
-                  <TableHeaderColumn colSpan="3">Started</TableHeaderColumn>
-                  <TableHeaderColumn colSpan="3">Duration</TableHeaderColumn>
+                  <TableHeaderColumn colSpan="3">Startet</TableHeaderColumn>
+                  <TableHeaderColumn colSpan="3">Varighet</TableHeaderColumn>
                 </TableRow>
               </TableHeader>
               <TableBody
@@ -158,7 +158,7 @@ class Events extends React.Component {
             </Table>
           </div>
         :
-        <div style={{padding: 40, background: '#ffffdb', marginTop: 40, fontWeight: 500}}>No events found</div>
+        <div style={{padding: 40, background: '#ffffdb', marginTop: 40, fontWeight: 500}}>Ingen tidligere leveranser.</div>
       }
       </div>
   )}

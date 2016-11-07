@@ -1,7 +1,7 @@
 import axios from 'axios'
 import * as types from './actionTypes'
 import moment from 'moment'
-import actionNames from '../translations/en/actions'
+import actionNames from '../translations/no/actions'
 const AsyncActions = {}
 
 AsyncActions.getProviderStatus = (id) => {
