@@ -9,18 +9,15 @@ class Timeline extends React.Component {
 
   render() {
 
-      const { timetables } = this.props
-
-      const { startDate } = this.props
-      const { endDate } = this.props
+      const { timetables, startDate, endDate, validDaysOffset } = this.props
 
       let { periods } = timetables[0]
       let period = periods[0]
 
       const timelineStyle = {
         border: '1px solid black',
-        borderRadius: 2,
-        background: '#fff',
+        borderRadius: 5,
+        background: '#DED8D8',
         height: '100%',
         width: '85%',
         margin: 'auto',
@@ -30,12 +27,11 @@ class Timeline extends React.Component {
 
       const timelineWrapper = {
         width: '100%',
-        paddingTop: 10,
-        zIndex: 99999
+        paddingBottom: 10
       }
 
       let timeBlock = {
-        background: '	#0080ff',
+        background: '#6D92B6',
         width: '100%',
         height: '100%',
         color: '#fff',
@@ -50,11 +46,22 @@ class Timeline extends React.Component {
         margin: 'auto 10px',
         color: '#fff',
         fontSize: '0.7em',
-        fontWeight: 300
+        fontWeight: 600
       }
+
+      let hrStyle = {
+        transform: 'rotate(90deg)',
+        borderTop: '1px solid #eee',
+        borderColor: '#50575B',
+        width: 15,
+        position: 'absolute'
+      }
+
+      hrStyle.marginLeft = (33 + validDaysOffset) + '%'
 
       return (
         <div style={timelineWrapper}>
+          <hr style={hrStyle}/>
           <div style={timelineStyle}>
             {
               periods.map( (period, index) => {

@@ -5,6 +5,10 @@ body {
   color: #191919;
 }
 
-p, h1,h2,h3,h4,h5, span {
+p,h1,h2,h3,h4,h5, span {
   color: #191919;
+}
+
+button[type='button'] {
+  transform: translateY(-13px) !important;
 }

@@ -5,12 +5,6 @@ class HeaderTimeline extends React.Component {
 
   constructor(props) {
     super(props)
-    this.validationColors = {
-      'INVALID' : '#b20000',
-      'VALID' : '#4caf50',
-      'SOON_INVALID' : '#FDB45C'
-    }
-
     this.state = {
       showTooltip: false
     }
@@ -26,8 +20,8 @@ class HeaderTimeline extends React.Component {
 
       const timelineStyle = {
         border: '1px solid black',
-        borderRadius: 2,
-        background: '#b20000',
+        borderRadius: 5,
+        background: '#B91919',
         height: 18,
         width: '85%',
         margin: 'auto',
@@ -36,14 +30,15 @@ class HeaderTimeline extends React.Component {
         fontSize: '0%'
       }
 
-      const timelineWrapper = {
-        width: '100%'
+      let timelineWrapper = {
+        width: '100%',
+        marginBottom: 2
       }
 
       let timeBlock = {
-        background: '#4caf50',
+        background: '#5DAE5D',
         height: 18,
-        color: '#449d48',
+        cursor: 'pointer',
         fontWeight: 500,
         fontSize: '0.8rem',
         textAlign: 'center',
@@ -51,13 +46,14 @@ class HeaderTimeline extends React.Component {
       }
 
       const toolTipStyle = {
-        position: 'absolute',
+        position: 'relative',
+        transition: 'opacity 1s',
+        display: 'inline',
         fontSize: '0.8em',
         color: '#fff',
         background: '#191919',
-        padding: 8,
-        display: 'inline-block',
-        width: 600,
+        padding: 2,
+        width: 'auto',
         zIndex: 999999
       }
 
@@ -78,27 +74,29 @@ class HeaderTimeline extends React.Component {
 
       let hrStyle = {
         transform: 'rotate(90deg)',
-        borderTop: '1px dotted #eee'
+        borderTop: '1px dotted',
+        borderColor: '#50575B',
+        marginTop: 9,
+        width: 15,
+        position: 'absolute',
       }
 
-      hrStyle.marginLeft = validDaysOffset + '%'
+      hrStyle.marginLeft = (33 + validDaysOffset) + '%'
 
       let validDateStyle = {
         position: 'absolute',
         width: '100%',
         textAlign: 'center',
         zIndex: 999999,
-        marginTop: 5,
+        marginTop: -12,
         fontWeight: 600
       }
-
-      validDateStyle.marginLeft = (50 - validDaysOffset) + '%'
 
       return (
         <div style={timelineWrapper}
           >
           <div
-            style={{display: 'inline-block', cursor: 'pointer', transform: 'translate(12px, 28px)'}}
+            style={{display: 'inline-block', cursor: 'pointer', transform: 'translate(12px, 10px)'}}
             onMouseOver={this.handleToggleToolTip.bind(this)}
             onMouseLeave={this.handleToggleToolTip.bind(this)}
             >
@@ -111,7 +109,6 @@ class HeaderTimeline extends React.Component {
              : null
            }
           </div>
-            { this.props.index ? null : <div style={validDateStyle}>{validFromDate}</div>}
             <hr style={hrStyle}/>
             <div style={timelineStyle}
               >

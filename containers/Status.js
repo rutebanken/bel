@@ -77,6 +77,7 @@ class Status extends React.Component {
     const invalid = stats.data.invalid.lineNumbers.length
     const soonInvalid = stats.data.soonInvalid.lineNumbers.length
 
+
     const pieData = [
       {
         value: valid,
@@ -98,6 +99,26 @@ class Status extends React.Component {
       }
     ]
 
+    let validDateMiddleStyle = {
+      fontWeight: 600,
+      marginLeft: ((100-17) - stats.data.validDaysOffset) + '%',
+      display: 'inline-block'
+    }
+
+    let validDateStartStyle = {
+      fontWeight: 600,
+      display: 'inline-block',
+      marginLeft: '3%',
+      float: 'left'
+    }
+
+    let validDateEndStyle = {
+      fontWeight: 600,
+      display: 'inline-block',
+      float: 'right',
+      marginRight: '5%'
+    }
+
     const { sliderEnabled, selectedSegment, segmentValue } = this.state
 
     return (
@@ -105,26 +126,26 @@ class Status extends React.Component {
         <Card
           expanded={true}
           >
-          <CardHeader
-            />
-            <CardTitle
-              expandable={true}
-              />
             <CardText>
               <div style={{overflow: 'auto'}}>
                 { sliderEnabled
                   ?
                   <div>
-                    <div style={{float: 'left', minHeight: 700, width: '70%', border: '1px solid black', background: 'rgba(96, 125, 139, 0.04)'}}>
+                    <div style={{float: 'left', minHeight: 700, width: '70%', border: '1px solid #2f2f2f', background: 'rgba(96, 125, 139, 0.04)'}}>
                       <div onClick={this.handleHideSlider.bind(this)}
                         style={{float: 'right', cursor: 'pointer', marginTop: 10, marginRight: 20}}>
                         X
                       </div>
-                        <span style={{padding: '5 10', marginLeft: 10, fontSize: '2em'}}>
+                        <span style={{marginLeft: 10, fontSize: '2em'}}>
                           {`${this.segmentMap[selectedSegment]} (${segmentValue})`}
                         </span>
+                        <div style={{display: 'block', margin: 10, padding: 6, background: '#f2f2f2', opacity: '0.8', borderRadius: 7}}>
+                          <div style={validDateStartStyle}>{stats.data.startDate}</div>
+                          <div style={validDateMiddleStyle}>{stats.data.validFromDate} (120 dager)</div>
+                            <div style={validDateEndStyle}>{stats.data.endDate}</div>
+                        </div>
                         <div
-                          style={{maxHeight: 900, overflowY: 'scroll', overflowX: 'hidden', margin: 'auto'}}
+                          style={{maxHeight: 800, minHeight: 800, overflowY: 'scroll', overflowX: 'hidden', margin: 'auto'}}
                           >
                           <List
                             style={{width: '100%'}}
@@ -155,7 +176,10 @@ class Status extends React.Component {
                                       style={{padding: 0, marginLeft: 0}}
                                       children={
                                         stats.data.linesMap[line].lines.map( (l,i) => (
-                                          <Timeline key={'timelineItem'+index+'-'+i} timetables={l.timetables}/>
+                                          <Timeline key={'timelineItem'+index+'-'+i}
+                                            timetables={l.timetables}
+                                            validDaysOffset={stats.data.validDaysOffset}
+                                            />
                                         ))
                                       } />,
                                   ]
