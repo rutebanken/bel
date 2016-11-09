@@ -73,12 +73,12 @@ class HeaderTimeline extends React.Component {
       }
 
       let hrStyle = {
-        transform: 'rotate(90deg)',
+        transform: 'rotate(90deg) translateX(20px)',
         borderTop: '1px dotted',
         borderColor: '#50575B',
         marginTop: 9,
         width: 15,
-        position: 'absolute',
+        position: 'relative',
       }
 
       hrStyle.marginLeft = (33 + validDaysOffset) + '%'
@@ -96,7 +96,7 @@ class HeaderTimeline extends React.Component {
         <div style={timelineWrapper}
           >
           <div
-            style={{display: 'inline-block', cursor: 'pointer', transform: 'translate(12px, 10px)'}}
+            style={{display: 'inline-block', cursor: 'pointer', transform: 'translate(12px, 27px)', fontSize: '1vw'}}
             onMouseOver={this.handleToggleToolTip.bind(this)}
             onMouseLeave={this.handleToggleToolTip.bind(this)}
             >

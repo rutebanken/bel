@@ -29,7 +29,6 @@ class Header extends React.Component {
   }
 
   handleTouchTap = (event) => {
-
    event.preventDefault()
 
    this.setState({
@@ -57,7 +56,6 @@ class Header extends React.Component {
             title={title}
             showMenuIconButton={true}
             style={{background: "#2F2F2F", color: "#fff"}}
-            iconStyleLeft={{marginTop: 20}}
             iconElementLeft={
               <IconButton
                 onTouchTap={this.handleTouchTap}

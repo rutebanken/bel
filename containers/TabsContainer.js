@@ -6,6 +6,7 @@ import Events from './Events'
 import Status from './Status'
 import AsyncActions from '../actions/AsyncActions'
 import CircularProgress from 'material-ui/CircularProgress'
+import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card'
 
 class TabsContainer extends React.Component {
 
@@ -32,17 +33,45 @@ class TabsContainer extends React.Component {
 
     const { events, dispatch, lineStats } = this.props
 
+    const cardsData = [
+      {title: 'dato for siste leveranse', children: '19-11-2016', color: '#1169A7'},
+      {title: 'antall linjer', children: '500', color: '#083453'},
+      {title: 'antall dager', children: '300', color: '#000'}
+    ]
+
+    let cards = cardsData.map( (cd) => {
+      return (
+        <Card
+          style={{display: 'inline-block', width: '30.7vw', margin: '0.7vw'}}
+          >
+          <CardHeader
+            title={cd.title}
+            style={{fontWeight: 600, textAlign: 'center', textTransform: 'uppercase'}}
+            textStyle={{width: '100%', fontSize: '5em'}}
+            />
+          <CardText>
+            <div style={{fontWeight: 600, fontSize: '4vw', textAlign: 'center', width: '100%', color: cd.color}}>{cd.children}</div>
+          </CardText>
+        </Card>
+      )
+    })
+
     return (
       <Tabs
-          value={this.state.value}
-          onChange={this.handleChange.bind(this)}
-          tabItemContainerStyle={{background: '#2F2F2F'}}
+        value={this.state.value}
+        onChange={this.handleChange.bind(this)}
+        tabItemContainerStyle={{background: '#2F2F2F'}}
        >
         <Tab value="status" label="Linjestatus"
           style={{marginTop: 10}}
           >
+          <div style={{marginLeft: '0.5vw'}}>
+            {cards}
+          </div>
           { lineStats.isLoading
-            ? <div style={{position: 'absolute', marginLeft: '40%', marginTop: '20%'}}><CircularProgress size={120} thickness={5}/></div>
+            ? <div style={{position: 'absolute', marginLeft: '40%', marginTop: '20%'}}>
+                <CircularProgress size={120} thickness={5}/>
+              </div>
             : <Status stats={lineStats} dispatch={dispatch}/>
           }
         </Tab>
