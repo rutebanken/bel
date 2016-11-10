@@ -1,5 +1,4 @@
 import React from 'react'
-import moment from 'moment'
 
 class HeaderTimeline extends React.Component {
 
@@ -37,7 +36,7 @@ class HeaderTimeline extends React.Component {
 
       let timeBlock = {
         background: '#5DAE5D',
-        height: 18,
+        height: this.props.index == 0 ? 19: 18,
         cursor: 'pointer',
         fontWeight: 500,
         fontSize: '0.8rem',
@@ -65,7 +64,9 @@ class HeaderTimeline extends React.Component {
         verticalAlign: 'text-bottom'
       }
 
-      const { startDate, endDate, effectivePeriods, validDaysOffset, validFromDate } = this.props
+      console.log("this.props", this.props.index)
+
+      const { effectivePeriods, validDaysOffset } = this.props
       const { showTooltip } = this.state
 
       if(!effectivePeriods || !effectivePeriods.length) {
@@ -83,14 +84,6 @@ class HeaderTimeline extends React.Component {
 
       hrStyle.marginLeft = (33 + validDaysOffset) + '%'
 
-      let validDateStyle = {
-        position: 'absolute',
-        width: '100%',
-        textAlign: 'center',
-        zIndex: 999999,
-        marginTop: -12,
-        fontWeight: 600
-      }
 
       return (
         <div style={timelineWrapper}

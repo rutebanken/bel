@@ -44,3 +44,6 @@ public
 
 #Ignore OSX specific folder
 .DS_Store
+
+#IDEA
+.idea/

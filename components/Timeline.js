@@ -9,10 +9,9 @@ class Timeline extends React.Component {
 
   render() {
 
-      const { timetables, startDate, endDate, validDaysOffset } = this.props
+      const { timetables, validDaysOffset, isLast } = this.props
 
       let { periods } = timetables[0]
-      let period = periods[0]
 
       const timelineStyle = {
         border: '1px solid black',
@@ -27,7 +26,7 @@ class Timeline extends React.Component {
 
       const timelineWrapper = {
         width: '100%',
-        paddingBottom: 10
+        paddingBottom: isLast ? 0 : 10
       }
 
       let timeBlock = {

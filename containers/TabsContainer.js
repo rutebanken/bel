@@ -4,9 +4,8 @@ import cfgreader from '../config/readConfig'
 import {Tabs, Tab} from 'material-ui/Tabs'
 import Events from './Events'
 import Status from './Status'
-import AsyncActions from '../actions/AsyncActions'
 import CircularProgress from 'material-ui/CircularProgress'
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card'
+import {Card, CardHeader, CardText} from 'material-ui/Card'
 
 class TabsContainer extends React.Component {
 
@@ -31,26 +30,32 @@ class TabsContainer extends React.Component {
 
   render() {
 
-    const { events, dispatch, lineStats } = this.props
+    const { dispatch, lineStats } = this.props
+    const valid = lineStats.data ? lineStats.data.valid.lineNumbers.length : 0
+    const invalid = lineStats.data ? lineStats.data.invalid.lineNumbers.length :  0
+    const soonInvalid = lineStats.data ? lineStats.data.soonInvalid.lineNumbers.length : 0
 
-    const cardsData = [
+    const cardsDataSource = [
       {title: 'dato for siste leveranse', children: '19-11-2016', color: '#1169A7'},
-      {title: 'antall linjer', children: '500', color: '#083453'},
-      {title: 'antall dager', children: '300', color: '#000'}
+      {title: 'antall linjer', children: valid + invalid + soonInvalid, color: '#083453'},
+      {title: 'antall dager', children: 'N/A', color: '#000'}
     ]
 
-    let cards = cardsData.map( (cd) => {
+    let cards = cardsDataSource.map( (cd) => {
       return (
         <Card
           style={{display: 'inline-block', width: '30.7vw', margin: '0.7vw'}}
           >
           <CardHeader
             title={cd.title}
-            style={{fontWeight: 600, textAlign: 'center', textTransform: 'uppercase'}}
-            textStyle={{width: '100%', fontSize: '5em'}}
+            style={{fontWeight: 600, textAlign: 'center', textTransform: 'uppercase', width: '100%'}}
+            titleStyle={{textAlign: 'center', width: '100%'}}
+            textStyle={{paddingRight: 0}}
             />
           <CardText>
-            <div style={{fontWeight: 600, fontSize: '4vw', textAlign: 'center', width: '100%', color: cd.color}}>{cd.children}</div>
+            <div style={{fontWeight: 600, fontSize: '4vw', textAlign: 'center', width: '100%', color: cd.color}}>
+                {cd.children}
+            </div>
           </CardText>
         </Card>
       )
