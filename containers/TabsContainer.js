@@ -6,6 +6,7 @@ import Events from './Events'
 import Status from './Status'
 import CircularProgress from 'material-ui/CircularProgress'
 import {Card, CardHeader, CardText} from 'material-ui/Card'
+import moment from 'moment'
 
 class TabsContainer extends React.Component {
 
@@ -30,13 +31,16 @@ class TabsContainer extends React.Component {
 
   render() {
 
-    const { dispatch, lineStats } = this.props
+    const { dispatch, lineStats, lastDeliveredDate } = this.props
     const valid = lineStats.data ? lineStats.data.valid.lineNumbers.length : 0
     const invalid = lineStats.data ? lineStats.data.invalid.lineNumbers.length :  0
     const soonInvalid = lineStats.data ? lineStats.data.soonInvalid.lineNumbers.length : 0
 
+
+    const formattedLastDeliveredDate = lastDeliveredDate ? moment(lastDeliveredDate).format('YYYY-MM-DD') : 'N/A'
+
     const cardsDataSource = [
-      {title: 'dato for siste leveranse', children: '19-11-2016', color: '#1169A7'},
+      {title: 'dato for siste leveranse', children: formattedLastDeliveredDate, color: '#1169A7'},
       {title: 'antall linjer', children: valid + invalid + soonInvalid, color: '#083453'},
       {title: 'antall dager', children: 'N/A', color: '#000'}
     ]
@@ -92,8 +96,9 @@ class TabsContainer extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    events: state.nabuReducer.events,
-    lineStats: state.nabuReducer.lineStats
+    events: state.asyncReducer.events,
+    lineStats: state.asyncReducer.lineStats,
+    lastDeliveredDate: state.asyncReducer.files.lastDelivered
   }
 }
 

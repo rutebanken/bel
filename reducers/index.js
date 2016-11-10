@@ -1,2 +1,2 @@
 export userReducer from './userReducer'
-export nabuReducer from './nabuReducer'
+export asyncReducer from './asyncReducer'

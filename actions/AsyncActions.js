@@ -20,6 +20,7 @@ AsyncActions.getProviderStatus = (id) => {
     .then(function(response) {
       let providerStatus = formatProviderStatusDate(response.data)
       dispatch(AsyncActions.getLineStats(id))
+      dispatch(AsyncActions.getFilesForProvider(id))
       dispatch(sendData(providerStatus, types.RECEIVED_EVENTS))
     })
     .catch(function(response){
@@ -30,7 +31,7 @@ AsyncActions.getProviderStatus = (id) => {
 
 AsyncActions.getAllSuppliers = () => {
 
-  return function(dispatch, getState) {
+  return function(dispatch) {
     dispatch( sendData(null,types.REQUESTED_SUPPLIERS) )
     const url = window.config.nabuBaseUrl+'providers/all'
 
@@ -65,10 +66,32 @@ AsyncActions.getLineStats = (id) => {
       dispatch( sendData(formattedLines, types.RECEIVED_LINE_STATS))
     })
     .catch( (response) => {
-      console.error("error", response)
+      console.error(response)
     })
   }
 
+
+}
+
+AsyncActions.getFilesForProvider = (providerId) => {
+
+  return function(dispatch) {
+
+    dispatch( sendData(null, types.REQUESTED_FILES_FOR_PROVIDER) )
+
+    return axios({
+      url: `${window.config.mardukBaseUrl}admin/services/chouette/${providerId}/files`,
+      timeout: 1000,
+      method: 'get',
+      responseTYpe: 'json'
+    })
+    .then( (response) => {
+      dispatch( sendData( response.data, types.RECEIVED_FILES_FOR_PROVIDER))
+    })
+    .catch( (response) => {
+      console.error(response)
+    })
+  }
 
 }
 
@@ -175,7 +198,7 @@ AsyncActions.uploadFiles = (files) => {
   return function (dispatch, getState) {
 
     const state = getState()
-    const id = state.nabuReducer.currentSupplier.id
+    const id = state.asyncReducer.currentSupplier.id
 
     dispatch( sendData(0, types.UPDATED_FILE_UPLOAD_PROGRESS_BAR))
 

@@ -8,9 +8,13 @@ const initialState = {
     isLoading: true,
     data: null
   },
+  files: {
+    data: [],
+    lastDelivered: null
+  }
 }
 
-const nabuReducer = (state = initialState, action) => {
+const asyncReducer = (state = initialState, action) => {
 
   switch (action.type) {
 
@@ -32,10 +36,19 @@ const nabuReducer = (state = initialState, action) => {
     case types.REQUESTED_LINE_STATS:
       return Object.assign({}, state, {lineStats: { isLoading: true, data: null} })
 
+    case types.RECEIVED_FILES_FOR_PROVIDER:
+
+      let lastDelivered = null
+
+      if (action.payLoad.files && action.payLoad.files.length) {
+        lastDelivered = action.payLoad.files[action.payLoad.files.length-1].updated
+      }
+      return Object.assign({}, state, {files: { lastDelivered: lastDelivered, data: action.payLoad.files}})
+
     default:
       return state
   }
 }
 
 
-export default nabuReducer
+export default asyncReducer

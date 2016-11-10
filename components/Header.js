@@ -106,8 +106,8 @@ class Header extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    supplierList: state.nabuReducer.suppliers,
-    activeSupplier: state.nabuReducer.currentSupplier
+    supplierList: state.asyncReducer.suppliers,
+    activeSupplier: state.asyncReducer.currentSupplier
   }
 }
 

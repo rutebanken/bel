@@ -36,7 +36,7 @@ class HeaderTimeline extends React.Component {
 
       let timeBlock = {
         background: '#5DAE5D',
-        height: this.props.index == 0 ? 19: 18,
+        height: 'auto',
         cursor: 'pointer',
         fontWeight: 500,
         fontSize: '0.8rem',
@@ -57,8 +57,10 @@ class HeaderTimeline extends React.Component {
       }
 
       const textSpanStyle = {
-        marginTop: 9,
-        color: '#fff'
+        color: '#fff',
+        whiteSpace: 'nowrap',
+        textOverflow: 'ellipsis',
+        height: 18,
       }
 
       const { effectivePeriods, validDaysOffset } = this.props
@@ -124,7 +126,9 @@ class HeaderTimeline extends React.Component {
                     <div
                       key={'timeline-header-block'+index}
                       style={periodBlock}>
-                      <div style={textSpanStyle}>{itemText}</div>
+                      <div style={textSpanStyle}>
+                          <div className="period-block" style={{height: '100%', color: '#fff', verticalAlign: 'middle'}}>{itemText}</div>
+                      </div>
                     </div>
                 )
               })

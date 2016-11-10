@@ -167,7 +167,7 @@ class Events extends React.Component {
 const mapStateToProps = (state, ownProps) => {
 
   var paginationMap = []
-  var list = state.nabuReducer.events
+  var list = state.asyncReducer.events
 
   if (list && list.length) {
     for (let i = 0, j = list.length; i < j; i+=10) {
