@@ -57,14 +57,9 @@ class HeaderTimeline extends React.Component {
       }
 
       const textSpanStyle = {
-        whiteSpace: 'nowrap',
-        overflow: 'hidden',
-        textOverflow: 'ellipsis',
-        color: '#fff',
-        verticalAlign: 'text-bottom'
+        marginTop: 9,
+        color: '#fff'
       }
-
-      console.log("this.props", this.props.index)
 
       const { effectivePeriods, validDaysOffset } = this.props
       const { showTooltip } = this.state
@@ -129,7 +124,7 @@ class HeaderTimeline extends React.Component {
                     <div
                       key={'timeline-header-block'+index}
                       style={periodBlock}>
-                      <span style={textSpanStyle}>{itemText}</span>
+                      <div style={textSpanStyle}>{itemText}</div>
                     </div>
                 )
               })
