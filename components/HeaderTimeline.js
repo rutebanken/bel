@@ -73,7 +73,7 @@ class HeaderTimeline extends React.Component {
       let hrStyle = {
         transform: 'rotate(90deg) translateX(20px)',
         borderTop: '1px dotted',
-        borderColor: '#50575B',
+        borderColor: '#000',
         marginTop: 9,
         width: 15,
         position: 'relative',

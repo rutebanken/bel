@@ -51,7 +51,7 @@ class Timeline extends React.Component {
       let hrStyle = {
         transform: 'rotate(90deg)',
         borderTop: '1px solid #eee',
-        borderColor: '#50575B',
+        borderColor: '#000',
         width: 15,
         position: 'absolute'
       }
