@@ -60,15 +60,12 @@ class HeaderTimeline extends React.Component {
         color: '#fff',
         whiteSpace: 'nowrap',
         textOverflow: 'ellipsis',
-        height: 18,
+        height: 18
       }
 
       const { effectivePeriods, validDaysOffset } = this.props
       const { showTooltip } = this.state
 
-      if(!effectivePeriods || !effectivePeriods.length) {
-        return null
-      }
 
       let hrStyle = {
         transform: 'rotate(90deg) translateX(20px)',
@@ -86,7 +83,7 @@ class HeaderTimeline extends React.Component {
         <div style={timelineWrapper}
           >
           <div
-            style={{display: 'inline-block', cursor: 'pointer', transform: 'translate(12px, 27px)', fontSize: '1vw'}}
+            style={{display: 'inline-block', cursor: 'pointer', transform: 'translate(12px, 30px)', fontSize: '1vw', color: effectivePeriods.length ? '#000' : 'red'}}
             onMouseOver={this.handleToggleToolTip.bind(this)}
             onMouseLeave={this.handleToggleToolTip.bind(this)}
             >
