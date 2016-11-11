@@ -53,7 +53,9 @@ class HeaderTimeline extends React.Component {
         background: '#191919',
         padding: 2,
         width: 'auto',
-        zIndex: 999999
+        zIndex: 99,
+        paddingLeft: 10,
+        paddingRight: 10
       }
 
       const textSpanStyle = {
@@ -78,6 +80,7 @@ class HeaderTimeline extends React.Component {
 
       hrStyle.marginLeft = (33 + validDaysOffset) + '%'
 
+      let hoverText = effectivePeriods.length ?  this.props.hoverText : 'Ugyldig linje. Mangler data'
 
       return (
         <div style={timelineWrapper}
@@ -91,7 +94,7 @@ class HeaderTimeline extends React.Component {
             { showTooltip
               ?
               <div style={toolTipStyle}>
-                {this.props.hoverText}
+                {hoverText}
              </div>
              : null
            }
