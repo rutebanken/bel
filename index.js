@@ -5,7 +5,6 @@ import { Provider } from 'react-redux'
 import Keycloak from 'keycloak-js'
 import Root from './containers/Root'
 import configureStore from './store/store'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import cfgreader from './config/readConfig'
 
 // used by material-ui, will be removed once the official React version of MI is relased
