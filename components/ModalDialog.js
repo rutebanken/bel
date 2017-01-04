@@ -1,4 +1,3 @@
-import { connect } from 'react-redux'
 import React, { Component, PropTypes } from 'react'
 
 export default class Modal extends React.Component {

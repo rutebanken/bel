@@ -27,13 +27,6 @@ class Events extends React.Component {
     }).bind(this))
   }
 
-  handleExpandContent = (id) => {
-    this.state = {
-      ...this.state,
-      expandedEventId: id
-    }
-  }
-
   handlePageClick (e, pageIndex) {
     e.preventDefault()
     this.setState({

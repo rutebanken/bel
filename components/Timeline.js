@@ -21,7 +21,8 @@ class Timeline extends React.Component {
         width: '85%',
         margin: 'auto',
         display: 'block',
-        overflowY: 'auto'
+        overflowY: 'auto',
+        marginBottom: isLast ? -15 : 'auto'
       }
 
       const timelineWrapper = {
@@ -34,7 +35,7 @@ class Timeline extends React.Component {
         width: '100%',
         height: '100%',
         color: '#fff',
-        fontWeight: 600
+        fontWeight: 500
       }
 
       let textStyle = {
@@ -45,7 +46,7 @@ class Timeline extends React.Component {
         margin: 'auto 10px',
         color: '#fff',
         fontSize: '0.7em',
-        fontWeight: 600
+        fontWeight: 500
       }
 
       let hrStyle = {

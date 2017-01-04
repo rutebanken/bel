@@ -8,7 +8,6 @@ export default class ExpandableEvent extends React.Component {
   render() {
 
     const { pageItem, index, hidden } = this.props
-    const eventPropStyle = { display: 'inline-block'}
     const headerStyle = { fontWeight: 600, marginTop: 10 }
     const itemStyle = { display: 'block', lineHeight: 2, marginTop: 10}
 

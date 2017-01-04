@@ -26,17 +26,6 @@ class ValidationReport extends React.Component {
       fontWeight: 600
     }
 
-    const dropStyle = {
-      width: "95%",
-      height: 150,
-      borderWidth: 1,
-      borderColor: '#666',
-      borderStyle: 'dashed',
-      borderRadius: 2,
-      marginTop: "10%",
-      marginLeft: "2.5%"
-    }
-
     return (
         <ModalDialog minHeight="600px" minWidth="800px" isOpen={isModalOpen} onClose={() => this.closeModal()}>
           <span style={headerSyle}>Validation reports ({reportViewType})</span>
