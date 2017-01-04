@@ -26,14 +26,11 @@ class FileUpload extends React.Component {
     dispatch(UserActions.dismissFileUploadDialog())
   }
 
-  handleOnDrop(files, e) {
-
+  handleOnDrop(files, ) {
     if (files.length) {
       this.setState({
         files: files
       })
-      e.preventDefault()
-      e.stopPropagation()
       return false
     }
   }
@@ -60,7 +57,7 @@ class FileUpload extends React.Component {
           <Dropzone
               style={dropStyle}
               accept="application/zip,application/octet-stream,application/x-zip,application/x-zip-compressed"
-              onDrop={(files, event) => { this.handleOnDrop(files, event) }}>
+              onDrop={(files) => { this.handleOnDrop(files) }}>
             <p style={{padding: "10%"}}>Try dropping some files here, or click to select files to upload.</p>
            </Dropzone>
            <select style={filesStyle} multiple>
