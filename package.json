@@ -21,7 +21,7 @@
     "chart.js": "1.1.1",
     "chartjs": "^0.3.24",
     "classnames": "^2.2.5",
-    "convict": "^1.4.0",
+    "convict": "^2.0.0",
     "describe": "^1.2.0",
     "express": "^4.13.4",
     "halogen": "^0.2.0",
