@@ -32,7 +32,7 @@
     "mocha": "^3.0.2",
     "moment": "^2.14.1",
     "nightwatch": "^0.9.12",
-    "react": "^15.4.1",
+    "react": "^15.4.2",
     "react-chartjs": "^0.8.0",
     "react-dom": "^15.4.1",
     "react-dropzone": "^3.8.0",
