@@ -100,7 +100,7 @@ export const formatLineStats = (lineStats) => {
 
   try {
 
-    const defaultObject = { lineNumbers: []}
+    const defaultObject = { lineNumbers: [] }
 
     let formattedLines = {
       invalid: lineStats.validityCategories
