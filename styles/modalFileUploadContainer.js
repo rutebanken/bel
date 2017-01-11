@@ -3,18 +3,6 @@ export const closeStyle = {
   marginTop: 2
 }
 
-export const selectStyle = {
-  height: "100%",
-  minHeight: "500px",
-  width: "95%",
-  margin: "10px"
-}
-
-export const inputStyle = {
-  width: "95%",
-  margin: "10px"
-}
-
 export const headerStyle = {
   width: "95%",
   marginLeft: "10px",

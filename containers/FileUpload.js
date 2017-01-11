@@ -7,7 +7,7 @@ import FlatButton from 'material-ui/FlatButton'
 import Dropzone from 'react-dropzone'
 import RaisedButton from 'material-ui/RaisedButton'
 import LinearProgress from 'material-ui/LinearProgress'
-import { closeStyle, selectStyle, inputStyle, filesStyle, headerStyle, dropStyle, uploadBtnStyle } from '../styles/modalFileUploadContainer'
+import { closeStyle, filesStyle, headerStyle, dropStyle, uploadBtnStyle } from '../styles/modalFileUploadContainer'
 
 class FileUpload extends React.Component {
 
