@@ -36,7 +36,6 @@ class TabsContainer extends React.Component {
     const invalid = lineStats.data ? lineStats.data.invalid.lineNumbers.length :  0
     const soonInvalid = lineStats.data ? lineStats.data.soonInvalid.lineNumbers.length : 0
 
-
     const formattedLastDeliveredDate = lastDeliveredDate ? moment(lastDeliveredDate).format('YYYY-MM-DD') : 'N/A'
 
     const cardsDataSource = [
