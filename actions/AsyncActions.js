@@ -108,8 +108,15 @@ export const formatLineStats = (lineStats) => {
       valid: lineStats.validityCategories
         .filter( (category) => category.numDaysAtLeastValid >= 127)[0] || defaultObject,
       soonInvalid: lineStats.validityCategories
-        .filter( (category) => (category.numDaysAtLeastValid > 120 && category.numDaysAtLeastValid < 127))[0] || defaultObject,
+        .filter( (category) => (category.numDaysAtLeastValid >= 120 && category.numDaysAtLeastValid < 127))[0] || defaultObject,
+      all: defaultObject
     }
+
+   formattedLines.all.lineNumbers = [].concat(
+       formattedLines.invalid.lineNumbers,
+       formattedLines.soonInvalid.lineNumbers,
+       formattedLines.valid.lineNumbers
+     )
 
     let linesMap = {}
 

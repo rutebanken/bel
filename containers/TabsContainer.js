@@ -44,10 +44,11 @@ class TabsContainer extends React.Component {
       {title: 'antall dager', children: 'N/A', color: '#000'}
     ]
 
-    let cards = cardsDataSource.map( (cd) => {
+    let cards = cardsDataSource.map( (cd, index) => {
       return (
         <Card
           style={{display: 'inline-block', width: '30.7vw', margin: '0.7vw'}}
+          key={"card-" + index}
           >
           <CardHeader
             title={cd.title}

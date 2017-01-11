@@ -10,8 +10,8 @@ class Status extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      sliderEnabled: false,
-      selectedSegment: 'valid'
+      sliderEnabled: true,
+      selectedSegment: 'all',
     }
 
     this.segmentMap = {
@@ -20,7 +20,9 @@ class Status extends React.Component {
       'Linjer med manglende gyldighetsperiode' : 'invalid',
       'valid' : 'Linjer i gyldig periode',
       'soonInvalid' : 'Linjer med gyldighetsperiode som snart utgår',
-      'invalid' : 'Linjer med manglende gyldighetsperiode'
+      'invalid' : 'Linjer med manglende gyldighetsperiode',
+      'all' : 'Alle linjer',
+      'Alle linjer' : 'all'
     }
 
   }
@@ -29,6 +31,13 @@ class Status extends React.Component {
     this.setState({
       ...this.state,
       sliderEnabled: false
+    })
+  }
+
+  componentWillMount() {
+    this.setState({
+      ...this.state,
+      segmentValue: this.props.stats.data.all.lineNumbers.length
     })
   }
 
@@ -42,11 +51,21 @@ class Status extends React.Component {
       let clickedSegmentValue = chart.getSegmentsAtEvent(e)[0].value
 
       this.setState({
+        ...this.state,
         sliderEnabled: true,
         selectedSegment: this.segmentMap[clickedSegmentLabel],
         segmentValue: clickedSegmentValue
       })
     }
+  }
+
+  handleShowAllClick() {
+    this.setState({
+      ...this.state,
+      selectedSegment: 'all',
+      segmentValue: this.props.stats.data.all.lineNumbers.length,
+      sliderEnabled: true
+    })
   }
 
   handleToggleListItem(index) {
@@ -113,6 +132,14 @@ class Status extends React.Component {
       marginRight: '5%'
     }
 
+    const showAllStyle = {
+      color: 'rgb(17, 105, 167)',
+      fontWeight: 600,
+      textDecoration: 'underline',
+      cursor: 'pointer',
+      marginTop: 10
+    }
+
     const { sliderEnabled, selectedSegment, segmentValue } = this.state
 
     return (
@@ -120,17 +147,17 @@ class Status extends React.Component {
         <Card
           expanded={true}
           style={{width: '95vw'}}
-          >
+        >
           <CardText
             style={{padding: '0vh 0'}}
-            >
+          >
             <div style={{overflow: 'auto'}}>
               { sliderEnabled
                 ?
                 <Card>
                   <CardText style={{float: 'left', minHeight: 700, width: '70%'}}>
                     <div onClick={this.handleHideSlider.bind(this)}
-                      style={{float: 'right', cursor: 'pointer', marginTop: 10, marginRight: 20}}>
+                         style={{float: 'right', cursor: 'pointer', marginTop: 10, marginRight: 20}}>
                       X
                     </div>
                     <div style={{textTransform: 'uppercase', fontWeight: 600, marginLeft: 10, fontSize: '2em', display: 'block', paddingTop: 10, paddingBottom: 10}}>
@@ -143,10 +170,10 @@ class Status extends React.Component {
                     </div>
                     <div
                       style={{maxHeight: 800, minHeight: 800, overflowY: 'scroll', overflowX: 'hidden', margin: 'auto'}}
-                      >
+                    >
                       <List
                         style={{width: '100%', boxShadow: 'none'}}
-                        >
+                      >
                         { stats.data[selectedSegment].lineNumbers.map( (line, index) => (
                           <ListItem
                             key={'line'+index}
@@ -157,14 +184,14 @@ class Status extends React.Component {
                               <div
                                 key={'ht-wrapper'+index}
                                 onClick={() => { this.handleToggleListItem(index) }}
-                                >
+                              >
                                 <HeaderTimeline line={line}
                                   hoverText={stats.data.linesMap[line].lineNames.join(', ')}
                                   index={index} key={'HeaderTimeline'+index}
                                   validDaysOffset={stats.data.validDaysOffset}
                                   validFromDate={stats.data.validFromDate}
                                   effectivePeriods={stats.data.linesMap[line].effectivePeriods}
-                                  />
+                                />
                               </div>
                             }
                             nestedItems={
@@ -173,42 +200,43 @@ class Status extends React.Component {
                                   style={{padding: 0, marginLeft: 0}}
                                   children={
                                     stats.data.linesMap[line].lines.map( (l,i) => (
-                                      <Timeline key={'timelineItem'+index+'-'+i}
+                                      <Timeline
+                                        key={'timelineItem'+index+'-'+i}
                                         timetables={l.timetables}
                                         isLast={i === stats.data.linesMap[line].lines.length-1}
                                         validDaysOffset={stats.data.validDaysOffset}
-                                        />
+                                      />
                                     ))
                                   } />
-                                ]
-                              }
-                              >
-                            </ListItem>
-                          ))}
-                        </List>
-                      </div>
+                              ]
+                            }
+                          >
+                          </ListItem>
+                        ))}
+                      </List>
+                    </div>
+                  </CardText>
+                  <Card style={{float: 'right', width: '25vw', marginTop: '0vh', marginRight: '0.0vw'}}>
+                    <CardText>
+                      <PieChart ref="chartSmall"  onClick={(e) => { this.handlePieOnClick(e, "chartSmall") } } data={pieData} width="auto" height="250"  options={pieOptionsFull}/>
+                      <div onClick={() => this.handleShowAllClick()} style={showAllStyle}>Vis alle</div>
                     </CardText>
-                    <Card style={{float: 'right', width: '25vw', marginTop: '0vh', marginRight: '0.0vw'}}>
-                        <CardText>
-                            <PieChart ref="chartSmall"  onClick={(e) => { this.handlePieOnClick(e, "chartSmall") } } data={pieData} width="auto" height="250"  options={pieOptionsFull}/>
-                        </CardText>
-                    </Card>
                   </Card>
-                  :
-                  <Card
-                      style={{width: '100%', textAlign: 'center', padding: '2vh 0vw'}}
-                  >
-                      <CardText>
-                          <PieChart ref="chartFull"  onClick={(e) => { this.handlePieOnClick(e, "chartFull") } } data={pieData} width="auto" height="80"  options={pieOptionsFull}/>
-                      </CardText>
-                  </Card>
-                }
-              </div>
-            </CardText>
-          </Card>
-        </div>
-      )
-    }
+                </Card>
+                :
+                <Card style={{width: '100%', textAlign: 'center', padding: '2vh 0vw'}}>
+                  <CardText>
+                    <PieChart ref="chartFull"  onClick={(e) => { this.handlePieOnClick(e, "chartFull") } } data={pieData} width="auto" height="80"  options={pieOptionsFull}/>
+                    <div onClick={() => this.handleShowAllClick()} style={showAllStyle}>Vis alle</div>
+                  </CardText>
+                </Card>
+              }
+            </div>
+          </CardText>
+        </Card>
+      </div>
+    )
   }
+}
 
 export default Status
