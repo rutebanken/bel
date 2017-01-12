@@ -1,19 +1,19 @@
-import React from 'react'
-import { Pie as PieChart } from 'react-chartjs'
-import {Card, CardText} from 'material-ui/Card'
-import {List, ListItem} from 'material-ui/List'
+import React, { PropTypes } from 'react'
+import { Card, CardText } from 'material-ui/Card'
+import { List, ListItem } from 'material-ui/List'
 import Timeline from '../components/Timeline'
 import HeaderTimeline from '../components/HeaderTimeline'
 import { color } from '../components/styles'
 
-class Status extends React.Component {
+class StatusCard extends React.Component {
+
+  static propTypes = {
+    selectedSegment: PropTypes.string.isRequired,
+    stats: PropTypes.object.isRequired
+  }
 
   constructor(props) {
     super(props)
-    this.state = {
-      selectedSegment: 'all',
-    }
-
     this.segmentMap = {
       'Linjer i gyldig periode' : 'valid',
       'Linjer med gyldighetsperiode som snart utgår' : 'soonInvalid',
@@ -26,38 +26,6 @@ class Status extends React.Component {
     }
   }
 
-  componentWillMount() {
-    this.setState({
-      ...this.state,
-      segmentValue: this.props.stats.data.all.lineNumbers.length
-    })
-  }
-
-  handlePieOnClick(e, refId) {
-
-    let chart = this.refs[refId].getChart()
-
-    if (chart.getSegmentsAtEvent(e)[0]) {
-
-      let clickedSegmentLabel = chart.getSegmentsAtEvent(e)[0].label
-      let clickedSegmentValue = chart.getSegmentsAtEvent(e)[0].value
-
-      this.setState({
-        ...this.state,
-        selectedSegment: this.segmentMap[clickedSegmentLabel],
-        segmentValue: clickedSegmentValue
-      })
-    }
-  }
-
-  handleShowAllClick() {
-    this.setState({
-      ...this.state,
-      selectedSegment: 'all',
-      segmentValue: this.props.stats.data.all.lineNumbers.length,
-    })
-  }
-
   handleToggleListItem(index) {
     let ref = this.refs['listItem'+index]
     ref.setState({
@@ -68,39 +36,7 @@ class Status extends React.Component {
 
   render() {
 
-    let pieOptionsFull = {
-      animation: false,
-      showTooltips: true,
-      responsive: true,
-      tooltipTemplate: "<%= label %> - <%= value %>"
-    }
-
     const { stats } = this.props
-
-    const valid = stats.data.valid.lineNumbers.length
-    const invalid = stats.data.invalid.lineNumbers.length
-    const soonInvalid = stats.data.soonInvalid.lineNumbers.length
-
-    const pieData = [
-      {
-        value: valid,
-        highlight: color.valid,
-        color: color.font.valid,
-        label: this.segmentMap['valid'],
-      },
-      {
-        value: soonInvalid,
-        color: color.font.expiring,
-        highlight: color.expiring,
-        label: this.segmentMap['soonInvalid'],
-      },
-      {
-        value: invalid,
-        color: color.font.invalid,
-        highlight: color.invalid,
-        label: this.segmentMap['invalid'],
-      }
-    ]
 
     let validDateMiddleStyle = {
       fontWeight: 600,
@@ -122,18 +58,11 @@ class Status extends React.Component {
       marginRight: '5%'
     }
 
-    const showAllStyle = {
-      color: 'rgb(17, 105, 167)',
-      fontWeight: 600,
-      textDecoration: 'underline',
-      cursor: 'pointer',
-      marginTop: 10
-    }
-
-    const { selectedSegment, segmentValue } = this.state
+    const { selectedSegment } = this.props
+    const segmentValue = stats.data[selectedSegment].lineNumbers.length
 
     return (
-      <div style={{marginLeft: '1vw'}}>
+      <div>
         <Card
           expanded={true}
           style={{width: '95vw'}}
@@ -143,11 +72,11 @@ class Status extends React.Component {
           >
             <div style={{overflow: 'auto'}}>
                 <Card>
-                  <CardText style={{float: 'left', minHeight: 700, width: '70%'}}>
+                  <CardText style={{minHeight: 700}}>
                     <div style={{textTransform: 'uppercase', fontWeight: 600, marginLeft: 10, fontSize: '2em', display: 'block', paddingTop: 10, paddingBottom: 10}}>
                       {`${this.segmentMap[selectedSegment]} (${segmentValue})`}
                     </div>
-                    <div style={{display: 'block', margin: 10, padding: 6, background: color.tableHeader, opacity: '0.8', borderRadius: 7}}>
+                    <div style={{display: 'block', margin: 5, padding: 6, background: color.tableHeader, opacity: '0.8', borderRadius: 7}}>
                       <div style={validDateStartStyle}>{stats.data.startDate}</div>
                       <div style={validDateMiddleStyle}>{stats.data.validFromDate} (120 dager)</div>
                       <div style={validDateEndStyle}>{stats.data.endDate}</div>
@@ -200,12 +129,6 @@ class Status extends React.Component {
                       </List>
                     </div>
                   </CardText>
-                  <Card style={{float: 'right', width: '25vw', marginTop: '0vh', marginRight: '0.0vw'}}>
-                    <CardText>
-                      <PieChart ref="chartSmall"  onClick={(e) => { this.handlePieOnClick(e, "chartSmall") } } data={pieData} width="auto" height="250"  options={pieOptionsFull}/>
-                      <div onClick={() => this.handleShowAllClick()} style={showAllStyle}>Vis alle</div>
-                    </CardText>
-                  </Card>
                 </Card>
             </div>
           </CardText>
@@ -215,4 +138,4 @@ class Status extends React.Component {
   }
 }
 
-export default Status
+export default StatusCard
