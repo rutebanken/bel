@@ -62,11 +62,7 @@ class StatusCard extends React.Component {
     const segmentValue = stats.data[selectedSegment].lineNumbers.length
 
     return (
-      <div>
-        <Card
-          expanded={true}
-          style={{width: '95vw'}}
-        >
+        <Card expanded={true} style={{flex: 4}}>
           <CardText
             style={{padding: '0vh 0'}}
           >
@@ -82,7 +78,7 @@ class StatusCard extends React.Component {
                       <div style={validDateEndStyle}>{stats.data.endDate}</div>
                     </div>
                     <div
-                      style={{maxHeight: 800, minHeight: 800, overflowY: 'scroll', overflowX: 'hidden', margin: 'auto'}}
+                      style={{maxHeight: 800, minHeight: 800, overflowY: 'scroll', overflowX: 'hidden', margin: 'auto', width: '100%'}}
                     >
                       <List
                         style={{width: '100%', boxShadow: 'none'}}
@@ -133,7 +129,6 @@ class StatusCard extends React.Component {
             </div>
           </CardText>
         </Card>
-      </div>
     )
   }
 }
