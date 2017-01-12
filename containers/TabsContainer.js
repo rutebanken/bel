@@ -30,6 +30,17 @@ class TabsContainer extends React.Component {
     })
   }
 
+  color(validity) {
+    switch (validity) {
+      case 'INVALID':
+        return color.font.invalid
+      case 'VALID':
+        return color.font.valid
+      case 'SOON_INVALID':
+        return color.font.expiring
+    }
+  }
+
   render() {
 
     const { dispatch, lineStats, lastDeliveredDate } = this.props
@@ -41,9 +52,9 @@ class TabsContainer extends React.Component {
     const lines = [
       {element: valid + invalid + soonInvalid, color: color.font.info2},
       {element: ' / ', color: color.font.info3},
-      {element: invalid, color: color.fail}
+      {element: invalid, color: color.font.invalid}
       ]
-    const minDays = [{element: 'N/A', color: color.font.info3}] //lineStats.data ? ( (lineStats.data) => {})()
+    const minDays = [{element: lineStats.data ? lineStats.data.minDays.days : 0, color: this.color(lineStats.data.minDays.validity)}]
 
     const cardsDataSource = [
       {title: 'dato for siste leveranse', children: formattedLastDeliveredDate },
