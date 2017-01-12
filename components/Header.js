@@ -11,6 +11,7 @@ import Popover from 'material-ui/Popover'
 import Menu from 'material-ui/Menu'
 import { connect } from 'react-redux'
 import AsyncActions from '../actions/AsyncActions'
+import { color } from '../components/styles'
 
 class Header extends React.Component {
 
@@ -55,7 +56,7 @@ class Header extends React.Component {
           <AppBar
             title={title}
             showMenuIconButton={true}
-            style={{background: "#2F2F2F", color: "#fff"}}
+            style={{background: color.background, color: color.font.inverse}}
             iconElementLeft={
               <IconButton
                 onTouchTap={this.handleTouchTap}

@@ -5,6 +5,7 @@ import UserActions from '../actions/UserActions'
 import FlatButton from 'material-ui/FlatButton'
 import Upload from 'material-ui/svg-icons/file/file-upload'
 import EventDetails from './EventDetails'
+import { color } from '../components/styles'
 
 class Events extends React.Component {
 
@@ -35,11 +36,11 @@ class Events extends React.Component {
             style={{float: 'right'}}
           />
         </div>
-        { true
+        { (paginationMap && paginationMap.length)
           ?
           <EventDetails paginationMap={paginationMap}/>
         :
-        <div style={{padding: 40, background: '#ffffdb', marginTop: 40, fontWeight: 500}}>Ingen tidligere leveranser.</div>
+        <div style={{padding: 40, background: color.tableInfo, marginTop: 40, fontWeight: 500}}>Ingen tidligere leveranser.</div>
       }
       </div>
   )}

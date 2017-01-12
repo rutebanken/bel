@@ -7,6 +7,7 @@ import Status from './Status'
 import CircularProgress from 'material-ui/CircularProgress'
 import {Card, CardHeader, CardText} from 'material-ui/Card'
 import moment from 'moment'
+import { color } from '../components/styles'
 
 class TabsContainer extends React.Component {
 
@@ -39,9 +40,9 @@ class TabsContainer extends React.Component {
     const formattedLastDeliveredDate = lastDeliveredDate ? moment(lastDeliveredDate).format('YYYY-MM-DD') : 'N/A'
 
     const cardsDataSource = [
-      {title: 'dato for siste leveranse', children: formattedLastDeliveredDate, color: '#1169A7'},
-      {title: 'antall linjer', children: valid + invalid + soonInvalid, color: '#083453'},
-      {title: 'antall dager', children: 'N/A', color: '#000'}
+      {title: 'dato for siste leveranse', children: formattedLastDeliveredDate, color: color.font.info1},
+      {title: 'antall linjer', children: valid + invalid + soonInvalid, color: color.font.info2},
+      {title: 'antall dager', children: 'N/A', color: color.font.info3}
     ]
 
     let cards = cardsDataSource.map( (cd, index) => {
@@ -69,7 +70,8 @@ class TabsContainer extends React.Component {
       <Tabs
         value={this.state.value}
         onChange={this.handleChange.bind(this)}
-        tabItemContainerStyle={{background: '#2F2F2F'}}
+        inkBarStyle={{height: 7, bottom: 5, backgroundColor: color.tabActive}}
+        tabItemContainerStyle={{background: color.background}}
        >
         <Tab value="status" label="Linjestatus"
           style={{marginTop: 10}}

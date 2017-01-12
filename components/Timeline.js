@@ -1,5 +1,6 @@
 import React from 'react'
 import moment from 'moment'
+import { color } from '../components/styles'
 
 class Timeline extends React.Component {
 
@@ -16,7 +17,7 @@ class Timeline extends React.Component {
       const timelineStyle = {
         border: '1px solid black',
         borderRadius: 5,
-        background: '#DED8D8',
+        background: color.timeLineBackground,
         height: '100%',
         width: '85%',
         margin: 'auto',
@@ -31,10 +32,10 @@ class Timeline extends React.Component {
       }
 
       let timeBlock = {
-        background: '#6D92B6',
+        background: color.timeLineBlockBackground,
         width: '100%',
         height: '100%',
-        color: '#fff',
+        color: color.font.inverse,
         fontWeight: 500
       }
 
@@ -44,15 +45,15 @@ class Timeline extends React.Component {
         textOverflow: 'ellipsis',
         display: 'block',
         margin: 'auto 10px',
-        color: '#fff',
+        color: color.font.inverse,
         fontSize: '0.7em',
         fontWeight: 500
       }
 
       let hrStyle = {
         transform: 'rotate(90deg)',
-        borderTop: '1px solid #eee',
-        borderColor: '#000',
+        borderTop: '1px solid ' + color.timeLineBorder,
+        borderColor: color.in,
         width: 15,
         position: 'absolute'
       }

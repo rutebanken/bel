@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import Error from 'material-ui/svg-icons/alert/error'
 import Success from 'material-ui/svg-icons/action/done'
 import { TableRow, TableRowColumn } from 'material-ui/Table'
+import { color } from '../components/styles'
 
 export default class ExpandableEvent extends React.Component {
 
@@ -19,7 +20,7 @@ export default class ExpandableEvent extends React.Component {
 
       <TableRow
         key={"expanded-row-" + index}
-        style={{background: '#f5f8f8', borderBottom: '1px solid black'}}
+        style={{background: color.tableRow, borderBottom: '1px solid black'}}
         selectable={false}
         >
 
@@ -55,7 +56,7 @@ export default class ExpandableEvent extends React.Component {
           })}
         </TableRowColumn>
         <TableRowColumn
-          style={{background: '#d7e5e3'}}
+          style={{background: color.tableRow}}
           colSpan="1"
           >
         </TableRowColumn>

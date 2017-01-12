@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react'
+import { color } from '../components/styles'
 
 export default class Modal extends React.Component {
 
@@ -17,7 +18,7 @@ export default class Modal extends React.Component {
       zIndex: 9999,
       minWidth: minWidth,
       minHeight: minHeight,
-      background: '#fff'
+      background: color.modal
     }
 
     if (this.props.width && this.props.height) {
@@ -41,7 +42,7 @@ export default class Modal extends React.Component {
       top: 0,
       left: 0,
       zIndex: '9998',
-      background: 'rgba(0, 0, 0, 0.3)'
+      background: color.backdrop
     }
 
     if (this.props.backdropStyle) {

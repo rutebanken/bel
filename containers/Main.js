@@ -3,8 +3,6 @@ import React, { Component, PropTypes } from 'react'
 import cfgreader from '../config/readConfig'
 import TabsContainer from './TabsContainer'
 import AsyncActions from '../actions/AsyncActions'
-import SelectField from 'material-ui/SelectField'
-import MenuItem from 'material-ui/MenuItem'
 
 class Main extends React.Component {
 
