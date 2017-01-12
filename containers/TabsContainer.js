@@ -37,12 +37,18 @@ class TabsContainer extends React.Component {
     const invalid = lineStats.data ? lineStats.data.invalid.lineNumbers.length :  0
     const soonInvalid = lineStats.data ? lineStats.data.soonInvalid.lineNumbers.length : 0
 
-    const formattedLastDeliveredDate = lastDeliveredDate ? moment(lastDeliveredDate).format('YYYY-MM-DD') : 'N/A'
+    const formattedLastDeliveredDate = [{element: lastDeliveredDate ? moment(lastDeliveredDate).format('YYYY-MM-DD') : 'N/A', color: color.font.info1}]
+    const lines = [
+      {element: valid + invalid + soonInvalid, color: color.font.info2},
+      {element: ' / ', color: color.font.info3},
+      {element: invalid, color: color.fail}
+      ]
+    const minDays = [{element: 'N/A', color: color.font.info3}] //lineStats.data ? ( (lineStats.data) => {})()
 
     const cardsDataSource = [
-      {title: 'dato for siste leveranse', children: formattedLastDeliveredDate, color: color.font.info1},
-      {title: 'antall linjer', children: valid + invalid + soonInvalid, color: color.font.info2},
-      {title: 'antall dager', children: 'N/A', color: color.font.info3}
+      {title: 'dato for siste leveranse', children: formattedLastDeliveredDate },
+      {title: 'antall linjer', children: lines},
+      {title: 'antall dager', children: minDays}
     ]
 
     let cards = cardsDataSource.map( (cd, index) => {
@@ -58,8 +64,14 @@ class TabsContainer extends React.Component {
             textStyle={{paddingRight: 0}}
             />
           <CardText>
-            <div style={{fontWeight: 600, fontSize: '4vw', textAlign: 'center', width: '100%', color: cd.color}}>
-                {cd.children}
+            <div style={{fontWeight: 600, fontSize: '4vw', textAlign: 'center', width: '100%'}}>
+              {cd.children.map( (child) => {
+                return (
+                  <span style={{color: child.color}}>
+                    {child.element}
+                  </span>
+                )
+              })}
             </div>
           </CardText>
         </Card>
