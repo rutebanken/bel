@@ -10,6 +10,7 @@ import ExpandableEvent from '../components/expandableEvent'
 import FlatButton from 'material-ui/FlatButton'
 import IconButton from 'material-ui/IconButton'
 import Upload from 'material-ui/svg-icons/file/file-upload'
+import { color } from '../components/styles'
 
 class Events extends React.Component {
 
@@ -121,13 +122,13 @@ class Events extends React.Component {
                   const chouetteRow = (
                       <TableRow
                         key={"chouette-row-" + index}
-                        style={{background: '#ebf2f1'}}
+                        style={{background: color.tableRow}}
                         >
                         <TableRowColumn colSpan="4">
                             {pageItem.fileName}
                         </TableRowColumn>
                         <TableRowColumn colSpan="2">
-                          { endStateFailed ? <Success color="green"/> : <Error color="red"/>}
+                          { endStateFailed ? <Success color="green"/> : <Error color="red"/>} // TODO
                         </TableRowColumn>
                         <TableRowColumn colSpan="3">
                           {pageItem.firstEvent}
@@ -151,7 +152,7 @@ class Events extends React.Component {
             </Table>
           </div>
         :
-        <div style={{padding: 40, background: '#ffffdb', marginTop: 40, fontWeight: 500}}>Ingen tidligere leveranser.</div>
+        <div style={{padding: 40, background: color.tableInfo, marginTop: 40, fontWeight: 500}}>Ingen tidligere leveranser.</div>
       }
       </div>
   )}

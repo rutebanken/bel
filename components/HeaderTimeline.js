@@ -1,4 +1,5 @@
 import React from 'react'
+import { color } from '../components/styles'
 
 class HeaderTimeline extends React.Component {
 
@@ -20,7 +21,7 @@ class HeaderTimeline extends React.Component {
       const timelineStyle = {
         border: '1px solid black',
         borderRadius: 5,
-        background: '#B91919',
+        background: color.timeLineFail,
         height: 18,
         width: '85%',
         margin: 'auto',
@@ -35,7 +36,7 @@ class HeaderTimeline extends React.Component {
       }
 
       let timeBlock = {
-        background: '#5DAE5D',
+        background: color.timeLineSuccess,
         height: 'auto',
         cursor: 'pointer',
         fontWeight: 500,
@@ -49,8 +50,8 @@ class HeaderTimeline extends React.Component {
         transition: 'opacity 1s',
         display: 'inline',
         fontSize: '0.8em',
-        color: '#fff',
-        background: '#191919',
+        color: color.font.tooltip,
+        background: color.tooltip,
         padding: 2,
         width: 'auto',
         zIndex: 99,
@@ -59,7 +60,7 @@ class HeaderTimeline extends React.Component {
       }
 
       const textSpanStyle = {
-        color: '#fff',
+        color: color.font.inverse,
         whiteSpace: 'nowrap',
         textOverflow: 'ellipsis',
         height: 18
@@ -72,7 +73,7 @@ class HeaderTimeline extends React.Component {
       let hrStyle = {
         transform: 'rotate(90deg) translateX(20px)',
         borderTop: '1px dotted',
-        borderColor: '#000',
+        borderColor: color.border,
         marginTop: 9,
         width: 15,
         position: 'relative',
@@ -86,7 +87,7 @@ class HeaderTimeline extends React.Component {
         <div style={timelineWrapper}
           >
           <div
-            style={{display: 'inline-block', cursor: 'pointer', transform: 'translate(12px, 30px)', fontSize: '1vw', color: effectivePeriods.length ? '#000' : 'red'}}
+            style={{display: 'inline-block', cursor: 'pointer', transform: 'translate(12px, 30px)', fontSize: '1vw', color: effectivePeriods.length ? color.effective : color.fail}}
             onMouseOver={this.handleToggleToolTip.bind(this)}
             onMouseLeave={this.handleToggleToolTip.bind(this)}
             >
@@ -127,7 +128,7 @@ class HeaderTimeline extends React.Component {
                       key={'timeline-header-block'+index}
                       style={periodBlock}>
                       <div style={textSpanStyle}>
-                          <div className="period-block" style={{height: '100%', color: '#fff', verticalAlign: 'middle'}}>{itemText}</div>
+                          <div className="period-block" style={{height: '100%', color: color.font.inverse, verticalAlign: 'middle'}}>{itemText}</div>
                       </div>
                     </div>
                 )

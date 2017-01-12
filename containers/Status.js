@@ -4,6 +4,7 @@ import {Card, CardText} from 'material-ui/Card'
 import {List, ListItem} from 'material-ui/List'
 import Timeline from '../components/Timeline'
 import HeaderTimeline from '../components/HeaderTimeline'
+import { color } from '../components/styles'
 
 class Status extends React.Component {
 
@@ -75,20 +76,20 @@ class Status extends React.Component {
     const pieData = [
       {
         value: valid,
-        highlight: "#4caf50",
-        color: "#449d48",
+        highlight: color.valid,
+        color: color.font.valid,
         label: this.segmentMap['valid'],
       },
       {
         value: soonInvalid,
-        color: "#FDB45C",
-        highlight: "#FFC870",
+        color: color.font.expiring,
+        highlight: color.expiring,
         label: this.segmentMap['soonInvalid'],
       },
       {
         value: invalid,
-        color: "#b20000",
-        highlight: "#cc0000",
+        color: color.font.invalid,
+        highlight: color.invalid,
         label: this.segmentMap['invalid'],
       }
     ]
@@ -136,7 +137,7 @@ class Status extends React.Component {
                     <div style={{textTransform: 'uppercase', fontWeight: 600, marginLeft: 10, fontSize: '2em', display: 'block', paddingTop: 10, paddingBottom: 10}}>
                       {`${this.segmentMap[selectedSegment]} (${segmentValue})`}
                     </div>
-                    <div style={{display: 'block', margin: 10, padding: 6, background: '#f2f2f2', opacity: '0.8', borderRadius: 7}}>
+                    <div style={{display: 'block', margin: 10, padding: 6, background: color.tableHeader, opacity: '0.8', borderRadius: 7}}>
                       <div style={validDateStartStyle}>{stats.data.startDate}</div>
                       <div style={validDateMiddleStyle}>{stats.data.validFromDate} (120 dager)</div>
                       <div style={validDateEndStyle}>{stats.data.endDate}</div>
