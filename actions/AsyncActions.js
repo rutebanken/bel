@@ -125,6 +125,8 @@ export const formatLineStats = (lineStats) => {
     formattedLines.days = lineStats.days
     formattedLines.endDate = startDate.add(formattedLines.days, 'days').format('YYYY-MM-DD')
 
+    let minDays = {days: 365, valid: 'VALID'}
+
     lineStats.publicLines.forEach ( (publicLine) => {
 
         publicLine.effectivePeriods.forEach( (effectivePeriod) => {
@@ -157,6 +159,10 @@ export const formatLineStats = (lineStats) => {
             effectivePeriod.validationLevel = 'VALID'
           }
 
+          if (daysForward < minDays.days) {
+            minDays = {days: daysForward, validity: effectivePeriod.validationLevel}
+          }
+
         })
 
         publicLine.lines.forEach( (line) => {
@@ -185,12 +191,16 @@ export const formatLineStats = (lineStats) => {
           })
         })
 
+        if (publicLine.effectivePeriods.length == 0) {
+            minDays = {days: 0, validity: 'INVALID'}
+        }
         linesMap[publicLine.lineNumber] = publicLine
     })
 
     formattedLines.linesMap = linesMap
     formattedLines.validDaysOffset = 33
     formattedLines.validFromDate = moment(lineStats.startDate, 'YYYY-MM-DD').add(120, 'days').format('YYYY-MM-DD')
+    formattedLines.minDays = minDays
 
     return formattedLines
 
