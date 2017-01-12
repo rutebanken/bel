@@ -11,7 +11,6 @@ class Status extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      sliderEnabled: true,
       selectedSegment: 'all',
     }
 
@@ -25,14 +24,6 @@ class Status extends React.Component {
       'all' : 'Alle linjer',
       'Alle linjer' : 'all'
     }
-
-  }
-
-  handleHideSlider() {
-    this.setState({
-      ...this.state,
-      sliderEnabled: false
-    })
   }
 
   componentWillMount() {
@@ -53,7 +44,6 @@ class Status extends React.Component {
 
       this.setState({
         ...this.state,
-        sliderEnabled: true,
         selectedSegment: this.segmentMap[clickedSegmentLabel],
         segmentValue: clickedSegmentValue
       })
@@ -65,7 +55,6 @@ class Status extends React.Component {
       ...this.state,
       selectedSegment: 'all',
       segmentValue: this.props.stats.data.all.lineNumbers.length,
-      sliderEnabled: true
     })
   }
 
@@ -141,7 +130,7 @@ class Status extends React.Component {
       marginTop: 10
     }
 
-    const { sliderEnabled, selectedSegment, segmentValue } = this.state
+    const { selectedSegment, segmentValue } = this.state
 
     return (
       <div style={{marginLeft: '1vw'}}>
@@ -153,14 +142,8 @@ class Status extends React.Component {
             style={{padding: '0vh 0'}}
           >
             <div style={{overflow: 'auto'}}>
-              { sliderEnabled
-                ?
                 <Card>
                   <CardText style={{float: 'left', minHeight: 700, width: '70%'}}>
-                    <div onClick={this.handleHideSlider.bind(this)}
-                         style={{float: 'right', cursor: 'pointer', marginTop: 10, marginRight: 20}}>
-                      X
-                    </div>
                     <div style={{textTransform: 'uppercase', fontWeight: 600, marginLeft: 10, fontSize: '2em', display: 'block', paddingTop: 10, paddingBottom: 10}}>
                       {`${this.segmentMap[selectedSegment]} (${segmentValue})`}
                     </div>
@@ -224,14 +207,6 @@ class Status extends React.Component {
                     </CardText>
                   </Card>
                 </Card>
-                :
-                <Card style={{width: '100%', textAlign: 'center', padding: '2vh 0vw'}}>
-                  <CardText>
-                    <PieChart ref="chartFull"  onClick={(e) => { this.handlePieOnClick(e, "chartFull") } } data={pieData} width="auto" height="80"  options={pieOptionsFull}/>
-                    <div onClick={() => this.handleShowAllClick()} style={showAllStyle}>Vis alle</div>
-                  </CardText>
-                </Card>
-              }
             </div>
           </CardText>
         </Card>
