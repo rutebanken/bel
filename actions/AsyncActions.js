@@ -95,6 +95,43 @@ AsyncActions.getFilesForProvider = (providerId) => {
 
 }
 
+const validPeriod = (endDate, from, to) => {
+  // TODO extend one day?
+  if (endDate.isBetween(from, to, 'days', '[]')) {
+    return to
+  }
+  return endDate
+}
+
+const validDays = (startDate, lineNumber2EndDate) => {
+  let lineNumber2Days = []
+
+  Object.keys(lineNumber2EndDate).map(lineNumber => {
+    let endDate = lineNumber2EndDate[lineNumber]
+    lineNumber2Days.push({lineNumber: lineNumber, days: endDate.diff(startDate, 'days')})
+  })
+
+  return lineNumber2Days
+}
+
+const minDays = (lineNumber2Days) => {
+  let days = Math.min(...lineNumber2Days.map( line => line.days))
+
+  return {
+    days: days,
+    validity: validity(days)
+  }
+}
+
+const validity = (daysForward) => {
+  if (daysForward > 127) {
+    return 'VALID'
+  } else if (daysForward >= 120) {
+    return 'SOON_INVALID'
+  } else {
+    return 'INVALID'
+  }
+}
 
 export const formatLineStats = (lineStats) => {
 
@@ -119,19 +156,21 @@ export const formatLineStats = (lineStats) => {
      )
 
     let linesMap = {}
+    let linesValidity = {}
 
     let startDate = moment(lineStats.startDate, 'YYYY-MM-DD')
+    let endDate = moment(lineStats.startDate, 'YYYY-MM-DD').add(lineStats.days, 'days')
+
     formattedLines.startDate = startDate.format('YYYY-MM-DD')
     formattedLines.days = lineStats.days
-    formattedLines.endDate = startDate.add(formattedLines.days, 'days').format('YYYY-MM-DD')
+    formattedLines.endDate = endDate.format('YYYY-MM-DD')
 
-    let minDays = {days: 365, valid: 'VALID'}
-
-    lineStats.publicLines.forEach ( (publicLine) => {
+    lineStats.publicLines.forEach ( (publicLine, idx) => {
 
         publicLine.effectivePeriods.forEach( (effectivePeriod) => {
 
-          let fromDiff = moment(lineStats.startDate, 'YYYY-MM-DD').diff(moment(effectivePeriod.from, 'YYYY-MM-DD'), 'days', true)
+          let fromDate = moment(effectivePeriod.from, 'YYYY-MM-DD')
+          let fromDiff = moment(lineStats.startDate, 'YYYY-MM-DD').diff(fromDate, 'days', true)
 
           if (fromDiff > 0) {
             // now is after start date of effective period
@@ -142,7 +181,8 @@ export const formatLineStats = (lineStats) => {
 
           let timelineEndPosition = 100
 
-          let toDiff = moment(formattedLines.endDate, 'YYYY-MM-DD').diff(moment(effectivePeriod.to, 'YYYY-MM-DD'), 'days', true)
+          let toDate = moment(effectivePeriod.to, 'YYYY-MM-DD')
+          let toDiff = moment(formattedLines.endDate, 'YYYY-MM-DD').diff(toDate, 'days', true)
 
           if (toDiff > 0) {
             timelineEndPosition = 100 - (toDiff / (formattedLines.days/100))
@@ -150,19 +190,12 @@ export const formatLineStats = (lineStats) => {
 
           effectivePeriod.timelineEndPosition = timelineEndPosition
 
-          effectivePeriod.validationLevel = 'INVALID'
           let daysForward = (effectivePeriod.timelineEndPosition / 100) * formattedLines.days
+          effectivePeriod.validationLevel = validity(daysForward)
 
-          if (daysForward >= 120 && daysForward < 127) {
-            effectivePeriod.validationLevel = 'SOON_INVALID'
-          } else if (daysForward > 127) {
-            effectivePeriod.validationLevel = 'VALID'
-          }
-
-          if (daysForward < minDays.days) {
-            minDays = {days: daysForward, validity: effectivePeriod.validationLevel}
-          }
-
+          let endDate = linesValidity.hasOwnProperty(publicLine.lineNumber) ?
+            linesValidity[publicLine.lineNumber] : startDate
+          linesValidity[publicLine.lineNumber] = validPeriod(endDate, fromDate, toDate)
         })
 
         publicLine.lines.forEach( (line) => {
@@ -191,16 +224,14 @@ export const formatLineStats = (lineStats) => {
           })
         })
 
-        if (publicLine.effectivePeriods.length == 0) {
-            minDays = {days: 0, validity: 'INVALID'}
-        }
         linesMap[publicLine.lineNumber] = publicLine
     })
 
     formattedLines.linesMap = linesMap
     formattedLines.validDaysOffset = 33
     formattedLines.validFromDate = moment(lineStats.startDate, 'YYYY-MM-DD').add(120, 'days').format('YYYY-MM-DD')
-    formattedLines.minDays = minDays
+    formattedLines.daysValid = validDays(startDate, linesValidity)
+    formattedLines.minDays = minDays(formattedLines.daysValid)
 
     return formattedLines
 
