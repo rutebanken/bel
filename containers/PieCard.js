@@ -60,7 +60,7 @@ class PieCard extends React.Component {
 
       pieData.push({
           value: length,
-          color: 'rgba(80, 150, 80, ' + numDays/90.0 + ')', // TODO fix (160 - numDays).toString(16),
+          color: 'rgba(80, 150, 80, ' + numDays/90.0 + ')',
           highlight: 'rgba(100, 150, 100, ' + numDays/90.0 + ')',
           label: segmentName('dynamic', numDays),
         }
