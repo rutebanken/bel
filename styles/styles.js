@@ -51,7 +51,7 @@ export const color = {
 }
 
 export const dimension = {
-  // TODO ?
+
 }
 
 export const styles = {
