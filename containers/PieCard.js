@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 import { Pie as PieChart } from 'react-chartjs'
 import { Card, CardText } from 'material-ui/Card'
-import { color } from '../components/styles'
+import { color } from '../styles/styles'
 
 import { segmentName } from '../util/dataManipulation'
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import moment from 'moment'
-import { color } from '../components/styles'
+import { color } from '../styles/styles'
 
 class Timeline extends React.Component {
 

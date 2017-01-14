@@ -11,7 +11,7 @@ import Popover from 'material-ui/Popover'
 import Menu from 'material-ui/Menu'
 import { connect } from 'react-redux'
 import AsyncActions from '../actions/AsyncActions'
-import { color } from '../components/styles'
+import { color } from '../styles/styles'
 
 class Header extends React.Component {
 

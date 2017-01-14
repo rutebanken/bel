@@ -7,7 +7,7 @@ import LineStatsCard from './LineStatsCard'
 import CircularProgress from 'material-ui/CircularProgress'
 import {Card, CardHeader, CardText} from 'material-ui/Card'
 import moment from 'moment'
-import { color } from '../components/styles'
+import { color } from '../styles/styles'
 import PieCard from './PieCard'
 
 import { segmentName, segmentName2Key } from '../util/dataManipulation'

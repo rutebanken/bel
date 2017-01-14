@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import Error from 'material-ui/svg-icons/alert/error'
 import Success from 'material-ui/svg-icons/action/done'
 import { TableRow, TableRowColumn } from 'material-ui/Table'
-import { color } from '../components/styles'
+import { color } from '../styles/styles'
 
 export default class ExpandableEvent extends React.Component {
 

@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { color } from '../components/styles'
+import { color } from '../styles/styles'
 
 export default class Modal extends React.Component {
 
