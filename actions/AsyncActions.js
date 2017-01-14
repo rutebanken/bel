@@ -2,6 +2,8 @@ import axios from 'axios'
 import * as types from './actionTypes'
 import moment from 'moment'
 import actionNames from '../translations/no/actions'
+import { validity } from '../util/dataManipulation'
+
 const AsyncActions = {}
 
 AsyncActions.getProviderStatus = (id) => {
@@ -123,14 +125,11 @@ const minDays = (lineNumber2Days) => {
   }
 }
 
-const validity = (daysForward) => {
-  if (daysForward > 127) {
-    return 'VALID'
-  } else if (daysForward >= 120) {
-    return 'SOON_INVALID'
-  } else {
-    return 'INVALID'
-  }
+const sortValidity = (validity) => {
+  let idx = 'numDaysAtLeastValid'
+  return validity.sort( (a, b) =>  {
+    return a[idx] < b[idx] ? -1 : 1
+  })
 }
 
 export const formatLineStats = (lineStats) => {
@@ -146,14 +145,11 @@ export const formatLineStats = (lineStats) => {
         .filter( (category) => category.numDaysAtLeastValid >= 127)[0] || defaultObject,
       soonInvalid: lineStats.validityCategories
         .filter( (category) => (category.numDaysAtLeastValid >= 120 && category.numDaysAtLeastValid < 127))[0] || defaultObject,
+      validity: sortValidity(lineStats.validityCategories),
       all: defaultObject
     }
 
-   formattedLines.all.lineNumbers = [].concat(
-       formattedLines.invalid.lineNumbers,
-       formattedLines.soonInvalid.lineNumbers,
-       formattedLines.valid.lineNumbers
-     )
+    formattedLines.all.lineNumbers = [].concat(... formattedLines.validity.map(lines => lines.lineNumbers ) )
 
     let linesMap = {}
     let linesValidity = {}
@@ -170,7 +166,7 @@ export const formatLineStats = (lineStats) => {
         publicLine.effectivePeriods.forEach( (effectivePeriod) => {
 
           let fromDate = moment(effectivePeriod.from, 'YYYY-MM-DD')
-          let fromDiff = moment(lineStats.startDate, 'YYYY-MM-DD').diff(fromDate, 'days', true)
+          let fromDiff = startDate.diff(fromDate, 'days', true)
 
           if (fromDiff > 0) {
             // now is after start date of effective period
@@ -203,7 +199,7 @@ export const formatLineStats = (lineStats) => {
           line.timetables.forEach( (timetable) => {
             timetable.periods.forEach( (period) => {
 
-              let fromDiff = moment(lineStats.startDate, 'YYYY-MM-DD').diff(moment(period.from, 'YYYY-MM-DD'), 'days', true)
+              let fromDiff = startDate.diff(moment(period.from, 'YYYY-MM-DD'), 'days', true)
 
               if (fromDiff < 0) {
                 period.timelineStartPosition = ( Math.abs(fromDiff) / formattedLines.days ) * 100

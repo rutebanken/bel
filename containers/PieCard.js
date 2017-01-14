@@ -3,26 +3,14 @@ import { Pie as PieChart } from 'react-chartjs'
 import { Card, CardText } from 'material-ui/Card'
 import { color } from '../components/styles'
 
+import { segmentName } from '../util/dataManipulation'
+
 class PieCard extends React.Component {
 
   static propTypes = {
     stats: PropTypes.object.isRequired,
     handlePieOnClick: PropTypes.func.isRequired,
     handleshowAllClick: PropTypes.func.isRequired
-  }
-
-  constructor(props) {
-    super(props)
-    this.segmentMap = {
-      'Linjer i gyldig periode' : 'valid',
-      'Linjer med gyldighetsperiode som snart utgår' : 'soonInvalid',
-      'Linjer med manglende gyldighetsperiode' : 'invalid',
-      'valid' : 'Linjer i gyldig periode',
-      'soonInvalid' : 'Linjer med gyldighetsperiode som snart utgår',
-      'invalid' : 'Linjer med manglende gyldighetsperiode',
-      'all' : 'Alle linjer',
-      'Alle linjer' : 'all'
-    }
   }
 
   render() {
@@ -48,27 +36,43 @@ class PieCard extends React.Component {
     const valid = stats.valid.lineNumbers.length
     const invalid = stats.invalid.lineNumbers.length
     const soonInvalid = stats.soonInvalid.lineNumbers.length
+    const expiring = stats.validity.filter( lines => lines.numDaysAtLeastValid > 0 && lines.numDaysAtLeastValid < 120).reverse()
 
     const pieData = [
       {
         value: valid,
         highlight: color.valid,
-        color: color.font.valid,
-        label: this.segmentMap['valid'],
+        color: color.highlight.valid,
+        label: segmentName('valid'),
       },
       {
         value: soonInvalid,
-        color: color.font.expiring,
-        highlight: color.expiring,
-        label: this.segmentMap['soonInvalid'],
-      },
-      {
-        value: invalid,
-        color: color.font.invalid,
-        highlight: color.invalid,
-        label: this.segmentMap['invalid'],
+        color: color.soonInvalid,
+        highlight: color.highlight.soonInvalid,
+        label: segmentName('soonInvalid'),
       }
     ]
+
+    for (let i in expiring) {
+      let category = expiring[i]
+      let numDays = category.numDaysAtLeastValid
+      let length = category.lineNumbers.length
+
+      pieData.push({
+          value: length,
+          color: 'rgba(80, 150, 80, ' + numDays/90.0 + ')', // TODO fix (160 - numDays).toString(16),
+          highlight: 'rgba(100, 150, 100, ' + numDays/90.0 + ')',
+          label: segmentName('dynamic', numDays),
+        }
+      )
+    }
+    pieData.push(
+      {
+      value: invalid,
+      color: color.invalid,
+      highlight: color.highlight.invalid,
+      label: segmentName('invalid'),
+    })
 
     return (
       <Card style={{margin: '0vw 0.7vw'}}>

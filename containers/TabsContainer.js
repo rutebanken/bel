@@ -10,6 +10,8 @@ import moment from 'moment'
 import { color } from '../components/styles'
 import PieCard from './PieCard'
 
+import { segmentName, segmentName2Key } from '../util/dataManipulation'
+
 class TabsContainer extends React.Component {
 
   constructor(props) {
@@ -17,17 +19,7 @@ class TabsContainer extends React.Component {
     this.state = {
       value: 'status',
       selectedSegment: 'all',
-  }
-
-    this.segmentMap = {
-      'Linjer i gyldig periode' : 'valid',
-      'Linjer med gyldighetsperiode som snart utgår' : 'soonInvalid',
-      'Linjer med manglende gyldighetsperiode' : 'invalid',
-      'valid' : 'Linjer i gyldig periode',
-      'soonInvalid' : 'Linjer med gyldighetsperiode som snart utgår',
-      'invalid' : 'Linjer med manglende gyldighetsperiode',
-      'all' : 'Alle linjer',
-      'Alle linjer' : 'all'
+      daysValid: 0
     }
   }
 
@@ -51,9 +43,12 @@ class TabsContainer extends React.Component {
       let clickedSegmentLabel = chart.getSegmentsAtEvent(e)[0].label
       let clickedSegmentValue = chart.getSegmentsAtEvent(e)[0].value
 
+      let selected = segmentName2Key(clickedSegmentLabel)
+
       this.setState({
        ...this.state,
-       selectedSegment: this.segmentMap[clickedSegmentLabel],
+       selectedSegment: selected.segment,
+       daysValid: selected.daysValid,
        segmentValue: clickedSegmentValue
       })
     }
@@ -63,6 +58,7 @@ class TabsContainer extends React.Component {
     this.setState({
       ...this.state,
       selectedSegment: 'all',
+      daysValid: 0,
       segmentValue: this.props.lineStats.data.all.lineNumbers.length,
     })
   }
@@ -84,7 +80,8 @@ class TabsContainer extends React.Component {
     const valid = lineStats.data ? lineStats.data.valid.lineNumbers.length : 0
     const invalid = lineStats.data ? lineStats.data.invalid.lineNumbers.length :  0
     const soonInvalid = lineStats.data ? lineStats.data.soonInvalid.lineNumbers.length : 0
-    const { selectedSegment, segmentValue } = this.state
+    const { selectedSegment, daysValid, segmentValue } = this.state
+    const title = segmentName(selectedSegment, daysValid)
 
     const formattedLastDeliveredDate = [{element: lastDeliveredDate ? moment(lastDeliveredDate).format('YYYY-MM-DD') : 'N/A', color: color.font.info1}]
     const lines = [
@@ -145,7 +142,7 @@ class TabsContainer extends React.Component {
               </div>
             :
             <div style={{display: 'flex', flexDirection: 'row'}}>
-                <LineStatsCard selectedSegment={selectedSegment} segmentValue={segmentValue} stats={lineStats}/>
+                <LineStatsCard selectedSegment={selectedSegment} daysValid={daysValid} segmentValue={segmentValue} stats={lineStats} title={title}/>
               <div style={{display: 'flex', flexDirection: 'column'}}>
                 <PieCard handleshowAllClick={this.handleShowAllClick.bind(this)} handlePieOnClick={this.handlePieOnClick.bind(this)} stats={lineStats.data}/>
                 { cards }

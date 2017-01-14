@@ -5,25 +5,19 @@ import Timeline from '../components/Timeline'
 import HeaderTimeline from '../components/HeaderTimeline'
 import { color } from '../components/styles'
 
+import { filterLines} from '../util/dataManipulation'
+
 class StatusCard extends React.Component {
 
   static propTypes = {
     selectedSegment: PropTypes.string.isRequired,
-    stats: PropTypes.object.isRequired
+    daysValid: PropTypes.number.isRequired,
+    stats: PropTypes.object.isRequired,
+    title: PropTypes.string.isRequired,
   }
 
   constructor(props) {
     super(props)
-    this.segmentMap = {
-      'Linjer i gyldig periode' : 'valid',
-      'Linjer med gyldighetsperiode som snart utgår' : 'soonInvalid',
-      'Linjer med manglende gyldighetsperiode' : 'invalid',
-      'valid' : 'Linjer i gyldig periode',
-      'soonInvalid' : 'Linjer med gyldighetsperiode som snart utgår',
-      'invalid' : 'Linjer med manglende gyldighetsperiode',
-      'all' : 'Alle linjer',
-      'Alle linjer' : 'all'
-    }
     this.state = {
       sorting: 0
     }
@@ -55,8 +49,8 @@ class StatusCard extends React.Component {
     }
   }
 
-  sortLines(stats, selectedSegment) {
-    let order = stats.data[selectedSegment].lineNumbers
+  sortLines(stats, selectedSegment, daysValid) {
+    let order = filterLines(stats.data, selectedSegment, daysValid)
 
     switch (this.state.sorting) {
       default:
@@ -97,7 +91,7 @@ class StatusCard extends React.Component {
 
   render() {
 
-    const { stats, selectedSegment } = this.props
+    const { stats, selectedSegment, daysValid, title } = this.props
 
     let validDateMiddleStyle = {
       fontWeight: 600,
@@ -125,8 +119,7 @@ class StatusCard extends React.Component {
       cursor: 'pointer',
     }
 
-    const segmentValue = stats.data[selectedSegment].lineNumbers.length
-    const order = this.sortLines(stats, selectedSegment);
+    const order = this.sortLines(stats, selectedSegment, daysValid);
 
     return (
         <Card expanded={true} style={{flex: 4}}>
@@ -137,7 +130,7 @@ class StatusCard extends React.Component {
                 <Card>
                   <CardText style={{minHeight: 700}}>
                     <div style={{textTransform: 'uppercase', fontWeight: 600, marginLeft: 10, fontSize: '2em', display: 'block', paddingTop: 10, paddingBottom: 10}}>
-                      {`${this.segmentMap[selectedSegment]} (${segmentValue})`}
+                      {title}
                     </div>
                     <div style={{display: 'block', margin: 10, padding: 6, background: color.tableHeader, opacity: '0.8', borderRadius: 7}}>
                       <div style={sortIconStyle} onClick={this.changeSorting.bind(this)} title="Sorter linjer">{this.sortIcon()}</div>
