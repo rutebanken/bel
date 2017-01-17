@@ -3,7 +3,7 @@ import { Pie as PieChart } from 'react-chartjs'
 import { Card, CardText } from 'material-ui/Card'
 import { color } from '../styles/styles'
 
-import { segmentName } from '../util/dataManipulation'
+import { segmentName, segmentColor } from '../util/dataManipulation'
 
 class PieCard extends React.Component {
 
@@ -60,8 +60,8 @@ class PieCard extends React.Component {
 
       pieData.push({
           value: length,
-          color: 'rgba(80, 150, 80, ' + numDays/90.0 + ')',
-          highlight: 'rgba(100, 150, 100, ' + numDays/90.0 + ')',
+          color: segmentColor(numDays),
+          highlight: segmentColor(numDays, 20),
           label: segmentName('dynamic', numDays),
         }
       )

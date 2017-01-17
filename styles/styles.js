@@ -40,12 +40,12 @@ export const color = {
   tableRow: '#ebf2f1',
   tableInfo: '#ffffdb',
 
-  valid: '#33e146',
+  valid: '#33c146',
   invalid: '#b20000',
-  soonInvalid: '#449d48',
+  soonInvalid: '#FFAA00',
   highlight : {
     valid: '#4caf50',
-    soonInvalid: '#4caf50',
+    soonInvalid: '#FFBB00',
     invalid: '#cc0000',
   }
 }

@@ -27,6 +27,13 @@ export const validity = (daysForward) => {
   }
 }
 
+export const segmentColor = (daysValid, modifier = 0, validMin = 120) => {
+  let red = 230 + modifier
+  let green = 150 + modifier
+  let blue = 5 + modifier
+  return 'rgba(' + red +',' + green +','+ blue + ',' + daysValid/(validMin * 0.75) + ')'
+}
+
 export const segmentName = (segment, numDays) => {
   if (segmentMap.hasOwnProperty(segment) && segment !== 'dynamic') {
     return segmentMap[segment]
