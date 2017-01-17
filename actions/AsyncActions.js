@@ -105,15 +105,12 @@ const validPeriod = (endDate, from, to) => {
   return endDate
 }
 
-const validDays = (startDate, lineNumber2EndDate) => {
-  let lineNumber2Days = []
+const validDays = (lines) => {
+  return lines.map(line => {return {lineNumber: line.lineNumber, days: line.daysValid} })
+}
 
-  Object.keys(lineNumber2EndDate).map(lineNumber => {
-    let endDate = lineNumber2EndDate[lineNumber]
-    lineNumber2Days.push({lineNumber: lineNumber, days: endDate.diff(startDate, 'days')})
-  })
-
-  return lineNumber2Days
+const days = (startDate, endDate) => {
+  return endDate ? endDate.diff(startDate, 'days') : 0
 }
 
 const minDays = (lineNumber2Days) => {
@@ -189,10 +186,9 @@ export const formatLineStats = (lineStats) => {
           let daysForward = (effectivePeriod.timelineEndPosition / 100) * formattedLines.days
           effectivePeriod.validationLevel = validity(daysForward)
 
-          let endDate = linesValidity.hasOwnProperty(publicLine.lineNumber) ?
-            linesValidity[publicLine.lineNumber] : startDate
-          linesValidity[publicLine.lineNumber] = validPeriod(endDate, fromDate, toDate)
+          publicLine.daysValid = validPeriod(publicLine.daysValid || startDate, fromDate, toDate)
         })
+        publicLine.daysValid = days(startDate, publicLine.daysValid)
 
         publicLine.lines.forEach( (line) => {
 
@@ -226,7 +222,7 @@ export const formatLineStats = (lineStats) => {
     formattedLines.linesMap = linesMap
     formattedLines.validDaysOffset = 33
     formattedLines.validFromDate = moment(lineStats.startDate, 'YYYY-MM-DD').add(120, 'days').format('YYYY-MM-DD')
-    formattedLines.daysValid = validDays(startDate, linesValidity)
+    formattedLines.daysValid = validDays(lineStats.publicLines)
     formattedLines.minDays = minDays(formattedLines.daysValid)
 
     return formattedLines
