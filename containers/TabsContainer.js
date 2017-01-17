@@ -82,12 +82,13 @@ class TabsContainer extends React.Component {
     const valid = lineStats.data ? lineStats.data.valid.lineNumbers.length : 0
     const invalid = lineStats.data ? lineStats.data.invalid.lineNumbers.length :  0
     const soonInvalid = lineStats.data ? lineStats.data.soonInvalid.lineNumbers.length : 0
+    const all = lineStats.data ? lineStats.data.all.lineNumbers.length : 0
     const { selectedSegment, daysValid, segmentValue } = this.state
     const title = segmentName(selectedSegment, daysValid)
 
     const formattedLastDeliveredDate = [{element: lastDeliveredDate ? moment(lastDeliveredDate).format('YYYY-MM-DD') : 'N/A', color: color.font.info1}]
     const lines = [
-      {element: valid + invalid + soonInvalid, color: color.font.info2},
+      {element: all, color: color.font.info2},
       {element: ' / ', color: color.font.info3},
       {element: invalid, color: color.invalid}
       ]
