@@ -50,7 +50,7 @@ const segmentMap = {
   'soonInvalid' : 'Linjer med gyldighetsperiode som snart utgår',
   'invalid' : 'Linjer med manglende gyldighetsperiode',
   'all' : 'Alle linjer',
-  'dynamic': 'Utgåt linjer - DAYS dager igen'
+  'dynamic': 'Utgåtte linjer - DAYS dager igjen'
 }
 
 const text2key = {
