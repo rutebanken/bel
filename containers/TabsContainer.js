@@ -66,11 +66,13 @@ class TabsContainer extends React.Component {
   color(validity) {
     switch (validity) {
       case 'INVALID':
-        return color.font.invalid
+        return color.invalid
       case 'VALID':
-        return color.font.valid
+        return color.valid
       case 'SOON_INVALID':
-        return color.font.expiring
+      case 'EXPIRED':
+      default:
+        return color.soonInvalid
     }
   }
 
@@ -87,7 +89,7 @@ class TabsContainer extends React.Component {
     const lines = [
       {element: valid + invalid + soonInvalid, color: color.font.info2},
       {element: ' / ', color: color.font.info3},
-      {element: invalid, color: color.font.invalid}
+      {element: invalid, color: color.invalid}
       ]
     const minDays = lineStats.data
       ? [ { element: lineStats.data.minDays.days, color: this.color(lineStats.data.minDays.validity) } ]
