@@ -22,9 +22,10 @@ export const validity = (daysForward) => {
     return 'VALID'
   } else if (daysForward >= 120) {
     return 'SOON_INVALID'
-  } else {
+  } else if (daysForward == 0) {
     return 'INVALID'
   }
+  return 'EXPIRED'
 }
 
 export const segmentColor = (daysValid, modifier = 0, validMin = 120) => {
