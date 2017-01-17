@@ -117,7 +117,7 @@ const validDays = (startDate, lineNumber2EndDate) => {
 }
 
 const minDays = (lineNumber2Days) => {
-  let days = Math.min(...lineNumber2Days.map( line => line.days))
+  let days = Math.min(...lineNumber2Days.filter( line => line.days != 0).map( line => line.days))
 
   return {
     days: days,
