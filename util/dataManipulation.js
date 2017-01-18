@@ -28,11 +28,9 @@ export const validity = (daysForward) => {
   return 'EXPIRED'
 }
 
-export const segmentColor = (daysValid, modifier = 0, validMin = 120) => {
-  let red = 230 + modifier
-  let green = 150 + modifier
-  let blue = 5 + modifier
-  return 'rgba(' + red +',' + green +','+ blue + ',' + daysValid/(validMin * 0.75) + ')'
+export const segmentColor = (daysValid, modifier = 0) => {
+  let green = 120 + daysValid + modifier
+  return '#FF' + green.toString(16) +'00'
 }
 
 export const segmentName = (segment, numDays) => {
