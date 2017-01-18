@@ -50,7 +50,8 @@ class HeaderTimeline extends React.Component {
         fontWeight: 500,
         fontSize: '0.8rem',
         textAlign: 'center',
-        display: 'inline-block'
+        display: 'inline-block',
+        borderRight: '1px solid black',
       }
 
       const toolTipStyle = {
