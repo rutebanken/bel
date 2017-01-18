@@ -98,8 +98,7 @@ AsyncActions.getFilesForProvider = (providerId) => {
 }
 
 const validPeriod = (endDate, from, to) => {
-  // TODO extend one day?
-  if (endDate.isBetween(from, to, 'days', '[]')) {
+  if (moment(endDate).add(1, 'days').isBetween(from, to, 'days', '[]')) {
     return to
   }
   return endDate
