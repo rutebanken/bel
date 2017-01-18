@@ -42,10 +42,10 @@ export const color = {
 
   valid: '#33c146',
   invalid: '#b20000',
-  soonInvalid: '#FFAA00',
+  soonInvalid: '#33c146',
   highlight : {
     valid: '#4caf50',
-    soonInvalid: '#FFBB00',
+    soonInvalid: '#4caf50',
     invalid: '#cc0000',
   }
 }
