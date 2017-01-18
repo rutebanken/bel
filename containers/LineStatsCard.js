@@ -122,13 +122,13 @@ class StatusCard extends React.Component {
     const order = this.sortLines(stats, selectedSegment, daysValid);
 
     return (
-        <Card expanded={true} style={{flex: 4}}>
+        <Card expanded={true} style={{flex: 4, boxShadow: 'none'}}>
           <CardText
             style={{padding: '0vh 0'}}
           >
-            <div style={{overflow: 'auto'}}>
+            <div>
                 <Card>
-                  <CardText style={{minHeight: 700}}>
+                  <CardText>
                     <div style={{textTransform: 'uppercase', fontWeight: 600, marginLeft: 10, fontSize: '2em', display: 'block', paddingTop: 10, paddingBottom: 10}}>
                       {title}
                     </div>
@@ -139,7 +139,7 @@ class StatusCard extends React.Component {
                       <div style={validDateEndStyle}>{stats.data.endDate}</div>
                     </div>
                     <div
-                      style={{maxHeight: 800, minHeight: 800, overflowY: 'scroll', overflowX: 'hidden', margin: 'auto', width: '100%'}}
+                      style={{height: '75vh', overflowY: 'scroll', overflowX: 'hidden', margin: 'auto', width: '100%'}}
                     >
                       <List
                         style={{width: '100%', boxShadow: 'none'}}
