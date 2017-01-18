@@ -2,6 +2,7 @@
 import expect from 'expect'
 import {formatLineStats} from '../actions/AsyncActions'
 import lineStats from './mock/lineStats'
+import lineStatsNorland from './mock/lineStatsNorland'
 
 describe('Test calculations for effectivePeriods on timeline', () => {
 
@@ -110,4 +111,27 @@ describe('Test calculations for timeschedules on timeline', () => {
 
   })
 
+
+  it('Days valid calculation should include days followed by each other', () => {
+
+    let list = { ... lineStatsNorland }
+    let formattedLines = formatLineStats(list)
+
+    expect(formattedLines.minDays.days).toBe(1)
+    expect(formattedLines.minDays.validity).toBe('EXPIRED')
+
+    let validity = { 0: 133, 14: 2, 30: 3, 60: 118, 120: 0, 127: 0}
+    for (let [key, value] of Object.entries(formattedLines.validity)) {
+      expect(value.lineNumbers.length).toBe(validity[value.numDaysAtLeastValid])
+    }
+    expect(formattedLines.invalid.lineNumbers.length).toBe(validity[0])
+    expect(formattedLines.valid.lineNumbers.length).toBe(validity[127])
+    expect(formattedLines.soonInvalid.lineNumbers.length).toBe(validity[120])
+    expect(formattedLines.all.lineNumbers.length).toBe(Object.values(validity).reduce( (a, b) => a+b))
+
+  //  expect(formattedLines.validity.invalid.lineNumbers).toBe(1)
+    // "startDate": "2017-01-18" => // TODO start date calculation
+    //2016-07-01 -> 2017-04-27
+    expect(formattedLines.daysValid.filter( lines => lines.lineNumber === '18-159')[0].days).toBe(13 + 28 + 31 + 27)
+  })
 })
