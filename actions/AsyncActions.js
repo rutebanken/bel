@@ -151,7 +151,7 @@ export const formatLineStats = (lineStats) => {
     let linesValidity = {}
 
     let startDate = moment(lineStats.startDate, 'YYYY-MM-DD')
-    let endDate = moment(lineStats.startDate, 'YYYY-MM-DD').add(lineStats.days, 'days')
+    let endDate = moment(startDate).add(lineStats.days, 'days')
 
     formattedLines.startDate = startDate.format('YYYY-MM-DD')
     formattedLines.days = lineStats.days
