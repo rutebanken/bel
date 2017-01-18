@@ -109,7 +109,7 @@ const validDays = (lines) => {
 }
 
 const days = (startDate, endDate) => {
-  return endDate ? moment(endDate).diff(startDate, 'days') : 0
+  return moment.isMoment(endDate) ? endDate.diff(startDate, 'days') : 0
 }
 
 const minDays = (lineNumber2Days) => {
