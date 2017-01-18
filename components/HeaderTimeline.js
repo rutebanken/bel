@@ -1,7 +1,15 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import { color } from '../styles/styles'
 
 class HeaderTimeline extends React.Component {
+
+  static propTypes = {
+    hoverText: PropTypes.string.isRequired,
+    index: PropTypes.number.isRequired,
+    validDaysOffset: PropTypes.number.isRequired,
+    validFromDate: PropTypes.string.isRequired,
+    effectivePeriods: PropTypes.array.isRequired,
+  }
 
   constructor(props) {
     super(props)
