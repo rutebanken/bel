@@ -176,7 +176,7 @@ export const formatLineStats = (lineStats) => {
           let timelineEndPosition = 100
 
           let toDate = moment(effectivePeriod.to, 'YYYY-MM-DD')
-          let toDiff = moment(formattedLines.endDate, 'YYYY-MM-DD').diff(toDate, 'days', true)
+          let toDiff = moment(formattedLines.endDate, 'YYYY-MM-DD').diff(moment(toDate).add(1, 'days'), 'days', true)
 
           if (toDiff > 0) {
             timelineEndPosition = 100 - (toDiff / (formattedLines.days/100))
@@ -206,7 +206,7 @@ export const formatLineStats = (lineStats) => {
 
               let timelineEndPosition = 100
 
-              let toDiff = moment(formattedLines.endDate, 'YYYY-MM-DD').diff(moment(period.to, 'YYYY-MM-DD'), 'days', true)
+              let toDiff = moment(formattedLines.endDate, 'YYYY-MM-DD').diff(moment(period.to, 'YYYY-MM-DD').add(1, 'days'), 'days', true)
 
               if (toDiff > 0) {
                 timelineEndPosition = 100 - (toDiff / (formattedLines.days/100))

@@ -4,6 +4,8 @@ import {formatLineStats} from '../actions/AsyncActions'
 import lineStats from './mock/lineStats'
 import lineStatsNorland from './mock/lineStatsNorland'
 
+import { validity, filterLines} from '../util/dataManipulation'
+
 describe('Test calculations for effectivePeriods on timeline', () => {
 
   it('Effective period should not be in the boundary of the timeline', () => {
@@ -52,7 +54,7 @@ describe('Test calculations for effectivePeriods on timeline', () => {
     let lineNumber = list.publicLines[0].lineNumber
     list.publicLines[0].effectivePeriods[0] = {
       "from": "2014-01-03",
-      "to": "2015-01-03" // 2 days => 10/100
+      "to": "2015-01-03" // 3 days => 15/100
     }
 
     let formattedLineStats = formatLineStats(list)
@@ -60,7 +62,7 @@ describe('Test calculations for effectivePeriods on timeline', () => {
     let timelineEndPosition = formattedLineStats.linesMap[lineNumber].effectivePeriods[0].timelineEndPosition
 
     expect(timelineStartPosition == 0).toBe(true)
-    expect(timelineEndPosition == 10).toBe(true)
+    expect(timelineEndPosition == 15).toBe(true)
 
   })
 
@@ -99,7 +101,7 @@ describe('Test calculations for timeschedules on timeline', () => {
 
     list.publicLines[0].lines[0].timetables[0].periods[0] = {
       "from": "2014-01-03",
-      "to": "2015-01-03" // 2 days => 10/100
+      "to": "2015-01-03" // 3 days => 15/100
     }
 
     let formattedLineStats = formatLineStats(list)
@@ -107,7 +109,7 @@ describe('Test calculations for timeschedules on timeline', () => {
     let timelineEndPosition = formattedLineStats.linesMap[lineNumber].lines[0].timetables[0].periods[0].timelineEndPosition
 
     expect(timelineStartPosition == 0).toBe(true)
-    expect(timelineEndPosition == 10).toBe(true)
+    expect(timelineEndPosition == 15).toBe(true)
 
   })
 })
