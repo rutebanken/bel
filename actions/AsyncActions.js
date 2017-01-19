@@ -97,41 +97,23 @@ AsyncActions.getFilesForProvider = (providerId) => {
 
 }
 
-const validPeriod = (endDate, from, to) => {
-  if (moment(endDate).add(1, 'days').isBetween(from, to, 'days', '[]')) {
-    return to
-  }
-  return endDate
-}
+const validPeriod = (endDate, from, to) => (moment(endDate).add(1, 'days').isBetween(from, to, 'days', '[]')) ? to : endDate
 
-const validDays = (lines) => {
-  return lines.map(line => {return {lineNumber: line.lineNumber, days: line.daysValid} })
-}
+const validDays = (lines) => lines.map(line => {return {lineNumber: line.lineNumber, days: line.daysValid} })
 
-const days = (startDate, end) => {
-  if (typeof end === 'undefined') {
-    return 0
-  }
-  return moment.isMoment(end) ? end.diff(startDate, 'days') : end
-}
+const getDaysRange = (startDate, end = 0) => moment.isMoment(end) ? end.diff(startDate, 'days') : end
 
 const minDays = (lineNumber2Days) => {
   let days = Math.min(...lineNumber2Days.filter( line => line.days != 0).map( line => line.days))
-
   return {
     days: days,
     validity: validity(days)
   }
 }
 
-const sortValidity = (validity) => {
-  let idx = 'numDaysAtLeastValid'
-  return validity.sort( (a, b) =>  {
-    return a[idx] < b[idx] ? -1 : 1
-  })
-}
+const sortValidity = validity => validity.sort( (a, b) => a['numDaysAtLeastValid'] < b['numDaysAtLeastValid'] ? -1 : 1)
 
-export const formatLineStats = (lineStats) => {
+export const formatLineStats = lineStats => {
 
   try {
 
@@ -189,7 +171,7 @@ export const formatLineStats = (lineStats) => {
 
           publicLine.daysValid = validPeriod(publicLine.daysValid || startDate, fromDate, toDate)
         })
-        publicLine.daysValid = days(startDate, publicLine.daysValid)
+        publicLine.daysValid = getDaysRange(startDate, publicLine.daysValid)
 
         publicLine.lines.forEach( (line) => {
 
