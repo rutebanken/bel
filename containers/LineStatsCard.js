@@ -139,7 +139,7 @@ class LineStatsCard extends React.Component {
                       <div style={validDateEndStyle}>{stats.data.endDate}</div>
                     </div>
                     <div
-                      style={{height: '75vh', overflowY: 'scroll', overflowX: 'hidden', margin: 'auto', width: '100%'}}
+                      style={{minHeight: 705, maxHeight: '75vh', overflowY: 'scroll', overflowX: 'hidden', margin: 'auto', width: '100%'}}
                     >
                       <List
                         style={{width: '100%', boxShadow: 'none'}}
