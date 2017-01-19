@@ -108,8 +108,11 @@ const validDays = (lines) => {
   return lines.map(line => {return {lineNumber: line.lineNumber, days: line.daysValid} })
 }
 
-const days = (startDate, endDate) => {
-  return moment.isMoment(endDate) ? endDate.diff(startDate, 'days') : parseInt(endDate)
+const days = (startDate, end) => {
+  if (typeof end === 'undefined') {
+    return 0
+  }
+  return moment.isMoment(end) ? end.diff(startDate, 'days') : end
 }
 
 const minDays = (lineNumber2Days) => {
