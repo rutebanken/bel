@@ -102,7 +102,6 @@ class LineStatsCard extends React.Component {
     let validDateStartStyle = {
       fontWeight: 600,
       display: 'inline-block',
-      marginLeft: '3%',
       float: 'left'
     }
 
@@ -117,6 +116,7 @@ class LineStatsCard extends React.Component {
       display: 'inline-block',
       float: 'left',
       cursor: 'pointer',
+      width: 48,
     }
 
     const order = this.sortLines(stats, selectedSegment, daysValid);
