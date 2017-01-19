@@ -61,10 +61,10 @@ class LineStatsCard extends React.Component {
         return order.sort().reverse()
       case 3:
         let daysAsc = stats.data.daysValid.sort( this.sortMethod('days', true) )
-        return daysAsc.filter( (line) => order.indexOf(line.lineNumber) > 0).map((line) => line.lineNumber)
+        return daysAsc.filter( (line) => order.indexOf(line.lineNumber) != -1).map((line) => line.lineNumber)
       case 4:
         let daysDesc = stats.data.daysValid.sort( this.sortMethod('days', false) )
-        return daysDesc.filter( (line) => order.indexOf(line.lineNumber) > 0 ).map( (line) => line.lineNumber)
+        return daysDesc.filter( (line) => order.indexOf(line.lineNumber) != -1 ).map( (line) => line.lineNumber)
     }
   }
 
