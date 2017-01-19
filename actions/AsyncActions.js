@@ -109,7 +109,7 @@ const validDays = (lines) => {
 }
 
 const days = (startDate, endDate) => {
-  return moment.isMoment(endDate) ? endDate.diff(startDate, 'days') : 0
+  return moment.isMoment(endDate) ? endDate.diff(startDate, 'days') : parseInt(endDate)
 }
 
 const minDays = (lineNumber2Days) => {
@@ -148,7 +148,6 @@ export const formatLineStats = (lineStats) => {
     formattedLines.all.lineNumbers = [].concat(... formattedLines.validity.map(lines => lines.lineNumbers ) )
 
     let linesMap = {}
-    let linesValidity = {}
 
     let startDate = moment(lineStats.startDate, 'YYYY-MM-DD')
     let endDate = moment(startDate).add(lineStats.days, 'days')
