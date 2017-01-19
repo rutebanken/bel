@@ -110,8 +110,10 @@ describe('Test calculations for timeschedules on timeline', () => {
     expect(timelineEndPosition == 10).toBe(true)
 
   })
+})
 
 
+describe('Days valid calculation', () => {
   it('Days valid calculation should include days followed by each other', () => {
 
     let list = { ... lineStatsNorland }
@@ -129,9 +131,27 @@ describe('Test calculations for timeschedules on timeline', () => {
     expect(formattedLines.soonInvalid.lineNumbers.length).toBe(validity[120])
     expect(formattedLines.all.lineNumbers.length).toBe(Object.values(validity).reduce( (a, b) => a+b))
 
-  //  expect(formattedLines.validity.invalid.lineNumbers).toBe(1)
-    // "startDate": "2017-01-18" => // TODO start date calculation
-    //2016-07-01 -> 2017-04-27
-    expect(formattedLines.daysValid.filter( lines => lines.lineNumber === '18-159')[0].days).toBe(13 + 28 + 31 + 27)
+    let line18159 = formattedLines.linesMap['18-159']
+    expect(line18159.effectivePeriods.length).toBe(2)
+    expect(line18159.effectivePeriods[0].from).toBe("2016-07-01")
+    expect(line18159.effectivePeriods[0].to).toBe("2017-01-31")
+    expect(line18159.effectivePeriods[1].from).toBe("2017-02-01")
+    expect(line18159.effectivePeriods[1].to).toBe("2017-04-27")
+
+    expect(formattedLines.daysValid.filter(lines => lines.lineNumber === '18-159')[0].days).toBe(13 + 28 + 31 + 27)
+  })
+
+  it('Days valid calculation should not include periods with 1 day gap', () => {
+    let list = { ... lineStatsNorland }
+    let formattedLines = formatLineStats(list)
+
+    let line18113 = formattedLines.linesMap['18-113']
+    expect(line18113.effectivePeriods.length).toBe(2)
+    expect(line18113.effectivePeriods[0].from).toBe("2016-07-01")
+    expect(line18113.effectivePeriods[0].to).toBe("2017-01-30")
+    expect(line18113.effectivePeriods[1].from).toBe("2017-02-01")
+    expect(line18113.effectivePeriods[1].to).toBe("2017-05-03")
+
+    expect(formattedLines.daysValid.filter(lines => lines.lineNumber === '18-113')[0].days).toBe(12)
   })
 })
