@@ -7,7 +7,7 @@ import { color } from '../styles/styles'
 
 import { filterLines} from '../util/dataManipulation'
 
-class StatusCard extends React.Component {
+class LineStatsCard extends React.Component {
 
   static propTypes = {
     selectedSegment: PropTypes.string.isRequired,
@@ -194,4 +194,4 @@ class StatusCard extends React.Component {
   }
 }
 
-export default StatusCard
+export default LineStatsCard
