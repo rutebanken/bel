@@ -1,6 +1,8 @@
 import React, { PropTypes } from 'react'
+import ActionTranslations from '../translations/no/actions'
 const FaChevronDown = require('react-icons/lib/fa/chevron-down')
 const FaChevronUp  = require('react-icons/lib/fa/chevron-up')
+
 
 class EventStepper extends React.Component {
 
@@ -16,16 +18,6 @@ class EventStepper extends React.Component {
     listItem: PropTypes.object.isRequired
   }
 
-  getGroupText(group) {
-    const groupTextMap = {
-      "EXPORT" : "Export",
-      "VALIDATION" : "Validation",
-      "IMPORT" : "Import",
-      "DATASPACE_TRANSFER" : "Dataspace transfer",
-      "FILE_TRANSFER" : "File transfer"
-    }
-    return groupTextMap[group] || 'Unknown'
-  }
 
   getBulletColor(state) {
 
@@ -122,7 +114,7 @@ class EventStepper extends React.Component {
       return (
           <div style={groupStyle} key={"group-" + group + index}>
             <div title={toolTipText} style={Object.assign({}, bulletStyle, { background: this.getBulletColor(groups[group].endState)})}/>
-            <div style={groupText}> { this.getGroupText(group) }</div>
+            <div title={ ActionTranslations.title[group] || ActionTranslations.title['UNKNOWN'] } style={groupText}> { ActionTranslations.text[group] || ActionTranslations.text['UNKNOWN']  }</div>
             {!isLast ? <div style={linkStyle}></div> : null }
           </div>
         )
@@ -132,12 +124,12 @@ class EventStepper extends React.Component {
     return (
       <div key={"event" + listItem.chouetteJobId} style={{marginLeft: 20, cursor: 'pointer'}} onClick={() => this.handleToggleVisibility()}>
         <div style={{display: 'flex', marginLeft: -20}}>
-          <div title={"Duration: " + listItem.duration} style={{fontSize: '0.9em', fontWeight: 600, color: '#e59400', marginTop: -8, marginRight: 20}}>{listItem.started}</div>
+          <div title={"Varighet: " + listItem.duration} style={{fontSize: '0.9em', fontWeight: 600, color: '#e59400', marginTop: -8, marginRight: 20}}>{listItem.started}</div>
           { listItem.provider && listItem.provider.name ?
             <div style={{fontSize: '0.8em', fontWeight: 600, flex: 1}}>{listItem.provider.name}</div>
             : null
           }
-          <div style={{fontSize: '0.9em', fontWeight: 600, flex: 2}}>{listItem.fileName}</div>
+          <div style={{fontSize: '0.9em', fontWeight: 600, flex: 2}}>{listItem.fileName || ActionTranslations.filename.undefined}</div>
         </div>
         <div style={stepperstyle}>
           {bullets}
@@ -149,9 +141,9 @@ class EventStepper extends React.Component {
           ?
           <div style={{display: 'inline-block'}}>
             <div style={{display: 'flex', flexDirection: 'column', lineHeight: '25px', marginTop: 10, cursor: 'default'}} onClick={event => event.stopPropagation()}>
-              <div>Started: {listItem.firstEvent}</div>
-              <div>Ended: {listItem.lastEvent}</div>
-              <div>Duration: {listItem.duration}</div>
+              <div>Begynte: {listItem.firstEvent}</div>
+              <div>Avsluttet: {listItem.lastEvent}</div>
+              <div>Varighet: {listItem.duration}</div>
             </div>
           </div>
           : null
