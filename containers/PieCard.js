@@ -16,21 +16,24 @@ class PieCard extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      size: 250,
+      size: 200,
     }
   }
 
-  updateDimensions = (event) => {
-    const rounding = 10, fraction = 4
-    const size = Math.round(event.currentTarget.innerHeight/rounding/fraction) * rounding
-    this.setState({size: Math.max(250, size)})
+  updateDimensions = () => {
+    this.setState({size: Math.round(window.innerHeight/4)})
+  }
+
+  componentWillMount() {
+    this.updateDimensions()
   }
 
   componentDidMount() {
-    window.addEventListener('resize', this.updateDimensions);
+    window.addEventListener('resize', this.updateDimensions)
   }
+
   componentWillUnmount() {
-    window.removeEventListener('resize', this.updateDimensions);
+    window.removeEventListener('resize', this.updateDimensions)
   }
 
   render() {
@@ -105,7 +108,7 @@ class PieCard extends React.Component {
     return (
       <Card style={{margin: '0vw 0.7vw'}}>
         <CardText>
-          <PieChart ref="chart" onClick={(e) => { this.props.handlePieOnClick(e, this.refs.chart.getChart()) } } data={pieData} style={pieStyle} options={pieOptionsFull}/>
+          <PieChart ref="chart" onClick={(e) => { this.props.handlePieOnClick(e, this.refs.chart.getChart()) } } data={pieData} style={pieStyle} options={pieOptionsFull} width={this.state.size} height={this.state.size}/>
           <div onClick={() => this.props.handleshowAllClick()} style={showAllStyle}>Vis alle</div>
         </CardText>
       </Card>
