@@ -36,7 +36,7 @@ class EventDetails extends React.Component {
 
         <div>
           <div className="page-link-parent">
-            <span>Pages: </span>
+            <span>Side: </span>
             {paginationMap.map ( (page, index) => {
               const isActive = (index == activePageIndex) ? 'page-link active-link' : 'page-link inactive-link'
               return <span className={isActive} onClick={(e) => this.handlePageClick(e, index)} key={"link-" + index}>{index+1}</span>
