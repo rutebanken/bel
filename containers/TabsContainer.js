@@ -114,8 +114,8 @@ class TabsContainer extends React.Component {
             titleStyle={{textAlign: 'center', width: '100%'}}
             textStyle={{paddingRight: 0}}
             />
-          <CardText>
-            <div style={{fontWeight: 600, fontSize: '4vw', textAlign: 'center', width: '100%'}}>
+          <CardText style={{padding: 5}}>
+            <div style={{fontWeight: 600, fontSize: '3vh', textAlign: 'center', width: '100%'}}>
               {cd.children.map( (child, index) => {
                 return (
                   <span key={'card-element'+index} style={{color: child.color}}>
