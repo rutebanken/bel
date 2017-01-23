@@ -23,12 +23,10 @@ class LineStatsCard extends React.Component {
     }
   }
 
-  handleToggleListItem(index) {
-    let ref = this.refs['listItem'+index]
-    ref.setState({
-      ...ref.state,
-      open: !ref.state.open
-    })
+  handleToggleListItem(line) {
+    let state = this.state;
+    state['open'+line] = !this.state['open'+line]
+    this.setState(this.state)
   }
 
   changeSorting() {
@@ -148,12 +146,12 @@ class LineStatsCard extends React.Component {
                           <ListItem
                             key={'line'+index}
                             disabled
-                            ref={'listItem'+index}
                             style={{padding: 0, marginLeft: 0, marginRight: 0, marginTop: 0, lineHeight: 0}}
+                            open={this.state['open'+line] ? this.state['open'+line] : false}
                             children={
                               <div
                                 key={'ht-wrapper'+index}
-                                onClick={() => { this.handleToggleListItem(index) }}
+                                onClick={() => { this.handleToggleListItem(line) }}
                               >
                                 <HeaderTimeline line={line}
                                   hoverText={stats.data.linesMap[line].lineNames.join(', ')}
