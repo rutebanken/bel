@@ -103,7 +103,7 @@ class PieCard extends React.Component {
     })
 
     return (
-      <Card style={{margin: '0vw 0.7vw'}}>
+      <Card style={{margin: '0.5vh 0.7vw'}}>
         <CardText>
           <PieChart ref="chart" onClick={(e) => { this.props.handlePieOnClick(e, this.refs.chart.getChart()) } } data={pieData} style={pieStyle} options={pieOptionsFull}/>
           <div onClick={() => this.props.handleshowAllClick()} style={showAllStyle}>Vis alle</div>
