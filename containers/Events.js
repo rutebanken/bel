@@ -6,13 +6,34 @@ import FlatButton from 'material-ui/FlatButton'
 import Upload from 'material-ui/svg-icons/file/file-upload'
 import EventDetails from './EventDetails'
 import { color } from '../styles/styles'
+import AsyncActions from '../actions/AsyncActions'
 
 class Events extends React.Component {
 
   componentWillMount(){
     cfgreader.readConfig( (function(config) {
       window.config = config
+      this.startPolling()
     }).bind(this))
+  }
+
+  componentWillUnmount() {
+    if (this.intervalId) {
+      clearInterval(this.intervalId)
+    }
+  }
+
+  startPolling = () => {
+    this.poll()
+    setTimeout(() => {
+      this.intervalId = setInterval(this.poll, 10000)
+    }, 1000)
+  }
+
+  poll = () => {
+    if (this.props.activeSupplier) {
+      this.props.dispatch(AsyncActions.getProviderEvents(this.props.activeSupplier.id))
+    }
   }
 
   handleUploadFile() {
@@ -48,6 +69,7 @@ class Events extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
+    activeSupplier: state.asyncReducer.currentSupplier,
     paginationMap: getPaginationMap(state.asyncReducer.events ? state.asyncReducer.events.slice() : [] )
   }
 }

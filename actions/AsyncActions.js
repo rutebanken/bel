@@ -31,6 +31,28 @@ AsyncActions.getProviderStatus = (id) => {
   }
 }
 
+AsyncActions.getProviderEvents = (id) => {
+
+  const url = `${window.config.nabuBaseUrl}jobs/${id}`
+
+  return function(dispatch) {
+    dispatch(sendData(null,types.REQUESTED_EVENTS))
+    return axios({
+      url: url,
+      timeout: 20000,
+      method: 'get',
+      responseType: 'json'
+    })
+    .then(function(response) {
+      let providerStatus = formatProviderStatusDate(response.data)
+      dispatch(sendData(providerStatus, types.RECEIVED_EVENTS))
+    })
+    .catch(function(response){
+      dispatch(sendData(response.data, types.ERROR_EVENTS))
+    })
+  }
+}
+
 AsyncActions.getAllSuppliers = () => {
 
   return function(dispatch) {
