@@ -34,8 +34,8 @@ class HeaderTimeline extends React.Component {
         width: '85%',
         margin: 'auto',
         display: 'block',
-        overflow: 'auto',
-        fontSize: '0%'
+        overflow: 'hidden',
+        fontSize: '0%',
       }
 
       let timelineWrapper = {
