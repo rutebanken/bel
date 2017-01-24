@@ -143,7 +143,7 @@ class TabsContainer extends React.Component {
     const cardsDataSource = [
       { title: 'dato for siste leveranse', children: formattedLastDeliveredDate },
       { children: lines, style: {padding: 0}},
-      { title: 'antall dager', children: minDays }
+      { title: 'Dager til første utgående linje', children: minDays }
     ]
 
     let cards = this.renderCards(cardsDataSource)
