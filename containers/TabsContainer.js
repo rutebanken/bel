@@ -76,6 +76,36 @@ class TabsContainer extends React.Component {
     }
   }
 
+  renderCards = (cardsDataSource) => {
+    return cardsDataSource.map( (cd, index) => {
+      let header = cd.title ?
+        <CardHeader
+          title={cd.title}
+          style={{fontWeight: 600, textAlign: 'center', textTransform: 'uppercase', width: '100%'}}
+          titleStyle={{textAlign: 'center', width: '100%'}}
+          textStyle={{paddingRight: 0}}
+        /> : null
+
+      return (
+        <Card
+          style={{margin: '0.7vh 0.7vw', padding: 0, ...cd.cardStyle}}
+          key={"card-" + index}
+        >
+          {header}
+          <CardText style={{padding: 5, justifyContent: 'space-between',  textAlign: 'center', ...cd.style}}>
+            {cd.children.map( (child, index) => {
+              return (
+                <span key={'card-element'+index} style={{fontWeight: 600, fontSize: '3vh', color: child.color, ...child.style}}>
+                  {child.element}
+                </span>
+              )
+            })}
+          </CardText>
+        </Card>
+      )
+    })
+  }
+
   render() {
 
     const { lineStats, lastDeliveredDate } = this.props
@@ -86,48 +116,37 @@ class TabsContainer extends React.Component {
     const { selectedSegment, daysValid, segmentValue } = this.state
     const title = segmentName(selectedSegment, daysValid)
 
-    const formattedLastDeliveredDate = [{element: lastDeliveredDate ? moment(lastDeliveredDate).format('YYYY-MM-DD') : 'N/A', color: color.font.info1}]
+    const formattedLastDeliveredDate = [
+      {element: lastDeliveredDate ? moment(lastDeliveredDate).format('YYYY-MM-DD') : 'N/A', color: color.font.info1}
+    ]
+
+    const allLinesChild = [
+      {element: all, color: color.font.info2, style: {fontSize: '6vh'}}
+    ]
+    const lineDetailsChildren = [
+      {element: valid, color: color.valid, style: {padding: '2px 0'}},
+      {element: all-valid-invalid, color: color.expired, style: {padding: '2px 0'}},
+      {element: invalid, color: color.invalid, style: {padding: '2px 0'}},
+    ]
+    const lineChildren = this.renderCards([
+      {title: 'Antall linjer', style: {padding: 0}, cardStyle: {backgroundColor: 'white', padding: 0, boxShadow: 'none'}, children: allLinesChild},
+      {style: {display: 'flex', flexDirection: 'column'}, cardStyle: {boxShadow: 'none'}, children: lineDetailsChildren}
+    ])
     const lines = [
-      {element: all, color: color.font.info2},
-      {element: ' / ', color: color.font.info3},
-      {element: invalid, color: color.invalid}
-      ]
+      {element: lineChildren, style: {display: 'flex', justifyContent: 'space-around', alignItems: 'center', padding: 0}},
+    ]
+
     const minDays = lineStats.data
       ? [ { element: lineStats.data.minDays.days, color: this.color(lineStats.data.minDays.validity) } ]
       : [ { element: 0, color: '#fff'}]
 
     const cardsDataSource = [
       { title: 'dato for siste leveranse', children: formattedLastDeliveredDate },
-      { title: 'antall linjer', children: lines },
+      { children: lines, style: {padding: 0}},
       { title: 'antall dager', children: minDays }
     ]
 
-    let cards = cardsDataSource.map( (cd, index) => {
-      return (
-        <Card
-          style={{ margin: '0.7vw'}}
-          key={"card-" + index}
-          >
-          <CardHeader
-            title={cd.title}
-            style={{fontWeight: 600, textAlign: 'center', textTransform: 'uppercase', width: '100%'}}
-            titleStyle={{textAlign: 'center', width: '100%'}}
-            textStyle={{paddingRight: 0}}
-            />
-          <CardText style={{padding: 5}}>
-            <div style={{fontWeight: 600, fontSize: '3vh', textAlign: 'center', width: '100%'}}>
-              {cd.children.map( (child, index) => {
-                return (
-                  <span key={'card-element'+index} style={{color: child.color}}>
-                    {child.element}
-                  </span>
-                )
-              })}
-            </div>
-          </CardText>
-        </Card>
-      )
-    })
+    let cards = this.renderCards(cardsDataSource)
 
     return (
       <Tabs
