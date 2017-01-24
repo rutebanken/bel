@@ -43,6 +43,7 @@ export const color = {
   valid: '#33c146',
   invalid: '#b20000',
   soonInvalid: '#33c146',
+  expired: '#FFAA00',
   highlight : {
     valid: '#4caf50',
     soonInvalid: '#4caf50',
