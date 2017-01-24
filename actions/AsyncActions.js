@@ -104,7 +104,7 @@ const validDays = (lines) => lines.map(line => {return {lineNumber: line.lineNum
 const getDaysRange = (startDate, end = 0) => moment.isMoment(end) ? end.diff(startDate, 'days') : end
 
 const minDays = (lineNumber2Days) => {
-  let days = Math.min(...lineNumber2Days.filter( line => line.days != 0).map( line => line.days))
+  let days = Math.min(...lineNumber2Days.map( line => line.days))
   return {
     days: days,
     validity: validity(days)
