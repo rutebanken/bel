@@ -63,16 +63,18 @@ class TabsContainer extends React.Component {
     })
   }
 
-  color(validity) {
+  color = (validity) => {
     switch (validity) {
       case 'INVALID':
         return color.invalid
       case 'VALID':
         return color.valid
       case 'SOON_INVALID':
-      case 'EXPIRED':
-      default:
         return color.soonInvalid
+      case 'EXPIRED':
+        return color.expired
+      default:
+        return color.font.disabled
     }
   }
 
@@ -117,7 +119,7 @@ class TabsContainer extends React.Component {
     const title = segmentName(selectedSegment, daysValid)
 
     const formattedLastDeliveredDate = [
-      {element: lastDeliveredDate ? moment(lastDeliveredDate).format('YYYY-MM-DD') : 'N/A', color: color.font.info1}
+      {element: lastDeliveredDate ? moment(lastDeliveredDate).format('YYYY-MM-DD') : 'N/A', color: color.font.info2}
     ]
 
     const allLinesChild = [
