@@ -270,7 +270,7 @@ const formatProviderStatusDate = (list) => {
       event.actionString = actionNames[event.action]
     })
     return listItem
-  })
+  }).reverse()
 }
 
 export default AsyncActions
