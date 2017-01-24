@@ -175,7 +175,7 @@ class TabsContainer extends React.Component {
           }
         </Tab>
         <Tab className="event-header" value="events" label="Last opp datasett" style={{marginTop: 10}}>
-          <Events/>
+          {this.state.value === 'events' && <Events/>}
         </Tab>
       </Tabs>
     )
@@ -184,7 +184,6 @@ class TabsContainer extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    events: state.asyncReducer.events,
     lineStats: state.asyncReducer.lineStats,
     lastDeliveredDate: state.asyncReducer.files.lastDelivered
   }
