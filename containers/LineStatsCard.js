@@ -24,9 +24,19 @@ class LineStatsCard extends React.Component {
   }
 
   handleToggleListItem(line) {
-    let state = this.state;
-    state['open'+line] = !this.state['open'+line]
-    this.setState(this.state)
+    let isOpen = !this.state['open'+line];
+    this.saveNestedState(isOpen, line)
+  }
+
+  handleToggle(item, line) {
+    let isOpen = !this.state['open'+line] || item.state.open
+    this.saveNestedState(isOpen, line)
+  }
+
+  saveNestedState(isOpen, line) {
+    let state = this.state
+    state['open'+line] = isOpen
+    this.setState(state)
   }
 
   changeSorting() {
@@ -148,6 +158,7 @@ class LineStatsCard extends React.Component {
                             disabled
                             style={{padding: 0, marginLeft: 0, marginRight: 0, marginTop: 0, lineHeight: 0}}
                             open={this.state['open'+line] ? this.state['open'+line] : false}
+                            onNestedListToggle={ (item) => this.handleToggle(item, line) }
                             children={
                               <div
                                 key={'ht-wrapper'+index}
