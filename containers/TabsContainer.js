@@ -174,7 +174,7 @@ class TabsContainer extends React.Component {
             </div>
           }
         </Tab>
-        <Tab className="event-header" value="events" label="Last opp datasett" style={{marginTop: 10}}>
+        <Tab className="event-header" value="events" label="Dataleveranser" style={{marginTop: 10}}>
           {this.state.value === 'events' && <Events/>}
         </Tab>
       </Tabs>

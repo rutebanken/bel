@@ -26,7 +26,7 @@ class Events extends React.Component {
   startPolling = () => {
     this.poll()
     setTimeout(() => {
-      this.intervalId = setInterval(this.poll, 10000)
+      this.intervalId = setInterval(this.poll, 5000)
     }, 1000)
   }
 
@@ -47,14 +47,13 @@ class Events extends React.Component {
 
     return (
       <div>
-        <div style={{padding: 20}}>
+        <div style={{display: 'flex', justifyContent: 'flex-end', paddingBottom: 0}}>
           <FlatButton
-            label="Last opp datasett"
+            label="Last opp nytt datasett"
             labelPosition="before"
             primary={true}
             onClick={this.handleUploadFile.bind(this)}
             icon={<Upload/>}
-            style={{float: 'right'}}
           />
         </div>
         { (paginationMap && paginationMap.length)

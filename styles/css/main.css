@@ -17,10 +17,8 @@ p,h1,h2,h3,h4,h5, span {
 }
 
 .page-link-parent {
-
   display: block;
   margin-bottom: 20px;
-
 }
 
 .page-link {
@@ -28,15 +26,12 @@ p,h1,h2,h3,h4,h5, span {
   cursor: pointer;
   margin-left: 5px;
   margin-top: 3px;
+  font-size: 0.9em;
 }
 
 .active-link {
-  color: black;
-  border: 1px solid red;
-  border-radius: 50%;
-  padding-left: 2px;
-  padding-right: 2px;
-  padding-top: 4px;
+  color: #0D3C61;
+  text-decoration: underline;
 }
 
 .inactive-link {
