@@ -108,6 +108,10 @@ class EventStepper extends React.Component {
 
     const bullets = Object.keys(formattedGroups).map( (group, index) => {
 
+      if (group === "FILE_CLASSIFICATION") return null
+
+      if (!ActionTranslations.states[formattedGroups[group].endState]) return null
+
       const isLast = Object.keys(formattedGroups).length == index+1
       let toolTipText = ActionTranslations.states[formattedGroups[group].endState]
 
@@ -121,8 +125,10 @@ class EventStepper extends React.Component {
               { this.getIconByState(formattedGroups[group].endState) }
             </div>
             <div
-              title={ ActionTranslations.title[group] || ActionTranslations.title['UNKNOWN'] }
-              style={{...groupText, opacity: formattedGroups[group].missingBeforeStartStart ? 0.2 : 1 }}> { ActionTranslations.text[group] || ActionTranslations.text['UNKNOWN']  }
+              title={ ActionTranslations.title[group]}
+              style={{...groupText, opacity: formattedGroups[group].missingBeforeStartStart ? 0.2 : 1 }}
+             >
+              { ActionTranslations.text[group] }
               </div>
             {!isLast ? <div style={linkStyle}></div> : null }
           </div>

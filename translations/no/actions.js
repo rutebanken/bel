@@ -18,7 +18,7 @@ export default {
     UNKNOWN: "Dette steget er ukjent",
   },
   filename: {
-    undefined: "Mangler filnavn"
+    undefined: "Direkteleveranse"
   },
   states: {
     OK: "Fullført",

@@ -82,12 +82,4 @@ const getPaginationMap = (statusList = []) => {
   return paginationMap
 }
 
-
-
-const mapDispatchToProps = (dispatch, ownProps) => {
-  return {
-    dispatch: dispatch
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Events)
+export default connect(mapStateToProps)(Events)
