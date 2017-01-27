@@ -12,7 +12,7 @@ export const filterLines = (lineData, selectedSegment, daysValid) => {
   }
 
   // fallback to all
-  //console.log("error, showing all data")
+  console.log("error, showing all data")
   return lineData['all'].lineNumbers
 }
 

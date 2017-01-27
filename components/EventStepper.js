@@ -5,7 +5,7 @@ const FaChevronUp  = require('react-icons/lib/fa/chevron-up')
 import MdError from 'react-icons/lib/md/error'
 import MdDone from 'react-icons/lib/md/check-circle'
 import MdSchedule from 'react-icons/lib/md/schedule'
-import MdBuild from 'react-icons/lib/md/build'
+import FaCog from 'react-icons/lib/fa/cog'
 import MdHelpOutLine from 'react-icons/lib/md/help-outline'
 import MdHour from 'react-icons/lib/md/hourglass-empty'
 
@@ -27,10 +27,10 @@ class EventStepper extends React.Component {
     switch (state) {
       case "OK": return <MdDone style={{color: 'green', width: 24, height: 22, marginTop: -2}}/>
       case "PENDING": return <MdHour style={{color: 'orange', width: 24, height: 22, marginTop: -2}}/>
-      case "STARTED": return <MdBuild style={{color: '#2274b5', width: 24, height: 22, marginTop: -2}}/>
+      case "STARTED": return <FaCog style={{color: '#2274b5', width: 24, height: 22, marginTop: -2}}/>
       case "FAILED": return <MdError style={{color: 'red', width: 24, height: 22, marginTop: -2}}/>
       case "DUPLICATE": return <MdError style={{color: 'red', width: 24, height: 22, marginTop: -2}}/>
-      case "IGNORED": return <MdSchedule style={{color: 'grey', width: 24, height: 22, marginTop: -2}}/>
+      case "IGNORED": return <MdSchedule style={{color: 'black', width: 24, height: 22, marginTop: -2}}/>
     }
     return <MdHelpOutLine style={{color: 'grey', width: 24, height: 22}}/>
   }
@@ -41,11 +41,16 @@ class EventStepper extends React.Component {
 
     let groupsWithUnlisted = Object.assign({}, groups)
 
+    let firstStateFound = false
+
     states.forEach( state => {
       if (!groupsWithUnlisted[state]) {
         groupsWithUnlisted[state] = {
-          endState: "IGNORED"
+          endState: "IGNORED",
+          missingBeforeStartStart: !firstStateFound
         }
+      } else {
+        firstStateFound = true
       }
     })
 
@@ -83,7 +88,7 @@ class EventStepper extends React.Component {
 
     const groupText = {
       fontSize: '0.9em',
-      marginLeft: 5
+      marginLeft: 5,
     }
 
     const linkStyle = {
@@ -112,8 +117,13 @@ class EventStepper extends React.Component {
 
       return (
           <div style={groupStyle} key={"group-" + group + index}>
-            <div title={toolTipText}>{ this.getIconByState(formattedGroups[group].endState) } </div>
-            <div title={ ActionTranslations.title[group] || ActionTranslations.title['UNKNOWN'] } style={groupText}> { ActionTranslations.text[group] || ActionTranslations.text['UNKNOWN']  }</div>
+            <div title={toolTipText} style={{opacity: formattedGroups[group].missingBeforeStartStart ? 0.2 : 1 }}>
+              { this.getIconByState(formattedGroups[group].endState) }
+            </div>
+            <div
+              title={ ActionTranslations.title[group] || ActionTranslations.title['UNKNOWN'] }
+              style={{...groupText, opacity: formattedGroups[group].missingBeforeStartStart ? 0.2 : 1 }}> { ActionTranslations.text[group] || ActionTranslations.text['UNKNOWN']  }
+              </div>
             {!isLast ? <div style={linkStyle}></div> : null }
           </div>
         )
