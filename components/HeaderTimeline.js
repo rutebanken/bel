@@ -70,9 +70,14 @@ class HeaderTimeline extends React.Component {
 
       const textSpanStyle = {
         color: color.font.inverse,
+        height: 18,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
         whiteSpace: 'nowrap',
+        overflow: 'hidden',
         textOverflow: 'ellipsis',
-        height: 18
       }
 
       const { effectivePeriods, validDaysOffset } = this.props
@@ -128,7 +133,7 @@ class HeaderTimeline extends React.Component {
 
                 let itemText = effectivePeriod.to
 
-                if (effectivePeriod.timelineStartPosition > 0) {
+                if (effectivePeriod.timelineStartPosition > 0 && effectivePeriod.from.localeCompare(effectivePeriod.to) !== 0) {
                   itemText = effectivePeriod.from + ' - ' + effectivePeriod.to
                 }
 
@@ -137,7 +142,7 @@ class HeaderTimeline extends React.Component {
                       key={'timeline-header-block'+index}
                       style={periodBlock}>
                       <div style={textSpanStyle}>
-                          <div className="period-block" style={{height: '100%', color: color.font.inverse, verticalAlign: 'middle'}}>{itemText}</div>
+                          <div className="period-block" style={{height: '100%', color: color.font.inverse, verticalAlign: 'middle'}} title={itemText}>{itemText}</div>
                       </div>
                     </div>
                 )
