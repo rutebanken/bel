@@ -70,7 +70,7 @@ class Timeline extends React.Component {
                 periodBlock.width = (period.timelineEndPosition - period.timelineStartPosition) + '%'
                 periodBlock.marginLeft = (period.timelineStartPosition + '%')
                 return (
-                  <div key={'timetable-period-'+index} style={periodBlock}>
+                  <div key={'timetable-period-'+index} style={periodBlock} title={timetables[0].objectId}>
                     <div style={textStyle}>{timetables[0].objectId}</div>
                   </div>)
               })
