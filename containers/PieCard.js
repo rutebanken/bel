@@ -67,7 +67,7 @@ class PieCard extends React.Component {
     const valid = stats.valid.lineNumbers.length
     const invalid = stats.invalid.lineNumbers.length
     const soonInvalid = stats.soonInvalid.lineNumbers.length
-    const expiring = stats.validity.filter( lines => lines.numDaysAtLeastValid > 0 && lines.numDaysAtLeastValid < 120).reverse()
+    const expiring = stats.validity.filter( lines => lines.numDaysAtLeastValid > -1 && lines.numDaysAtLeastValid < 120).reverse()
 
     const pieData = [
       {

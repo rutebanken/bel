@@ -121,7 +121,7 @@ AsyncActions.getFilesForProvider = (providerId) => {
 
 const validPeriod = (endDate, from, to) => (moment(endDate).add(1, 'days').isBetween(from, to, 'days', '[]')) ? to : endDate
 
-const validDays = (lines) => lines.map(line => {return {lineNumber: line.lineNumber, days: line.daysValid} })
+const validDays = (lines) => lines.map(line => { return {lineNumber: line.lineNumber, days: line.daysValid} })
 
 const getDaysRange = (startDate, end = 0) => moment.isMoment(end) ? end.diff(startDate, 'days') : end
 
@@ -163,7 +163,7 @@ export const formatLineStats = lineStats => {
     formattedLines.days = lineStats.days
     formattedLines.endDate = endDate.format('YYYY-MM-DD')
 
-    lineStats.publicLines.forEach ( (publicLine, idx) => {
+    lineStats.publicLines.forEach ( publicLine => {
 
         publicLine.effectivePeriods.forEach( (effectivePeriod) => {
 
