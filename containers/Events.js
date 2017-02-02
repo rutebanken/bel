@@ -5,7 +5,7 @@ import UserActions from '../actions/UserActions'
 import FlatButton from 'material-ui/FlatButton'
 import Upload from 'material-ui/svg-icons/file/file-upload'
 import EventDetails from './EventDetails'
-import { color } from '../styles/styles'
+import { color } from 'bogu/styles'
 import AsyncActions from '../actions/AsyncActions'
 
 class Events extends React.Component {

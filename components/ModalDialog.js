@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { color } from '../styles/styles'
+import { color } from 'bogu/styles'
 
 export default class Modal extends React.Component {
 

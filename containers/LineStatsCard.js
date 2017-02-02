@@ -1,11 +1,10 @@
 import React, { PropTypes } from 'react'
 import { Card, CardText } from 'material-ui/Card'
 import { List, ListItem } from 'material-ui/List'
-import Timeline from '../components/Timeline'
-import HeaderTimeline from '../components/HeaderTimeline'
-import { color } from '../styles/styles'
 
-import { filterLines} from '../util/dataManipulation'
+import { Timeline, HeaderTimeline } from 'bogu'
+import { filterLines } from 'bogu/utils'
+import { color } from 'bogu/styles'
 
 class LineStatsCard extends React.Component {
 

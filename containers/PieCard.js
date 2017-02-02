@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react'
 import { Pie as PieChart } from 'react-chartjs'
 import { Card, CardText } from 'material-ui/Card'
-import { color } from '../styles/styles'
+import { color } from 'bogu/styles'
 
-import { segmentName, segmentColor } from '../util/dataManipulation'
+import { segmentName, segmentColor } from 'bogu/utils'
 
 class PieCard extends React.Component {
 

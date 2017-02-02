@@ -1,6 +1,6 @@
 /* tests on calculation logic for timeline items */
 import expect from 'expect'
-import {formatLineStats} from '../actions/AsyncActions'
+import {formatLineStats} from 'bogu/utils'
 import lineStats from './mock/lineStats'
 import lineStatsNorland from './mock/lineStatsNorland'
 
