@@ -14,6 +14,7 @@ class LineStatsCard extends React.Component {
     daysValid: PropTypes.number.isRequired,
     stats: PropTypes.object.isRequired,
     title: PropTypes.string.isRequired,
+    handleClose: PropTypes.func
   }
 
   constructor(props) {
@@ -117,7 +118,7 @@ class LineStatsCard extends React.Component {
       fontWeight: 600,
       display: 'inline-block',
       float: 'right',
-      marginRight: '5%'
+      marginRight: '3%'
     }
 
     let sortIconStyle = {
@@ -127,7 +128,7 @@ class LineStatsCard extends React.Component {
       width: 48,
     }
 
-    const order = this.sortLines(stats, selectedSegment, daysValid);
+    const order = this.sortLines(stats, selectedSegment, daysValid)
 
     return (
         <Card expanded={true} style={{flex: 4, boxShadow: 'none'}}>
@@ -139,6 +140,7 @@ class LineStatsCard extends React.Component {
                   <CardText>
                     <div style={{textTransform: 'uppercase', fontWeight: 600, marginLeft: 10, fontSize: '2em', display: 'block', paddingTop: 10, paddingBottom: 10}}>
                       {title}
+                      { this.props.handleClose && <IconButton style={{float: 'right'}} onClick={() => this.props.handleClose()} touch={true}><CloseButton/></IconButton> }
                     </div>
                     <div style={{display: 'block', margin: 10, padding: 6, background: color.tableHeader, opacity: '0.8', borderRadius: 7}}>
                       <div style={sortIconStyle} onClick={this.changeSorting.bind(this)} title="Sorter linjer">{this.sortIcon()}</div>

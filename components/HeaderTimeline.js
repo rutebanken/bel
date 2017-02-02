@@ -61,11 +61,9 @@ class HeaderTimeline extends React.Component {
         fontSize: '0.8em',
         color: color.font.tooltip,
         background: color.tooltip,
-        padding: 2,
+        padding: 10,
         width: 'auto',
         zIndex: 99,
-        paddingLeft: 10,
-        paddingRight: 10
       }
 
       const textSpanStyle = {
@@ -81,8 +79,6 @@ class HeaderTimeline extends React.Component {
       }
 
       const { effectivePeriods, validDaysOffset } = this.props
-      const { showTooltip } = this.state
-
 
       let hrStyle = {
         transform: 'rotate(90deg) translateX(20px)',
@@ -98,29 +94,19 @@ class HeaderTimeline extends React.Component {
       let hoverText = effectivePeriods.length ?  this.props.hoverText : 'Ugyldig linje. Mangler data'
 
       return (
-        <div style={timelineWrapper}
-          >
-          <div
-            style={{display: 'inline-block', cursor: 'pointer', transform: 'translate(12px, 30px)', fontSize: '1vw', color: effectivePeriods.length ? color.effective : color.fail}}
+        <div style={timelineWrapper}>
+        <div
+            style={{display: 'inline-block', cursor: 'pointer', transform: 'translate(12px, 30px)', fontSize: '1.2em', color: effectivePeriods.length ? color.effective : color.fail}}
             onMouseOver={this.handleToggleToolTip.bind(this)}
             onMouseLeave={this.handleToggleToolTip.bind(this)}
             >
             {this.props.line}
-            { showTooltip
-              ?
-              <div style={toolTipStyle}>
-                {hoverText}
-             </div>
-             : null
-           }
+            {this.state.showTooltip && <div style={toolTipStyle}> {hoverText} </div>}
           </div>
             <hr style={hrStyle}/>
-            <div style={timelineStyle}
-              >
-              <div
-                key={'timeline-header-wrapper'+this.props.index}
-                >
-              { effectivePeriods.map( (effectivePeriod, index) => {
+            <div style={timelineStyle}>
+            <div key={'timeline-header-wrapper'+this.props.index}>
+            { effectivePeriods.map( (effectivePeriod, index) => {
 
                 let periodBlock = {...timeBlock}
                 periodBlock.width = (effectivePeriod.timelineEndPosition - effectivePeriod.timelineStartPosition) + '%'
