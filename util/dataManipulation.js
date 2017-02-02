@@ -16,13 +16,12 @@ export const filterLines = (lineData, selectedSegment, daysValid) => {
   return lineData['all'].lineNumbers
 }
 
-
 export const validity = (daysForward) => {
   if (daysForward > 127) {
     return 'VALID'
   } else if (daysForward >= 120) {
     return 'SOON_INVALID'
-  } else if (daysForward == 0) {
+  } else if (daysForward == -1) {
     return 'INVALID'
   }
   return 'EXPIRED'
