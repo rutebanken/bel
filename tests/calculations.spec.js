@@ -4,8 +4,6 @@ import {formatLineStats} from '../actions/AsyncActions'
 import lineStats from './mock/lineStats'
 import lineStatsNorland from './mock/lineStatsNorland'
 
-import { validity, filterLines} from '../util/dataManipulation'
-
 describe('Test calculations for effectivePeriods on timeline', () => {
 
   it('Effective period should not be in the boundary of the timeline', () => {
