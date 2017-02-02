@@ -18,7 +18,7 @@
     "babel-cli": "^6.22.2",
     "babel-polyfill": "^6.20.0",
     "babel-runtime": "^6.22.0",
-    "bogu": "git+https://github.com/rutebanken/bogu.git",
+    "bogu": "git@github.com:rutebanken/bogu.git",
     "chart.js": "1.1.1",
     "chartjs": "^0.3.24",
     "classnames": "^2.2.5",
