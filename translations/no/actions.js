@@ -6,6 +6,7 @@ export default {
     VALIDATION_LEVEL_1: "Validering nivå 1",
     DATASPACE_TRANSFER: "Overføring sentral database",
     VALIDATION_LEVEL_2: "Validering nivå 2",
+    BUILD_GRAPH: "Bygg av reisesøkforslag",
     UNKNOWN: "Ukjent steg",
   },
   title: {
@@ -15,6 +16,7 @@ export default {
     VALIDATION_LEVEL_1: "Validering av komplett dataområde nivå 1",
     VALIDATION_LEVEL_2: "Validering av komplett dataområde nivå 2",
     DATASPACE_TRANSFER: "Overføring til sentralt databaseområde nivå 2",
+    BUILD_GRAPH: "Bygg av reisesøkforslag",
     UNKNOWN: "Dette steget er ukjent",
   },
   filename: {
