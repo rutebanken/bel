@@ -8,6 +8,7 @@ import MdSchedule from 'react-icons/lib/md/schedule'
 import FaCog from 'react-icons/lib/fa/cog'
 import MdHelpOutLine from 'react-icons/lib/md/help-outline'
 import MdHour from 'react-icons/lib/md/hourglass-empty'
+import ControlledChouetteLink from './ControlledChouetteLink'
 
 class EventStepper extends React.Component {
 
@@ -128,7 +129,7 @@ class EventStepper extends React.Component {
               title={ ActionTranslations.title[group]}
               style={{...groupText, opacity: formattedGroups[group].missingBeforeStartStart ? 0.2 : 1 }}
              >
-              { ActionTranslations.text[group] }
+              <ControlledChouetteLink events={formattedGroups[group]}> { ActionTranslations.text[group] } </ControlledChouetteLink>
               </div>
             {!isLast ? <div style={linkStyle}></div> : null }
           </div>
