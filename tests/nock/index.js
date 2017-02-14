@@ -32,7 +32,7 @@ cfgreader.readConfig( (function(config) {
 }))
 
 window.config = {
-  nabuBaseUrl: "https://carbon.rutebanken.org/apiman-gateway/rutebanken/nabu/1.0/"
+  nabuBaseUrl: "https://carbon.rutebanken.org/api/nabu/1.0/"
 }
 
 describe('async actions', () => {
@@ -43,7 +43,7 @@ describe('async actions', () => {
 
   it('creates ultimately RECEIVED_SUPPLIERS when fetching suppliers has been done', () => {
 
-    nock('https://carbon.rutebanken.org/apiman-gateway/rutebanken/nabu/1.0/jersey/')
+    nock('https://carbon.rutebanken.org/api/nabu/1.0/jersey/')
       .log(console.log)
       .get('/providers/all')
       .reply(200, Suppliers)
@@ -62,7 +62,7 @@ describe('async actions', () => {
 
   it('creates ultimately RECEIVED_EVENTS when fetching events has been done', () => {
 
-    nock('https://carbon.rutebanken.org/apiman-gateway/rutebanken/nabu/1.0/jersey')
+    nock('https://carbon.rutebanken.org/api/nabu/1.0/jersey')
       .log(console.log)
       .get('/jobs/1')
       .reply(200, [])
