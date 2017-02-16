@@ -43,7 +43,7 @@
     "redux": "^3.4.0",
     "redux-logger": "^2.8.1",
     "redux-thunk": "^2.2.0",
-    "svg-url-loader": "^1.1.1"
+    "svg-url-loader": "^2.0.2"
   },
   "devDependencies": {
     "babel-core": "^6.22.1",
