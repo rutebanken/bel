@@ -29,7 +29,7 @@
     "jsdom": "9.11.0",
     "jsdom-global": "2.1.1",
     "keycloak-js": "^2.5.0",
-    "material-ui": "^0.16.7",
+    "material-ui": "^0.17.1",
     "mocha": "^3.0.2",
     "moment": "^2.14.1",
     "nightwatch": "^0.9.12",
