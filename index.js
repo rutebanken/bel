@@ -1,8 +1,7 @@
 import 'babel-polyfill'
 import React from 'react'
-import { render } from 'react-dom'
+import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
-import Keycloak from 'keycloak-js'
 import Root from './containers/Root'
 import configureStore from './store/store'
 import cfgreader from './config/readConfig'
@@ -13,13 +12,6 @@ import './styles/css/main.css'
 injectTapEventPlugin()
 
 // use authWithKeyCloak(renderIndex) for keycloak authentification
-function authWithKeyCloak(renderCallback) {
-  let keycloakAuth = new Keycloak('config/keycloak.json')
-
-  keycloakAuth.init({ onLoad: 'login-required' }).success(function () {
-      renderCallback()
-  })
-}
 
 cfgreader.readConfig( (function(config) {
   window.config = config
@@ -30,7 +22,7 @@ function renderIndex(path) {
 
   const store = configureStore()
 
-  render(
+  ReactDOM.render(
     <Provider store={store}>
         <Root/>
       </Provider>,
