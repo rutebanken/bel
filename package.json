@@ -35,7 +35,7 @@
     "react-dom": "^15.4.2",
     "react-dropzone": "^3.12.1",
     "react-icons": "^2.2.3",
-    "react-redux": "^5.0.2",
+    "react-redux": "^5.0.3",
     "react-tap-event-plugin": "^2.0.1",
     "redux": "^3.4.0",
     "redux-logger": "^2.8.2",
