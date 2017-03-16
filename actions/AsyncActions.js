@@ -139,17 +139,17 @@ AsyncActions.uploadFiles = (files) => {
 
     var config = {
       onUploadProgress: function(progressEvent) {
-        var percentCompleted = progressEvent.loaded / progressEvent.total
+        var percentCompleted = (progressEvent.loaded / progressEvent.total)*100
         dispatch( sendData(percentCompleted, types.UPDATED_FILE_UPLOAD_PROGRESS_BAR))
       }
     }
 
     return axios.post(url, data, config)
     .then(function(response) {
-        alert("Files uploaded successfully")
+      dispatch( sendData(types.FILE_UPLOAD_COMPLETED, types.UPDATED_FILE_UPLOAD_PROGRESS_BAR_STATE))
     })
     .catch(function(response) {
-      alert("Failed to upload file(s)")
+      dispatch( sendData(types.FILE_UPLOAD_FAILED, types.UPDATED_FILE_UPLOAD_PROGRESS_BAR_STATE))
     })
   }
 }

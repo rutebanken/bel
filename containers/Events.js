@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import React, { Component, PropTypes } from 'react'
 import cfgreader from '../config/readConfig'
 import UserActions from '../actions/UserActions'
-import FlatButton from 'material-ui/FlatButton'
+import RaisedButton from 'material-ui/RaisedButton'
 import Upload from 'material-ui/svg-icons/file/file-upload'
 import EventDetails from './EventDetails'
 import { color } from 'bogu/styles'
@@ -47,8 +47,8 @@ class Events extends React.Component {
 
     return (
       <div>
-        <div style={{display: 'flex', justifyContent: 'flex-end', paddingBottom: 0}}>
-          <FlatButton
+        <div style={{display: 'flex', justifyContent: 'center', paddingBottom: 0, marginTop: 10}}>
+          <RaisedButton
             label="Last opp nytt datasett"
             labelPosition="before"
             primary={true}

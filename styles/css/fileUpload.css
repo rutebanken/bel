@@ -1,0 +1,58 @@
+.dropZone {
+    max-width: 95%;
+    height: 150px;
+    border: 1px dashed #666;
+    border-radius: 2px;
+    margin: 20px auto;
+    cursor: pointer;
+}
+
+.filelist {
+    max-width: 95%;
+    min-width: 95%;
+    margin: auto;
+    min-height: 300px;
+    max-height: 300px;
+}
+
+.file-select {
+    min-width: 100%;
+    min-height: 300px;
+}
+
+.dropZone--active {
+    border-color: green;
+}
+
+.dropZone--reject {
+    border-color: red;
+    animation: shake .5s ease-in-out;
+    -webkit-animation: shake .5s ease-in-out;
+}
+
+@keyframes shake {
+    0% {
+        transform: translateX(0);
+    }
+
+    20% {
+        transform: translateX(-10px);
+    }
+
+    40% {
+        transform: translateX(10px);
+    }
+
+    60% {
+        transform: translateX(-10px);
+    }
+
+    80% {
+        transform: translateX(10px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
