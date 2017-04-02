@@ -113,7 +113,6 @@ class TabsContainer extends React.Component {
     const { lineStats, lastDeliveredDate } = this.props
     const valid = lineStats.data ? lineStats.data.valid.lineNumbers.length : 0
     const invalid = lineStats.data ? lineStats.data.invalid.lineNumbers.length :  0
-    const soonInvalid = lineStats.data ? lineStats.data.soonInvalid.lineNumbers.length : 0
     const all = lineStats.data ? lineStats.data.all.lineNumbers.length : 0
     const { selectedSegment, daysValid, segmentValue } = this.state
     const title = segmentName(selectedSegment, daysValid)

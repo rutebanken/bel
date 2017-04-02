@@ -26,7 +26,6 @@ const asyncReducer = (state = initialState, action) => {
       return Object.assign({}, state, {currentSupplier: currentSupplier})
 
     case types.RECEIVED_SUPPLIERS:
-      // set default supplier to first retrieved from list
       let currentSupplier = (action.payLoad.length) ? action.payLoad[0] : null
       return Object.assign( {}, state, {currentSupplier: currentSupplier, suppliers: action.payLoad} )
 
@@ -41,7 +40,8 @@ const asyncReducer = (state = initialState, action) => {
       let lastDelivered = null
 
       if (action.payLoad.files && action.payLoad.files.length) {
-        lastDelivered = action.payLoad.files[action.payLoad.files.length-1].updated
+        const files = action.payLoad.files
+        lastDelivered = files.sort( (a, b) => a.updated >= b.updated)[files.length-1].updated
       }
       return Object.assign({}, state, {files: { lastDelivered: lastDelivered, data: action.payLoad.files}})
 
