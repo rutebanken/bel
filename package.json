@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "BABEL_ENV=production NODE_ENV=production webpack -p --config ./webpack.prod.config.js",
-    "clean": "rm public/bundle.js",
+    "clean": "rm public/*",
     "start": "node server.js",
     "test": "./node_modules/.bin/mocha -r jsdom-global/register --compilers js:babel-core/register ./tests/calculations.spec.js",
     "dev": "BABEL_ENV=development NODE_ENV=development node server.js",
