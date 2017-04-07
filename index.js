@@ -5,22 +5,50 @@ import { Provider } from 'react-redux'
 import Root from './containers/Root'
 import configureStore from './store/store'
 import cfgreader from './config/readConfig'
+import Keycloak from 'keycloak-js'
+import axios from 'axios'
 
-// used by material-ui, will be removed once the official React version of MI is relased
 import injectTapEventPlugin from 'react-tap-event-plugin'
 import './styles/css/main.css'
 injectTapEventPlugin()
 
-// use authWithKeyCloak(renderIndex) for keycloak authentification
-
 cfgreader.readConfig( (function(config) {
   window.config = config
-  renderIndex(config.endpointBase)
+  authWithKeyCloak(config.endpointBase)
 }).bind(this))
 
-function renderIndex(path) {
 
-  const store = configureStore()
+function authWithKeyCloak(endpointBase) {
+
+  let kc = new Keycloak(endpointBase + 'config/keycloak.json')
+
+  kc.init({ onLoad: 'login-required', checkLoginIframe: false }).success( authenticated => {
+
+    if (authenticated) {
+      setInterval(() => {
+        kc.updateToken(10).error(() => kc.logout())
+        axios.interceptors.request.use(config => {
+          config.headers = {...config.headers, ...{
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+            Authorization: 'Bearer ' + kc.token
+          }}
+          return config;
+        })
+
+      }, 10000)
+
+      renderIndex(kc)
+
+    } else {
+      kc.login()
+    }
+  })
+}
+
+function renderIndex(kc) {
+
+  const store = configureStore(kc)
 
   ReactDOM.render(
     <Provider store={store}>
@@ -28,5 +56,4 @@ function renderIndex(path) {
       </Provider>,
     document.getElementById('root')
   )
-
 }

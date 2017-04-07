@@ -3,30 +3,42 @@ import React from 'react'
 import thunkMiddleware from 'redux-thunk'
 import createLogger from 'redux-logger'
 import * as reducers from '../reducers'
+import * as types from '../actions/actionTypes'
 
-const loggerMiddleware = createLogger()
+export default function configureStore(kc) {
 
-var enchancer = {}
+  const loggerMiddleware = createLogger()
 
-if (process.env.NODE_ENV === 'development') {
+  var enchancer = {}
 
-  enchancer = compose(
-    applyMiddleware(thunkMiddleware, loggerMiddleware),
-  )
+  if (process.env.NODE_ENV === 'development') {
 
-} else {
-  enchancer = compose(
-    applyMiddleware(thunkMiddleware)
-  )
-}
+    enchancer = compose(
+      applyMiddleware(thunkMiddleware, loggerMiddleware),
+    )
 
-const initialState = {}
+  } else {
+    enchancer = compose(
+      applyMiddleware(thunkMiddleware)
+    )
+  }
 
-const combinedReducer = combineReducers({
-  ...reducers
-})
+  const initialState = {
+    userReducer: {
+      isModalOpen: false,
+      isReportModalOpen: false,
+      reportViewType: "ALL",
+      fileUpload: {
+        progress: 0,
+        state: types.FILE_UPLOAD_NOT_STARTED
+      },
+      kc: kc
+    }
+  }
 
-export default function configureStore(history) {
+  const combinedReducer = combineReducers({
+    ...reducers
+  })
 
   let store = createStore(combinedReducer, initialState, enchancer)
 

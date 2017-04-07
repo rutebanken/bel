@@ -4,9 +4,8 @@ import IconButton from 'material-ui/IconButton'
 import IconMenu from 'material-ui/IconMenu'
 import MenuItem from 'material-ui/MenuItem'
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert'
-import FlatButton from 'material-ui/FlatButton'
+import MdAccount from 'material-ui/svg-icons/action/account-circle'
 import Identity from 'material-ui/svg-icons/action/perm-identity'
-import ArrowDropRight from 'material-ui/svg-icons/navigation-arrow-drop-right'
 import Popover from 'material-ui/Popover'
 import Menu from 'material-ui/Menu'
 import { connect } from 'react-redux'
@@ -46,9 +45,9 @@ class Header extends React.Component {
   }
 
   render() {
-    // reactintl these
-    const { activeSupplier } = this.props
-    let help = "Hjelp", title = activeSupplier ? activeSupplier.name : '', signOut = 'Logg ut'
+    const { activeSupplier, kc } = this.props
+    let title = activeSupplier ? activeSupplier.name : ''
+    let signOut = 'Logg ut ' + kc.tokenParsed.preferred_username
 
     return (
 
@@ -73,8 +72,11 @@ class Header extends React.Component {
                 targetOrigin={{horizontal: 'right', vertical: 'top'}}
                 anchorOrigin={{horizontal: 'right', vertical: 'top'}}
               >
-                <MenuItem primaryText={help} />
-                <MenuItem primaryText={signOut} />
+                <MenuItem
+                  leftIcon={<MdAccount/>}
+                  primaryText={signOut}
+                  onClick={() => kc.logout()}
+                />
               </IconMenu>
             }
           />
@@ -105,17 +107,12 @@ class Header extends React.Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = state => {
   return {
     supplierList: state.asyncReducer.suppliers,
-    activeSupplier: state.asyncReducer.currentSupplier
+    activeSupplier: state.asyncReducer.currentSupplier,
+    kc: state.userReducer.kc
   }
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-  return {
-    dispatch: dispatch
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Header)
+export default connect(mapStateToProps)(Header)
