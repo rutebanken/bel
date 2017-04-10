@@ -7,7 +7,8 @@ const intialState = {
   fileUpload: {
     progress: 0,
     state: types.FILE_UPLOAD_NOT_STARTED
-  }
+  },
+  noOrganisations: false
 }
 
 const userReducer = (state = intialState, action) => {
@@ -29,6 +30,9 @@ const userReducer = (state = intialState, action) => {
 
     case types.OPENED_FILEUPLOAD_MODAL:
       return Object.assign( {}, state, { isModalOpen: true} )
+
+    case types.USER_NO_ORGANISATIONS:
+      return Object.assign( {}, state, { noOrganisations: true })
 
     case types.UPDATED_FILE_UPLOAD_PROGRESS_BAR_STATE:
       return Object.assign( {}, state, {

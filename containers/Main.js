@@ -12,14 +12,37 @@ class Main extends React.Component {
       this.props.dispatch(AsyncActions.getAllSuppliers())
     }).bind(this))
   }
+
+  handleLogout() {
+    const { kc } = this.props
+    kc.logout()
+  }
+
   render() {
 
-    return (
-      <div>
-        <TabsContainer/>
-      </div>
-    )
+    const { noOrganisations } = this.props
+
+    if (!noOrganisations) {
+      return (
+        <div>
+          <TabsContainer/>
+        </div>
+      )
+    } else {
+      return (
+        <div>
+          <div style={{marginTop: 20, fontWeight: 600, fontSize: 18}}>Din bruker er ikke tilknyttet en organisasjon</div>
+          <div>Ta kontakt med din administrator for å rett tilgang til ditt område.</div>
+          <a style={{cursor: 'pointer'}} onClick={this.handleLogout.bind(this)}>Logg ut</a>
+        </div>)
+    }
+
   }
 }
 
-export default connect(null)(Main)
+const mapStateToProps = state => ({
+  noOrganisations: state.userReducer.noOrganisations,
+  kc: state.userReducer.kc
+})
+
+export default connect(mapStateToProps)(Main)

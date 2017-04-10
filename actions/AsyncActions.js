@@ -89,7 +89,12 @@ AsyncActions.getAllSuppliers = () => {
     .then(function(response) {
       dispatch( sendData(response.data, types.RECEIVED_SUPPLIERS) )
       const userOrganisations = roleParser.getUserOrganisations(state.userReducer.kc.tokenParsed, response.data)
-      dispatch( AsyncActions.getProviderStatus(userOrganisations[0].id))
+
+      if (userOrganisations.length) {
+        dispatch( AsyncActions.getProviderStatus(userOrganisations[0].id))
+      } else {
+        dispatch( sendData(null, types.USER_NO_ORGANISATIONS))
+      }
     })
     .catch(function(response){
       dispatch( sendData(response.data, types.ERROR_SUPPLIERS) )
