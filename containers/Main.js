@@ -15,6 +15,7 @@ class Main extends React.Component {
 
   handleLogout() {
     const { kc } = this.props
+    localStorage.removeItem('BEL::jwt')
     kc.logout()
   }
 

@@ -25,6 +25,9 @@ function authWithKeyCloak(endpointBase) {
   kc.init({ onLoad: 'login-required', checkLoginIframe: false }).success( authenticated => {
 
     if (authenticated) {
+
+      localStorage.setItem('BEL::jwt', kc.token)
+
       setInterval(() => {
         kc.updateToken(10).error(() => kc.logout())
         localStorage.setItem('BEL::jwt', kc.token)
