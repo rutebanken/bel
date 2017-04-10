@@ -18,7 +18,8 @@ const userReducer = (state = intialState, action) => {
       return Object.assign( {}, state, { fileUpload: {
         progress: 0,
         state: types.FILE_UPLOAD_NOT_STARTED
-      }, isModalOpen: false} )
+      }, isModalOpen: false
+      })
 
     case types.OPENED_REPORTS_MODAL:
       return Object.assign( {}, state, { reportViewType: action.payLoad, isReportModalOpen: true})

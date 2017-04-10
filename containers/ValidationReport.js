@@ -36,20 +36,11 @@ class ValidationReport extends React.Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = state => {
   return {
     isModalOpen: state.userReducer.isReportModalOpen,
     reportViewType: state.userReducer.reportViewType
   }
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-  return {
-    dispatch: dispatch
-  }
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ValidationReport)
+export default connect(mapStateToProps)(ValidationReport)

@@ -11,6 +11,7 @@ import Menu from 'material-ui/Menu'
 import { connect } from 'react-redux'
 import AsyncActions from '../actions/AsyncActions'
 import { color } from 'bogu/styles'
+import roleParser from '../roles/roleParser'
 
 class Header extends React.Component {
 
@@ -45,9 +46,11 @@ class Header extends React.Component {
   }
 
   render() {
-    const { activeSupplier, kc } = this.props
+    const { activeSupplier, kc, supplierList } = this.props
     let title = activeSupplier ? activeSupplier.name : ''
     let signOut = 'Logg ut ' + kc.tokenParsed.preferred_username
+
+    let userOrganisations = roleParser.getUserOrganisations(kc.tokenParsed, supplierList)
 
     return (
 
@@ -67,7 +70,9 @@ class Header extends React.Component {
             iconElementRight={
               <IconMenu
                 iconButtonElement={
-                  <IconButton><MoreVertIcon /></IconButton>
+                  <IconButton>
+                    <MoreVertIcon/>
+                  </IconButton>
                 }
                 targetOrigin={{horizontal: 'right', vertical: 'top'}}
                 anchorOrigin={{horizontal: 'right', vertical: 'top'}}
@@ -89,7 +94,7 @@ class Header extends React.Component {
           >
             { this.props.supplierList
               ? <Menu>
-                { this.props.supplierList.map( (supplier, index) => (
+                { userOrganisations.map( (supplier, index) => (
                   <MenuItem
                     key={'supplier'+index}
                     onClick={() => { this.handleSupplierChange(supplier.id) }}
@@ -99,7 +104,7 @@ class Header extends React.Component {
                 ))
                 }
               </Menu>
-              : <div style={{padding: 20}}>No providers found</div>
+              : <div style={{padding: 20}}>Ingen forhandlere</div>
             }
           </Popover>
         </div>

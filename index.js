@@ -27,15 +27,7 @@ function authWithKeyCloak(endpointBase) {
     if (authenticated) {
       setInterval(() => {
         kc.updateToken(10).error(() => kc.logout())
-        axios.interceptors.request.use(config => {
-          config.headers = {...config.headers, ...{
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-            Authorization: 'Bearer ' + kc.token
-          }}
-          return config;
-        })
-
+        localStorage.setItem('BEL::jwt', kc.token)
       }, 10000)
 
       renderIndex(kc)

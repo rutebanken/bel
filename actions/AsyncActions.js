@@ -2,10 +2,25 @@ import axios from 'axios'
 import * as types from './actionTypes'
 import moment from 'moment'
 import actionNames from '../translations/no/actions'
+import roleParser from '../roles/roleParser'
 
 import { formatLineStats } from 'bogu/utils'
 
 const AsyncActions = {}
+
+const getConfig = () => {
+
+  let config = {}
+  let token = localStorage.getItem('BEL::jwt')
+
+  config.headers = {
+    'Content-Type': 'application/json',
+    Accept: 'application/json',
+    Authorization: 'Bearer ' + token
+  }
+
+  return config
+}
 
 AsyncActions.getProviderStatus = (id) => {
 
@@ -18,7 +33,8 @@ AsyncActions.getProviderStatus = (id) => {
       url: url,
       timeout: 20000,
       method: 'get',
-      responseType: 'json'
+      responseType: 'json',
+      ...getConfig()
     })
     .then(function(response) {
       let providerStatus = formatProviderStatusDate(response.data)
@@ -42,7 +58,8 @@ AsyncActions.getProviderEvents = (id) => {
       url: url,
       timeout: 20000,
       method: 'get',
-      responseType: 'json'
+      responseType: 'json',
+      ...getConfig()
     })
     .then(function(response) {
       let providerStatus = formatProviderStatusDate(response.data)
@@ -56,19 +73,23 @@ AsyncActions.getProviderEvents = (id) => {
 
 AsyncActions.getAllSuppliers = () => {
 
-  return function(dispatch) {
+  return function(dispatch, getState) {
     dispatch( sendData(null,types.REQUESTED_SUPPLIERS) )
-    const url = window.config.nabuBaseUrl+'providers/all'
+    const url = window.config.nabuBaseUrl+'providers/'
+
+    const state = getState()
 
     return axios({
       url: url,
       timeout: 20000,
       method: 'get',
-      responseType: 'json'
+      responseType: 'json',
+      ...getConfig()
     })
     .then(function(response) {
       dispatch( sendData(response.data, types.RECEIVED_SUPPLIERS) )
-      dispatch( AsyncActions.getProviderStatus(response.data[0].id))
+      const userOrganisations = roleParser.getUserOrganisations(state.userReducer.kc.tokenParsed, response.data)
+      dispatch( AsyncActions.getProviderStatus(userOrganisations[0].id))
     })
     .catch(function(response){
       dispatch( sendData(response.data, types.ERROR_SUPPLIERS) )
@@ -84,7 +105,8 @@ AsyncActions.getLineStats = (id) => {
       url: `${window.config.mardukBaseUrl}admin/services/chouette/${id}/lineStats`,
       timeout: 10000,
       method: 'get',
-      responseType: 'json'
+      responseType: 'json',
+      ...getConfig()
     })
     .then( (response) => {
       let formattedLines = formatLineStats(response.data)
@@ -108,7 +130,8 @@ AsyncActions.getFilesForProvider = (providerId) => {
       url: `${window.config.mardukBaseUrl}admin/services/chouette/${providerId}/files`,
       timeout: 1000,
       method: 'get',
-      responseTYpe: 'json'
+      responseTYpe: 'json',
+      ...getConfig()
     })
     .then( (response) => {
       dispatch( sendData( response.data, types.RECEIVED_FILES_FOR_PROVIDER))
@@ -141,7 +164,8 @@ AsyncActions.uploadFiles = (files) => {
       onUploadProgress: function(progressEvent) {
         var percentCompleted = (progressEvent.loaded / progressEvent.total)*100
         dispatch( sendData(percentCompleted, types.UPDATED_FILE_UPLOAD_PROGRESS_BAR))
-      }
+      },
+      ...getConfig()
     }
 
     return axios.post(url, data, config)

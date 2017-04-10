@@ -26,7 +26,7 @@ const asyncReducer = (state = initialState, action) => {
       return Object.assign({}, state, {currentSupplier: currentSupplier})
 
     case types.RECEIVED_SUPPLIERS:
-      let currentSupplier = (action.payLoad.length) ? action.payLoad[0] : null
+      let currentSupplier = null
       return Object.assign( {}, state, {currentSupplier: currentSupplier, suppliers: action.payLoad} )
 
     case types.RECEIVED_LINE_STATS:

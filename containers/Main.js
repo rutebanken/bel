@@ -22,13 +22,4 @@ class Main extends React.Component {
   }
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-  return {
-    dispatch: dispatch
-  }
-}
-
-export default connect(
-  null,
-  mapDispatchToProps
-)(Main)
+export default connect(null)(Main)
