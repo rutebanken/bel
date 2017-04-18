@@ -39,7 +39,7 @@ AsyncActions.getProviderStatus = (id) => {
     .then(function(response) {
       let providerStatus = formatProviderStatusDate(response.data)
       dispatch(AsyncActions.getLineStats(id))
-      dispatch(AsyncActions.getFilesForProvider(id))
+      dispatch(AsyncActions.getLatestDeliveryForProvider(id))
       dispatch(sendData(providerStatus, types.RECEIVED_EVENTS))
     })
     .catch(function(response){
@@ -104,7 +104,6 @@ AsyncActions.getAllSuppliers = () => {
 
 AsyncActions.getLineStats = (id) => {
   return function(dispatch) {
-
     dispatch( sendData(null, types.REQUESTED_LINE_STATS) )
     return axios({
       url: `${window.config.mardukBaseUrl}admin/services/chouette/${id}/lineStats`,
@@ -121,31 +120,28 @@ AsyncActions.getLineStats = (id) => {
       console.error(response)
     })
   }
-
-
 }
 
-AsyncActions.getFilesForProvider = (providerId) => {
+AsyncActions.getLatestDeliveryForProvider = (providerId) => {
 
   return function(dispatch) {
 
-    dispatch( sendData(null, types.REQUESTED_FILES_FOR_PROVIDER) )
+    dispatch( sendData(null, types.REQUESTED_LATEST_DELIVERY_DATE) )
 
     return axios({
-      url: `${window.config.mardukBaseUrl}admin/services/chouette/${providerId}/files`,
+      url: `${window.config.nabuBaseUrl}dataDelivery/${providerId}/latest`,
       timeout: 1000,
       method: 'get',
       responseTYpe: 'json',
       ...getConfig()
     })
     .then( (response) => {
-      dispatch( sendData( response.data, types.RECEIVED_FILES_FOR_PROVIDER))
+      dispatch( sendData( response.data, types.RECEIVED_LATEST_DELIVERY_DATE))
     })
     .catch( (response) => {
       console.error(response)
     })
   }
-
 }
 
 AsyncActions.uploadFiles = (files) => {
