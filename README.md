@@ -42,7 +42,7 @@ endpoints. E.g.
 
 ## Authentication
 
-Uses Keycloak to authenticate user and read JWT, set `auth-server-url`:
+Uses Keycloak to authenticate user and read JWT for authorization, set `auth-server-url`:
 
 ```
 AUTH_SERVER_URL=https://test.rutebanken.org/auth PORT=9000 NABU_BASE_URL=http://localhost:10001/ MARDUK_BASE_URL=http://localhost:11002/ npm start dev
