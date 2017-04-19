@@ -8,9 +8,9 @@ const initialState = {
     isLoading: true,
     data: null
   },
-  files: {
-    data: [],
-    lastDelivered: null
+  dataDelivery: {
+    state: null,
+    date: null
   }
 }
 
@@ -35,15 +35,8 @@ const asyncReducer = (state = initialState, action) => {
     case types.REQUESTED_LINE_STATS:
       return Object.assign({}, state, {lineStats: { isLoading: true, data: null} })
 
-    case types.RECEIVED_FILES_FOR_PROVIDER:
-
-      let lastDelivered = null
-
-      if (action.payLoad.files && action.payLoad.files.length) {
-        const files = action.payLoad.files
-        lastDelivered = files.sort( (a, b) => a.updated >= b.updated)[files.length-1].updated
-      }
-      return Object.assign({}, state, {files: { lastDelivered: lastDelivered, data: action.payLoad.files}})
+    case types.RECEIVED_LATEST_DELIVERY_DATE:
+      return Object.assign({}, state, { dataDelivery: { date: action.payLoad.date, state: action.payLoad.state }})
 
     default:
       return state

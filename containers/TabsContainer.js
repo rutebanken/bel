@@ -181,11 +181,9 @@ class TabsContainer extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    lineStats: state.asyncReducer.lineStats,
-    lastDeliveredDate: state.asyncReducer.files.lastDelivered
-  }
-}
+const mapStateToProps = state => ({
+  lineStats: state.asyncReducer.lineStats,
+  lastDeliveredDate: state.asyncReducer.dataDelivery.date
+})
 
 export default connect(mapStateToProps)(TabsContainer)

@@ -40,6 +40,14 @@ endpoints. E.g.
   NABU_BASE_URL=http://localhost:10001/ MARDUK_BASE_URL=http://localhost:11002/ npm start dev
 ```
 
-## Authentification
+## Authentication
 
-Uses Keycloak-js for authentification
+Uses Keycloak to authenticate user and read JWT for authorization, set `auth-server-url`:
+
+```
+AUTH_SERVER_URL=https://test.rutebanken.org/auth PORT=9000 NABU_BASE_URL=http://localhost:10001/ MARDUK_BASE_URL=http://localhost:11002/ npm start dev
+ npm run dev
+```
+
+***NB*** Use `PORT=8000` or `PORT=9000` for development against `https://test.rutebanken.org/auth` since these are whitelisted.
+
