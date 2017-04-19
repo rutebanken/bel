@@ -3,7 +3,7 @@ import { Card, CardText } from 'material-ui/Card'
 import { List, ListItem } from 'material-ui/List'
 
 import { Timeline, HeaderTimeline } from 'bogu'
-import { filterLines } from 'bogu/utils'
+import { filterLines, sortLines, sortIcon } from 'bogu/utils'
 import { color } from 'bogu/styles'
 
 class LineStatsCard extends React.Component {
@@ -57,53 +57,13 @@ class LineStatsCard extends React.Component {
     }
   }
 
-  sortLines(stats, selectedSegment, daysValid) {
-    let order = filterLines(stats.data, selectedSegment, daysValid)
-
-    switch (this.state.sorting) {
-      default:
-        return order
-      case 1:
-        return order.sort()
-      case 2:
-        return order.sort().reverse()
-      case 3:
-        let daysAsc = stats.data.daysValid.slice().sort( this.sortMethod('days', true) )
-        return daysAsc.filter( (line) => order.indexOf(line.lineNumber) != -1).map((line) => line.lineNumber)
-      case 4:
-        let daysDesc = stats.data.daysValid.slice().sort( this.sortMethod('days', false) )
-        return daysDesc.filter( (line) => order.indexOf(line.lineNumber) != -1 ).map( (line) => line.lineNumber)
-    }
-  }
-
-  sortIcon() {
-    let def = <svg  xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 24"><path d="M3 18h6v-2H3v2zM3 6v2h18V6H3zm0 7h12v-2H3v2z"/></svg>
-    let down = <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 24"><path d="M7.41 7.84L12 12.42l4.59-4.58L18 9.25l-6 6-6-6z"/></svg>
-    let up = <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 24"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/></svg>
-    let az = <svg xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 18"><text x="12" y="12" textAnchor="middle">AZ</text></svg>
-    let za = <svg xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 18"><text x="12" y="12" textAnchor="middle">ZA</text></svg>
-    switch (this.state.sorting) {
-      default:
-      case 0:
-        return def
-      case 1:
-        return <div>{az}{down}</div>
-      case 2:
-        return <div>{za}{up}</div>
-      case 3:
-        return down
-      case 4:
-        return up
-    }
-  }
-
   render() {
 
     const { stats, selectedSegment, daysValid, title } = this.props
 
     let validDateMiddleStyle = {
       fontWeight: 600,
-      marginLeft: ((100-17) - stats.data.validDaysOffset) + '%',
+      marginLeft: ((100-17) - stats.validDaysOffset) + '%',
       display: 'inline-block'
     }
 
@@ -127,7 +87,7 @@ class LineStatsCard extends React.Component {
       width: 48,
     }
 
-    const order = this.sortLines(stats, selectedSegment, daysValid)
+    const order = sortLines(this.state.sorting, stats, selectedSegment, daysValid)
 
     return (
         <Card expanded={true} style={{flex: 4, boxShadow: 'none'}}>
@@ -142,10 +102,10 @@ class LineStatsCard extends React.Component {
                       { this.props.handleClose && <IconButton style={{float: 'right'}} onClick={() => this.props.handleClose()} touch={true}><CloseButton/></IconButton> }
                     </div>
                     <div style={{display: 'block', margin: 10, padding: 6, background: color.tableHeader, opacity: '0.8', borderRadius: 7}}>
-                      <div style={sortIconStyle} onClick={this.changeSorting.bind(this)} title="Sorter linjer">{this.sortIcon()}</div>
-                      <div style={validDateStartStyle}>{stats.data.startDate}</div>
-                      <div style={validDateMiddleStyle}>{stats.data.validFromDate} (120 dager)</div>
-                      <div style={validDateEndStyle}>{stats.data.endDate}</div>
+                      <div style={sortIconStyle} onClick={this.changeSorting.bind(this)} title="Sorter linjer">{sortIcon(this.state.sorting)}</div>
+                      <div style={validDateStartStyle}>{stats.startDate}</div>
+                      <div style={validDateMiddleStyle}>{stats.validFromDate} (120 dager)</div>
+                      <div style={validDateEndStyle}>{stats.endDate}</div>
                     </div>
                     <div
                       style={{height: 'calc(100vh - 296px)', overflowY: 'scroll', overflowX: 'hidden', margin: 'auto', width: '100%'}}
@@ -166,11 +126,11 @@ class LineStatsCard extends React.Component {
                                 onClick={() => { this.handleToggleListItem(line) }}
                               >
                                 <HeaderTimeline line={line}
-                                  hoverText={stats.data.linesMap[line].lineNames.join(', ')}
+                                  hoverText={stats.linesMap[line].lineNames.join(', ')}
                                   index={index} key={'HeaderTimeline'+index}
-                                  validDaysOffset={stats.data.validDaysOffset}
-                                  validFromDate={stats.data.validFromDate}
-                                  effectivePeriods={stats.data.linesMap[line].effectivePeriods}
+                                  validDaysOffset={stats.validDaysOffset}
+                                  validFromDate={stats.validFromDate}
+                                  effectivePeriods={stats.linesMap[line].effectivePeriods}
                                 />
                               </div>
                             }
@@ -179,12 +139,12 @@ class LineStatsCard extends React.Component {
                                 <ListItem disabled key={'line-n'+index}
                                   style={{padding: 0, marginLeft: 0}}
                                   children={
-                                    stats.data.linesMap[line].lines.map( (l,i) => (
+                                    stats.linesMap[line].lines.map( (l,i) => (
                                       <Timeline
                                         key={'timelineItem'+index+'-'+i}
                                         timetables={l.timetables}
-                                        isLast={i === stats.data.linesMap[line].lines.length-1}
-                                        validDaysOffset={stats.data.validDaysOffset}
+                                        isLast={i === stats.linesMap[line].lines.length-1}
+                                        validDaysOffset={stats.validDaysOffset}
                                       />
                                     ))
                                   } />

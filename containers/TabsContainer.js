@@ -165,7 +165,7 @@ class TabsContainer extends React.Component {
               </div>
             :
             <div style={{display: 'flex', flexDirection: 'row'}}>
-                <LineStatsCard selectedSegment={selectedSegment} daysValid={daysValid} segmentValue={segmentValue} stats={lineStats} title={title}/>
+                <LineStatsCard selectedSegment={selectedSegment} daysValid={daysValid} segmentValue={segmentValue} stats={lineStats.data} title={title}/>
               <div style={{display: 'flex', flexDirection: 'column', marginTop: -5}}>
                 <PieCard handleshowAllClick={this.handleShowAllClick.bind(this)} handlePieOnClick={this.handlePieOnClick.bind(this)} stats={lineStats.data}/>
                 { cards }
