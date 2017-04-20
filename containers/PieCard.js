@@ -74,13 +74,13 @@ class PieCard extends React.Component {
         value: valid,
         highlight: color.valid,
         color: color.highlight.valid,
-        label: segmentName('valid'),
+        label: segmentName('valid', 0, 'nb'),
       },
       {
         value: soonInvalid,
         color: color.soonInvalid,
         highlight: color.highlight.soonInvalid,
-        label: segmentName('soonInvalid'),
+        label: segmentName('soonInvalid', 0, 'nb'),
       }
     ]
 
@@ -93,7 +93,7 @@ class PieCard extends React.Component {
           value: length,
           color: segmentColor(numDays),
           highlight: segmentColor(numDays, 20),
-          label: segmentName('dynamic', numDays),
+          label: segmentName('dynamic', numDays, 'nb'),
         }
       )
     }
@@ -102,7 +102,7 @@ class PieCard extends React.Component {
       value: invalid,
       color: color.invalid,
       highlight: color.highlight.invalid,
-      label: segmentName('invalid'),
+      label: segmentName('invalid', 0, 'nb'),
     })
 
     return (

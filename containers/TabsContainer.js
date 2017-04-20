@@ -43,7 +43,7 @@ class TabsContainer extends React.Component {
       let clickedSegmentLabel = chart.getSegmentsAtEvent(e)[0].label
       let clickedSegmentValue = chart.getSegmentsAtEvent(e)[0].value
 
-      let selected = segmentName2Key(clickedSegmentLabel)
+      let selected = segmentName2Key(clickedSegmentLabel, 'nb')
 
       this.setState({
        ...this.state,
@@ -115,7 +115,7 @@ class TabsContainer extends React.Component {
     const invalid = lineStats.data ? lineStats.data.invalid.lineNumbers.length :  0
     const all = lineStats.data ? lineStats.data.all.lineNumbers.length : 0
     const { selectedSegment, daysValid, segmentValue } = this.state
-    const title = segmentName(selectedSegment, daysValid)
+    const title = segmentName(selectedSegment, daysValid, 'nb')
 
     const formattedLastDeliveredDate = [
       {element: lastDeliveredDate ? moment(lastDeliveredDate).format('YYYY-MM-DD') : 'N/A', color: color.font.info2}
