@@ -2,7 +2,8 @@ import React from 'react'
 
 const ChouetteLink = ({ action, id, referential, children }) => {
 
-  const baseURL = 'https://redigering.rutebanken.org/referentials/'
+  const baseURL = `${window.config.chouetteBaseUrl}/referentials/`
+
   const actionMap = {
     "importer": `imports/${id}/compliance_check`,
     "exporter": `exports/${id}/compliance_check`,
@@ -13,7 +14,6 @@ const ChouetteLink = ({ action, id, referential, children }) => {
   return (
     <a title={URL} target="_blank" href={URL}>{children}</a>
   )
-
 }
 
 export default ChouetteLink
