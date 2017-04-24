@@ -2,10 +2,21 @@
 
 Operational status, provides the providers with relevant status of their data delivery
 
-## Run the app
+## Run the app 
+
+### Dev
 
 ```
+
 npm install
+npm run dev
+```
+
+### Production
+```
+
+npm install
+npm run build
 npm start
 ```
 
