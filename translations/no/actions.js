@@ -3,6 +3,7 @@ export default {
     FILE_TRANSFER: "Filoverføring",
     IMPORT: "Import",
     EXPORT: "Eksport",
+    EXPORT_NETEX: "Netex Eksport",
     VALIDATION_LEVEL_1: "Validering nivå 1",
     DATASPACE_TRANSFER: "Overføring sentral database",
     VALIDATION_LEVEL_2: "Validering nivå 2",
