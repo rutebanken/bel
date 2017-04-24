@@ -8,9 +8,8 @@
     "clean": "rm public/*",
     "start": "node server.js",
     "test": "./node_modules/.bin/mocha -r jsdom-global/register --compilers js:babel-core/register ./tests/**",
-    "dev": "BABEL_ENV=development NODE_ENV=development node server.js",
     "prod": "BABEL_ENV=production NODE_ENV=production node server.js",
-    "local": "port=9000 AUTH_SERVER_URL=https://test.rutebanken.org/auth NABU_BASE_URL=https://test.rutebanken.org/api/nabu/1.0/jersey/ MARDUK_BASE_URL=https://test.rutebanken.org/api/marduk/1.0/ npm start dev"
+    "dev": "port=9000 AUTH_SERVER_URL=https://test.rutebanken.org/auth NABU_BASE_URL=https://test.rutebanken.org/api/nabu/1.0/jersey/ MARDUK_BASE_URL=https://test.rutebanken.org/api/marduk/1.0/ BABEL_ENV=development NODE_ENV=development node server.js"
   },
   "author": "Sean Erik Scully",
   "license": "MIT",
