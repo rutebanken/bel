@@ -36,9 +36,23 @@ class EventStepper extends React.Component {
     return <MdHelpOutLine style={{color: 'grey', width: 24, height: 22}}/>
   }
 
+  eventStates() {
+    return [
+      "FILE_TRANSFER",
+      "FILE_CLASSIFICATION",
+      "IMPORT",
+      "VALIDATION_LEVEL_1",
+      "DATASPACE_TRANSFER",
+      "VALIDATION_LEVEL_2",
+      "EXPORT",
+      "BUILD_GRAPH",
+      "EXPORT_NETEX"
+    ]
+  }
+
   addUnlistedStates(groups) {
 
-    const states = ["FILE_TRANSFER", "IMPORT", "VALIDATION_LEVEL_1", "DATASPACE_TRANSFER", "VALIDATION_LEVEL_2", "EXPORT", "BUILD_GRAPH", "EXPORT_NETEX"]
+    const states = this.eventStates()
 
     let groupsWithUnlisted = Object.assign({}, groups)
 
@@ -71,17 +85,45 @@ class EventStepper extends React.Component {
     })
   }
 
-  render() {
+  combine(formattedGroups, groups, name) {
+    const combined = []
+    for (let i in groups) {
+      const group = groups[i]
+      combined[group] = formattedGroups[group]
 
-    const stepperstyle = {
-      display: "flex",
-      flexDirection: "row",
-      alignContent : "center",
-      alignItems: "center",
-      justifyContent : "center",
-      marginTop: 10
+      if (name !== group) {
+        delete formattedGroups[group]
+      }
+    }
+    formattedGroups[name] = combined
+  }
+
+  bullet(formattedGroups, groups) {
+    const columnStyle = {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between',
+      height: 45,
     }
 
+    return Object.keys(formattedGroups).map((group, index) => {
+        let column;
+        let event = formattedGroups[group]
+        if (event instanceof Array) {
+          column = Object.keys(event).map((key, i) => {
+            const isLast = Object.keys(event).length === i + 1
+            return this.renderEvent(event[key], event, key, i, isLast)
+          })
+        } else {
+          const isLast = Object.keys(formattedGroups).length === index + 1
+          column = this.renderEvent(event, groups, group, index, isLast)
+        }
+        return <div style={columnStyle}>{column}</div>
+      }
+    )
+  }
+
+  renderEvent(event, groups, group, index, isLast) {
     const groupStyle = {
       display: "flex",
       flexDirection: "row",
@@ -102,40 +144,46 @@ class EventStepper extends React.Component {
       margin: 8
     }
 
+    if (group === "FILE_CLASSIFICATION") return null
+
+    if (!ActionTranslations.states[event.endState]) return null
+
+    let toolTipText = ActionTranslations.states[event.endState]
+
+    if (event.states && event.states[groups[group].states.length-1]) {
+      toolTipText += ' ' + event.states[event.states.length-1].date
+    }
+
+    return (
+      <div style={groupStyle} key={"group-" + group + index}>
+        <div title={toolTipText} style={{opacity: event.missingBeforeStartStart ? 0.2 : 1}}>
+          { this.getIconByState(event.endState) }
+        </div>
+        <div style={{...groupText, opacity: event.missingBeforeStartStart ? 0.2 : 1}}>
+          <ControlledChouetteLink events={event}> { ActionTranslations.text[group] } </ControlledChouetteLink>
+        </div>
+        { !isLast && <div style={linkStyle}/> }
+      </div>
+    )
+  }
+
+  render() {
+
+    const stepperstyle = {
+      display: "flex",
+      flexDirection: "row",
+      alignContent : "center",
+      alignItems: "center",
+      justifyContent : "center",
+      marginTop: 10
+    }
+
     const { groups, listItem } = this.props
     const { expanded } = this.state
 
     const formattedGroups = this.addUnlistedStates(groups)
-
-    const bullets = Object.keys(formattedGroups).map( (group, index) => {
-
-      if (group === "FILE_CLASSIFICATION") return null
-
-      if (!ActionTranslations.states[formattedGroups[group].endState]) return null
-
-      const isLast = Object.keys(formattedGroups).length == index+1
-      let toolTipText = ActionTranslations.states[formattedGroups[group].endState]
-
-      if (formattedGroups[group].states && formattedGroups[group].states[groups[group].states.length-1]) {
-        toolTipText += ' ' + formattedGroups[group].states[formattedGroups[group].states.length-1].date
-      }
-
-      return (
-          <div style={groupStyle} key={"group-" + group + index}>
-            <div title={toolTipText} style={{opacity: formattedGroups[group].missingBeforeStartStart ? 0.2 : 1 }}>
-              { this.getIconByState(formattedGroups[group].endState) }
-            </div>
-            <div
-              title={ ActionTranslations.title[group]}
-              style={{...groupText, opacity: formattedGroups[group].missingBeforeStartStart ? 0.2 : 1 }}
-             >
-              <ControlledChouetteLink events={formattedGroups[group]}> { ActionTranslations.text[group] } </ControlledChouetteLink>
-              </div>
-            {!isLast ? <div style={linkStyle}></div> : null }
-          </div>
-        )
-      }
-    )
+    this.combine(formattedGroups, ['EXPORT', 'EXPORT_NETEX'], 'EXPORT')
+    const bullets = this.bullet(formattedGroups, groups)
 
     return (
       <div key={"event" + listItem.chouetteJobId} style={{marginLeft: 20, cursor: 'pointer'}} onClick={() => this.handleToggleVisibility()}>
