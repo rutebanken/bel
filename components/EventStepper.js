@@ -111,19 +111,17 @@ class EventStepper extends React.Component {
         let event = formattedGroups[group]
         if (event instanceof Array) {
           column = Object.keys(event).map((key, i) => {
-            const isLast = Object.keys(event).length === i + 1
-            return this.renderEvent(event[key], event, key, i, isLast)
+            return this.renderEvent(event[key], event, key, i, false, i)
           })
         } else {
-          const isLast = Object.keys(formattedGroups).length === index + 1
-          column = this.renderEvent(event, groups, group, index, isLast)
+          column = this.renderEvent(event, groups, group, index, index === 0)
         }
         return <div style={columnStyle}>{column}</div>
       }
     )
   }
 
-  renderEvent(event, groups, group, index, isLast) {
+  renderEvent(event, groups, group, index, isFirst, columnIndex = 0) {
     const groupStyle = {
       display: "flex",
       flexDirection: "row",
@@ -141,7 +139,8 @@ class EventStepper extends React.Component {
       borderTopStyle: "solid",
       borderTopWidth: 1,
       width: 30,
-      margin: 8
+      margin: 8,
+      transform: columnIndex > 0 && 'translateY(-0.5em) rotate(25deg) ',
     }
 
     if (group === "FILE_CLASSIFICATION") return null
@@ -156,13 +155,13 @@ class EventStepper extends React.Component {
 
     return (
       <div style={groupStyle} key={"group-" + group + index}>
+        { !isFirst && <div style={linkStyle}/> }
         <div title={toolTipText} style={{opacity: event.missingBeforeStartStart ? 0.2 : 1}}>
           { this.getIconByState(event.endState) }
         </div>
         <div style={{...groupText, opacity: event.missingBeforeStartStart ? 0.2 : 1}}>
           <ControlledChouetteLink events={event}> { ActionTranslations.text[group] } </ControlledChouetteLink>
         </div>
-        { !isLast && <div style={linkStyle}/> }
       </div>
     )
   }
