@@ -95,7 +95,8 @@ class TabsContainer extends React.Component {
           <CardText style={{padding: 5, justifyContent: 'space-between',  textAlign: 'center', ...cd.style}}>
             {cd.children.map( (child, index) => {
               return (
-                <span key={'card-element'+index} style={{fontWeight: 600, fontSize: '3vh', color: child.color, ...child.style}}>
+                <span style={{fontWeight: 600, fontSize: '3vh', color: child.color, ...child.style}}
+                      key={'card-element'+index} title={child.title}>
                   {child.element}
                 </span>
               )
@@ -124,9 +125,9 @@ class TabsContainer extends React.Component {
       {element: all, color: color.font.info2, style: {fontSize: '6vh'}}
     ]
     const lineDetailsChildren = [
-      {element: valid, color: color.valid, style: {padding: '2px 0'}},
-      {element: expiring, color: color.expiring, style: {padding: '2px 0'}},
-      {element: invalid, color: color.invalid, style: {padding: '2px 0'}},
+      {element: valid, color: color.valid, style: {padding: '2px 0'}, title: segmentName('valid', 0, 'nb')},
+      {element: expiring, color: color.expiring, style: {padding: '2px 0'}, title: segmentName('expiring', 0, 'nb')},
+      {element: invalid, color: color.invalid, style: {padding: '2px 0'}, title: segmentName('invalid', 0, 'nb')},
     ]
     const lineChildren = this.renderCards([
       {title: 'Antall linjer', style: {padding: 0}, cardStyle: {backgroundColor: 'white', padding: 0, boxShadow: 'none'}, children: allLinesChild},
