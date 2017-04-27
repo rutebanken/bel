@@ -53,6 +53,7 @@ class PieCard extends React.Component {
       marginLeft: 'auto',
       marginRight: 'auto',
       display: 'block',
+      cursor: 'pointer',
     }
 
     let pieOptionsFull = {
