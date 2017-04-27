@@ -69,10 +69,8 @@ class TabsContainer extends React.Component {
         return color.invalid
       case 'VALID':
         return color.valid
-      case 'SOON_INVALID':
-        return color.soonInvalid
-      case 'EXPIRED':
-        return color.expired
+      case 'EXPIRING':
+        return color.expiring
       default:
         return color.font.disabled
     }
@@ -113,6 +111,7 @@ class TabsContainer extends React.Component {
     const { lineStats, lastDeliveredDate } = this.props
     const valid = lineStats.data ? lineStats.data.valid.lineNumbers.length : 0
     const invalid = lineStats.data ? lineStats.data.invalid.lineNumbers.length :  0
+    const expiring = lineStats.data ? lineStats.data.expiring.lineNumbers.length :  0
     const all = lineStats.data ? lineStats.data.all.lineNumbers.length : 0
     const { selectedSegment, daysValid, segmentValue } = this.state
     const title = segmentName(selectedSegment, daysValid, 'nb')
@@ -126,7 +125,7 @@ class TabsContainer extends React.Component {
     ]
     const lineDetailsChildren = [
       {element: valid, color: color.valid, style: {padding: '2px 0'}},
-      {element: all-valid-invalid, color: color.expired, style: {padding: '2px 0'}},
+      {element: expiring, color: color.expiring, style: {padding: '2px 0'}},
       {element: invalid, color: color.invalid, style: {padding: '2px 0'}},
     ]
     const lineChildren = this.renderCards([

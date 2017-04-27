@@ -47,7 +47,7 @@ class PieCard extends React.Component {
       textAlign: 'center'
     }
 
-    let pieStyle = {
+    const pieStyle = {
       width: this.state.size,
       height: this.state.size,
       marginLeft: 'auto',
@@ -56,7 +56,7 @@ class PieCard extends React.Component {
       cursor: 'pointer',
     }
 
-    let pieOptionsFull = {
+    const pieOptionsFull = {
       animation: false,
       showTooltips: true,
       responsive: true,
@@ -67,8 +67,8 @@ class PieCard extends React.Component {
 
     const valid = stats.valid.lineNumbers.length
     const invalid = stats.invalid.lineNumbers.length
-    const soonInvalid = stats.soonInvalid.lineNumbers.length
-    const expiring = stats.validity.filter( lines => lines.numDaysAtLeastValid > -1 && lines.numDaysAtLeastValid < 120).reverse()
+    const expiring = stats.expiring.lineNumbers.length
+    const dynamic = [] //stats.validity.filter( lines => lines.numDaysAtLeastValid > -1 && lines.numDaysAtLeastValid < 120).reverse()
 
     const pieData = [
       {
@@ -78,17 +78,17 @@ class PieCard extends React.Component {
         label: segmentName('valid', 0, 'nb'),
       },
       {
-        value: soonInvalid,
-        color: color.soonInvalid,
-        highlight: color.highlight.soonInvalid,
-        label: segmentName('soonInvalid', 0, 'nb'),
+        value: expiring,
+        color: color.expiring,
+        highlight: color.highlight.expiring,
+        label: segmentName('expiring', 0, 'nb'),
       }
     ]
 
-    for (let i in expiring) {
-      let category = expiring[i]
-      let numDays = category.numDaysAtLeastValid
-      let length = category.lineNumbers.length
+    for (let i in dynamic) {
+      const category = dynamic[i]
+      const numDays = category.numDaysAtLeastValid
+      const length = category.lineNumbers.length
 
       pieData.push({
           value: length,
