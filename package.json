@@ -30,7 +30,7 @@
     "jsdom": "10.0.0",
     "jsdom-global": "2.1.1",
     "keycloak-js": "3.0.0",
-    "material-ui": "0.17.4",
+    "material-ui": "0.18.0",
     "mocha": "3.0.2",
     "moment": "2.18.1",
     "react": "15.5.4",
