@@ -19,13 +19,13 @@ module.exports = new Promise(function(resolve, reject){
     nabuBaseUrl: {
       doc: "Base URL for for Nabu including slash",
       format: "url",
-      default: "http://localhost:1888/jersey/",
+      default: "https://api-test.rutebanken.org/nabu/1.0/jersey/",
       env: "NABU_BASE_URL"
     },
     mardukBaseUrl: {
       doc: "Base URL for for Marduk including slash",
       format: "url",
-      default: "http://localhost:10011/",
+      default: "https://api-test.rutebanken.org/marduk/1.0/",
       env: "MARDUK_BASE_URL"
     },
     endpointBase: {
@@ -37,13 +37,13 @@ module.exports = new Promise(function(resolve, reject){
     authServerUrl: {
       doc: "URL to keycloak auth server",
       format: String,
-      default: "https://test.rutebanken.org/auth",
+      default: "https://www-test.rutebanken.org/auth",
       env: "AUTH_SERVER_URL"
     },
     chouetteBaseUrl: {
       doc: "URL to Chouette UI",
       format: String,
-      default: "https://redigering.rutebanken.org/",
+      default: "https://rutedb-test.rutebanken.org/",
       env: "CHOUETTE_BASE_URL"
     }
   });
