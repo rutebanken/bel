@@ -43,11 +43,11 @@ class Events extends React.Component {
 
   render() {
 
-    const { paginationMap } = this.props
+    const { events } = this.props
 
     return (
       <div>
-        <div style={{display: 'flex', justifyContent: 'center', paddingBottom: 0, marginTop: 10}}>
+        <div style={{display: 'flex', justifyContent: 'center', paddingBottom: 0, marginTop: 10, marginBottom: 20}}>
           <RaisedButton
             label="Last opp nytt datasett"
             labelPosition="before"
@@ -56,9 +56,9 @@ class Events extends React.Component {
             icon={<Upload/>}
           />
         </div>
-        { (paginationMap && paginationMap.length)
+        { (events && events.length)
           ?
-          <EventDetails locale="nb" paginationMap={paginationMap}/>
+          <EventDetails locale="nb" dataSource={events}/>
         :
         <div style={{padding: 40, background: color.tableInfo, marginTop: 40, fontWeight: 500}}>Ingen tidligere leveranser.</div>
       }
@@ -69,17 +69,8 @@ class Events extends React.Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     activeSupplier: state.asyncReducer.currentSupplier,
-    paginationMap: getPaginationMap(state.asyncReducer.events ? state.asyncReducer.events.slice() : [] )
+    events: state.asyncReducer.events
   }
-}
-
-const getPaginationMap = (statusList = []) => {
-  let paginationMap = []
-
-  for (let i = 0, j = statusList.length; i < j; i+=10) {
-    paginationMap.push(statusList.slice(i,i+10))
-  }
-  return paginationMap
 }
 
 export default connect(mapStateToProps)(Events)

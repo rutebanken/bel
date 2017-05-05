@@ -188,7 +188,9 @@ function sendData(payLoad, type) {
 
 const formatProviderStatusDate = (list) => {
 
-  return list.map( (listItem) => {
+  return list
+  .sort( (a,b) => a.firstEvent - b.firstEvent )
+  .map( (listItem) => {
 
     listItem.firstEvent = moment(listItem.firstEvent).locale("nb").format("YYYY-MM-DD HH:mm:ss")
     listItem.lastEvent = moment(listItem.lastEvent).locale("nb").format("YYYY-MM-DD HH:mm:ss")
