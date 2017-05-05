@@ -4,9 +4,9 @@ import cfgreader from '../config/readConfig'
 import UserActions from '../actions/UserActions'
 import RaisedButton from 'material-ui/RaisedButton'
 import Upload from 'material-ui/svg-icons/file/file-upload'
-import EventDetails from './EventDetails'
 import { color } from 'bogu/styles'
 import AsyncActions from '../actions/AsyncActions'
+import { EventDetails } from 'bogu'
 
 class Events extends React.Component {
 
@@ -58,7 +58,7 @@ class Events extends React.Component {
         </div>
         { (paginationMap && paginationMap.length)
           ?
-          <EventDetails paginationMap={paginationMap}/>
+          <EventDetails locale="nb" paginationMap={paginationMap}/>
         :
         <div style={{padding: 40, background: color.tableInfo, marginTop: 40, fontWeight: 500}}>Ingen tidligere leveranser.</div>
       }
