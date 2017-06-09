@@ -10,7 +10,7 @@ rolesParser.getUserOrganisations = (tokenParsed, organisations) => {
   tokenParsed.roles.forEach( roleString => {
     let roleJSON = JSON.parse(roleString)
     if (roleJSON.r === 'editRouteData') {
-      allowedOrganisations.push(roleJSON.o)
+      allowedOrganisations.push(roleJSON.o.toUpperCase())
     } else if (roleJSON.r === 'adminEditRouteData') {
       isAdmin = true
     }
