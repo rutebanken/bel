@@ -21,7 +21,11 @@ rolesParser.getUserOrganisations = (tokenParsed, organisations) => {
   if (isAdmin) return organisations
 
   organisations.forEach( org => {
-    if (org.sftpAccount && allowedOrganisations.indexOf(org.sftpAccount.toUpperCase()) > -1)
+
+    let referential = (org.chouetteInfo && org.chouetteInfo.referential)
+      ? org.chouetteInfo.referential : org.sftpAccount
+
+    if (org.sftpAccount && allowedOrganisations.indexOf(referential.toUpperCase()) > -1)
       userOrganisations.push(org)
   })
 
