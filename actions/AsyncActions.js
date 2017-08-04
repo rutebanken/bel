@@ -43,7 +43,6 @@ AsyncActions.getProviderStatus = id => dispatch => {
     });
 };
 
-
 AsyncActions.getProviderEvents = id => dispatch => {
   const url = `${window.config.nabuBaseUrl}jobs/${id}`;
   dispatch(sendData(null, types.REQUESTED_EVENTS));

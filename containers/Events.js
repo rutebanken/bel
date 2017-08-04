@@ -8,29 +8,35 @@ import AsyncActions from '../actions/AsyncActions';
 import { EventDetails } from 'bogu';
 
 class Events extends React.Component {
+
   componentWillMount() {
     this.startPolling();
   }
 
   componentWillUnmount() {
-    if (this.intervalId) {
-      clearInterval(this.intervalId);
+    if (this.timeout) {
+      clearTimeout(this.timeout);
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.currentSupplierId !== nextProps) {
+      clearTimeout(this.timeout);
+    }
+
+    if (!nextProps.isFetchingEvents) {
+      this.startPolling();
     }
   }
 
   startPolling = () => {
-    this.poll();
-    setTimeout(() => {
-      this.intervalId = setInterval(this.poll, 5000);
-    }, 1000);
-  };
-
-  poll = () => {
-    if (this.props.activeSupplier) {
-      this.props.dispatch(
-        AsyncActions.getProviderEvents(this.props.activeSupplier.id)
-      );
-    }
+    this.timeout  = setTimeout(() => {
+      if (this.props.currentSupplierId) {
+        this.props.dispatch(
+          AsyncActions.getProviderEvents(this.props.currentSupplierId)
+        );
+      }
+    }, 5000);
   };
 
   handleUploadFile() {
@@ -62,23 +68,24 @@ class Events extends React.Component {
         {events && events.length
           ? <EventDetails locale="nb" dataSource={events} />
           : <div
-              style={{
-                padding: 40,
-                background: color.tableInfo,
-                marginTop: 40,
-                fontWeight: 500
-              }}
-            >
-              Ingen tidligere leveranser.
-            </div>}
+            style={{
+              padding: 40,
+              background: color.tableInfo,
+              marginTop: 40,
+              fontWeight: 500
+            }}
+          >
+            Ingen tidligere leveranser.
+          </div>}
       </div>
     );
   }
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  activeSupplier: state.asyncReducer.currentSupplier,
-  events: state.asyncReducer.events
+  currentSupplierId: state.asyncReducer.currentSupplier.id,
+  events: state.asyncReducer.events,
+  isFetchingEvents: state.asyncReducer.isFetchingEvents
 });
 
 export default connect(mapStateToProps)(Events);
