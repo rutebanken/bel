@@ -1,30 +1,11 @@
-import * as types from './actionTypes'
+import * as types from './actionTypes';
 
-const UserActions = {}
+const UserActions = {};
 
-UserActions.openFileUploadDialog = () => {
-  return {
-    type: types.OPENED_FILEUPLOAD_MODAL
-  }
-}
+UserActions.openFileUploadDialog = () => dispatch =>
+  dispatch({ type: types.OPENED_FILEUPLOAD_MODAL });
 
-UserActions.dismissFileUploadDialog = () => {
-  return {
-    type: types.DISMISSED_FILEUPLOAD_MODAL
-  }
-}
+UserActions.dismissFileUploadDialog = () => dispatch =>
+  dispatch({ type: types.DISMISSED_FILEUPLOAD_MODAL });
 
-UserActions.dismissReportsModal = () => {
-  return {
-    type: types.DISMISSED_REPORTS_MODAL
-  }
-}
-
-UserActions.openReportsModal = (reportViewType) => {
-  return {
-    type: types.OPENED_REPORTS_MODAL,
-    payLoad: reportViewType
-  }
-}
-
-export default UserActions
+export default UserActions;
