@@ -136,7 +136,7 @@ AsyncActions.uploadFiles = files => (dispatch, getState) => {
 
   dispatch(sendData(0, types.UPDATED_FILE_UPLOAD_PROGRESS_BAR));
 
-  const url = `${window.config.nabuBaseUrl}files/${id}`;
+  const url = `${window.config.mardukBaseUrl}admin/services/chouette/${id}/files`;
 
   var data = new FormData();
 
