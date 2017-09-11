@@ -65,7 +65,7 @@ AsyncActions.getProviderEvents = id => dispatch => {
 AsyncActions.getAllSuppliers = () => (dispatch, getState) => {
   dispatch(sendData(null, types.REQUESTED_SUPPLIERS));
 
-  const url = window.config.nabuBaseUrl + 'providers/';
+  const url = window.config.providersBaseUrl;
   const state = getState();
 
   return axios({
