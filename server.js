@@ -42,7 +42,7 @@ convictConfig
   app.get(ENDPOINTBASE + "config.json", function(req, res) {
     var cfg = {
       providersBaseUrl: convict.get("providersBaseUrl"),
-      nabuBaseUrl: convict.get("nabuBaseUrl"),
+      eventsBaseUrl: convict.get("eventsBaseUrl"),
       endpointBase: convict.get("endpointBase"),
       mardukBaseUrl: convict.get("mardukBaseUrl"),
       chouetteBaseUrl: convict.get('chouetteBaseUrl')

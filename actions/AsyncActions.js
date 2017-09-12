@@ -22,7 +22,7 @@ const getConfig = () => {
 };
 
 AsyncActions.getProviderStatus = id => dispatch => {
-  const url = `${window.config.nabuBaseUrl}jobs/${id}`;
+  const url = `${window.config.eventsBaseUrl}timetable/${id}`;
   dispatch(sendData(null, types.REQUESTED_EVENTS));
   dispatch(sendData(id, types.CHANGED_ACTIVE_PROVIDER));
   return axios({
@@ -44,7 +44,7 @@ AsyncActions.getProviderStatus = id => dispatch => {
 };
 
 AsyncActions.getProviderEvents = id => dispatch => {
-  const url = `${window.config.nabuBaseUrl}jobs/${id}`;
+  const url = `${window.config.eventsBaseUrl}timetable/${id}`;
   dispatch(sendData(null, types.REQUESTED_EVENTS));
   return axios({
     url: url,
@@ -116,7 +116,7 @@ AsyncActions.getLatestDeliveryForProvider = providerId => dispatch => {
   dispatch(sendData(null, types.REQUESTED_LATEST_DELIVERY_DATE));
 
   return axios({
-    url: `${window.config.nabuBaseUrl}dataDelivery/${providerId}/latest`,
+    url: `${window.config.eventsBaseUrl}latest_upload/${providerId}`,
     timeout: 1000,
     method: 'get',
     responseTYpe: 'json',

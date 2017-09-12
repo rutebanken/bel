@@ -22,11 +22,11 @@ module.exports = new Promise(function(resolve, reject){
       default: "https://api-test.entur.org/providers/1.0/",
       env: "PROVIDERS_BASE_URL"
     },
-    nabuBaseUrl: {
-      doc: "Base URL for for Nabu including slash",
+    eventsBaseUrl: {
+      doc: "Base URL for for Events API including slash",
       format: "url",
-      default: "https://api-test.entur.org/nabu/1.0/jersey/",
-      env: "NABU_BASE_URL"
+      default: "https://api-test.entur.org/events/1.0/",
+      env: "EVENTS_BASE_URL"
     },
     mardukBaseUrl: {
       doc: "Base URL for for Marduk including slash",
