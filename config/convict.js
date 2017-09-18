@@ -28,11 +28,11 @@ module.exports = new Promise(function(resolve, reject){
       default: "https://api-test.entur.org/events/1.0/",
       env: "EVENTS_BASE_URL"
     },
-    mardukBaseUrl: {
-      doc: "Base URL for for Marduk including slash",
+    timetableAdminBaseUrl: {
+      doc: "Base URL for for Timatable admin API including slash",
       format: "url",
-      default: "https://api-test.entur.org/marduk/1.0/",
-      env: "MARDUK_BASE_URL"
+      default: "https://api-test.entur.org/timetable_admin/1.0/",
+      env: "TIMETABLE_ADMIN_BASE_URL"
     },
     endpointBase: {
       doc: "Namespace for client including slash, e.g. /admin/bel/",

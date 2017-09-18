@@ -97,7 +97,7 @@ AsyncActions.getLineStats = id => dispatch => {
   dispatch(sendData(null, types.REQUESTED_LINE_STATS));
   return axios({
     url: `${window.config
-      .mardukBaseUrl}admin/services/chouette/${id}/lineStats`,
+      .timetableAdminBaseUrl}${id}/line_statistics`,
     timeout: 10000,
     method: 'get',
     responseType: 'json',
@@ -136,7 +136,7 @@ AsyncActions.uploadFiles = files => (dispatch, getState) => {
 
   dispatch(sendData(0, types.UPDATED_FILE_UPLOAD_PROGRESS_BAR));
 
-  const url = `${window.config.mardukBaseUrl}admin/services/chouette/${id}/files`;
+  const url = `${window.config.timetableAdminBaseUrl}${id}/files`;
 
   var data = new FormData();
 

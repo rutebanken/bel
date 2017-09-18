@@ -44,7 +44,7 @@ convictConfig
       providersBaseUrl: convict.get("providersBaseUrl"),
       eventsBaseUrl: convict.get("eventsBaseUrl"),
       endpointBase: convict.get("endpointBase"),
-      mardukBaseUrl: convict.get("mardukBaseUrl"),
+      timetableAdminBaseUrl: convict.get("timetableAdminBaseUrl"),
       chouetteBaseUrl: convict.get('chouetteBaseUrl')
     };
 
