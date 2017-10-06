@@ -67,23 +67,24 @@ class FileUpload extends React.Component {
             display: 'flex',
             alignItems: 'center',
             marginLeft: 10,
-            marginTop: 15
+            marginTop: 15,
+            justifyContent: 'space-between'
           }}
         >
-          <MdUpload color="rgb(0, 188, 212)" style={{ flex: 0.5 }} />
-          <div
-            style={{
-              fontSize: '1.1em',
-              marginLeft: 10,
-              flex: 5,
-              textTransform: 'uppercase'
-            }}
-          >
-            Last opp nytt datasett
+          <div style={{display: 'flex'}}>
+            <MdUpload color="rgb(0, 188, 212)" style={{ marginLeft: 5}} />
+            <div
+              style={{
+                fontSize: '1.1em',
+                marginLeft: 10,
+                textTransform: 'uppercase'
+              }}
+            >
+              Last opp nytt datasett
+            </div>
           </div>
           <MdClose
-            label="X"
-            style={{ flex: 1, cursor: 'pointer' }}
+            style={{ marginRight: 15, cursor: 'pointer' }}
             onClick={() => this.closeModal()}
           />
         </div>
@@ -91,9 +92,13 @@ class FileUpload extends React.Component {
           className="dropZone"
           activeClassName="dropZone--active"
           rejectClassName="dropZone--reject"
-          accept="application/zip,application/octet-stream,application/x-zip,application/x-zip-compressed"
-          onDrop={files => {
-            this.handleOnDrop(files);
+          accept="application/zip,application/octet-stream,application/x-zip,application/x-rar,application/x-zip-compressed,application/x-rar-compressed,compressed/rar,application/rar"
+          onDrop={(accepted, rejected) => {
+            if (rejected && rejected.length) {
+              console.warn('File not accepted', rejected);
+            } else {
+              this.handleOnDrop(accepted);
+            }
           }}
         >
           <div
