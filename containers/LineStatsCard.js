@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Card, CardText } from 'material-ui/Card';
 import { List, ListItem } from 'material-ui/List';
-
 import { Timeline, HeaderTimeline } from 'bogu';
 import { filterLines, sortLines, sortIcon } from 'bogu/utils';
 import { color } from 'bogu/styles';
@@ -18,7 +17,7 @@ class LineStatsCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      sorting: 0
+      sorting: 1
     };
   }
 
@@ -39,7 +38,7 @@ class LineStatsCard extends React.Component {
   }
 
   changeSorting() {
-    let states = 5;
+    const states = 5;
     let sort = (this.state.sorting + 1) % states;
     this.setState({ sorting: sort });
   }
