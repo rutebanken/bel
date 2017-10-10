@@ -6,7 +6,6 @@ import AsyncActions from '../actions/AsyncActions';
 import Dropzone from 'react-dropzone';
 import RaisedButton from 'material-ui/RaisedButton';
 import LinearProgress from 'material-ui/LinearProgress';
-import MdUpload from 'material-ui/svg-icons/file/file-upload';
 import MdClose from 'material-ui/svg-icons/navigation/close';
 import '../styles/css/fileUpload.css';
 import * as types from '../actions/actionTypes';
@@ -72,7 +71,6 @@ class FileUpload extends React.Component {
           }}
         >
           <div style={{display: 'flex'}}>
-            <MdUpload color="rgb(0, 188, 212)" style={{ marginLeft: 5}} />
             <div
               style={{
                 fontSize: '1.1em',

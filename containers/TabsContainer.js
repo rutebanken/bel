@@ -213,8 +213,7 @@ class TabsContainer extends React.Component {
       <Tabs
         value={this.state.value}
         onChange={this.handleChange.bind(this)}
-        inkBarStyle={{ height: 7, bottom: 5, backgroundColor: color.tabActive }}
-        tabItemContainerStyle={{ background: color.background }}
+        inkBarStyle={{ height: 7, bottom: 5, background: '#FF5959' }}
       >
         <Tab value="status" label="Linjestatus" style={{ marginTop: 10 }}>
           {lineStats.isLoading

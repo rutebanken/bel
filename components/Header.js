@@ -10,10 +10,9 @@ import Popover from 'material-ui/Popover';
 import Menu from 'material-ui/Menu';
 import { connect } from 'react-redux';
 import AsyncActions from '../actions/AsyncActions';
-import { color } from 'bogu/styles';
 import roleParser from '../roles/roleParser';
 import logo from '../static/logo/logo_entur.png';
-
+import { darkColor } from '../styles/themes/entur/';
 
 class Header extends React.Component {
   constructor(props) {
@@ -65,7 +64,7 @@ class Header extends React.Component {
             </div>
           }
           showMenuIconButton={true}
-          style={{ background: color.background, color: color.font.inverse }}
+          style={{ background: darkColor }}
           iconElementLeft={
             <IconButton onTouchTap={this.handleTouchTap}>
               <Identity />
