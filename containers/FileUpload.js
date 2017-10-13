@@ -90,7 +90,7 @@ class FileUpload extends React.Component {
           className="dropZone"
           activeClassName="dropZone--active"
           rejectClassName="dropZone--reject"
-          accept="application/zip,application/octet-stream,application/x-zip,application/x-rar,application/x-zip-compressed,application/x-rar-compressed,compressed/rar,application/rar"
+          accept=".zip,.rar"
           onDrop={(accepted, rejected) => {
             if (rejected && rejected.length) {
               console.warn('File not accepted', rejected);
