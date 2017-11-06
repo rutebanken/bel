@@ -5,6 +5,7 @@ import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import MdAccount from 'material-ui/svg-icons/action/account-circle';
+import MdHelp from 'material-ui/svg-icons/action/help';
 import Identity from 'material-ui/svg-icons/action/perm-identity';
 import Popover from 'material-ui/Popover';
 import Menu from 'material-ui/Menu';
@@ -12,7 +13,7 @@ import { connect } from 'react-redux';
 import AsyncActions from '../actions/AsyncActions';
 import roleParser from '../roles/roleParser';
 import logo from '../static/logo/logo_entur.png';
-import { darkColor } from '../styles/themes/entur/';
+import { darkColor, primaryDarker } from '../styles/themes/entur/';
 
 class Header extends React.Component {
   constructor(props) {
@@ -81,7 +82,13 @@ class Header extends React.Component {
               anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
             >
               <MenuItem
-                leftIcon={<MdAccount />}
+                leftIcon={<MdHelp color={primaryDarker}/>}
+                href="https://rutebanken.atlassian.net/wiki/spaces/PUBLIC/pages/142639123/Brukerveiledning+-+Operat+rportal"
+                target="_blank"
+                primaryText={"Brukerveiledning"}
+              />
+              <MenuItem
+                leftIcon={<MdAccount color={primaryDarker}/>}
                 primaryText={signOut}
                 onClick={() => kc.logout()}
               />
