@@ -8,4 +8,8 @@ UserActions.openFileUploadDialog = () => dispatch =>
 UserActions.dismissFileUploadDialog = () => dispatch =>
   dispatch({ type: types.DISMISSED_FILEUPLOAD_MODAL });
 
+UserActions.dismissSnackbar = () => dispatch => {
+  dispatch({ type: types.DISMISSED_SNACKBAR });
+};
+
 export default UserActions;

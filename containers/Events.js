@@ -6,8 +6,16 @@ import Upload from 'material-ui/svg-icons/file/file-upload';
 import { color } from 'bogu/styles';
 import AsyncActions from '../actions/AsyncActions';
 import { EventDetails } from 'bogu';
+import ConfirmValidateDialog from '../components/ConfirmValidateDialog';
 
 class Events extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      confirmDialogOpen: false
+    };
+  }
 
   componentWillMount() {
     this.startPolling();
@@ -43,6 +51,24 @@ class Events extends React.Component {
     this.props.dispatch(UserActions.openFileUploadDialog());
   }
 
+  handleShowConfirmValidate() {
+    this.setState({
+      confirmDialogOpen: true
+    });
+  }
+
+  handleCloseConfirmValidate() {
+    this.setState({
+      confirmDialogOpen: false
+    });
+  }
+
+  handleValidate() {
+    const { currentSupplierId, dispatch } = this.props;
+    this.handleCloseConfirmValidate();
+    dispatch(AsyncActions.validateDataSet(currentSupplierId));
+  }
+
   render() {
     const { events } = this.props;
 
@@ -64,6 +90,12 @@ class Events extends React.Component {
             onClick={this.handleUploadFile.bind(this)}
             icon={<Upload />}
           />
+          <RaisedButton
+            label="Valider datasett"
+            primary={true}
+            style={{marginLeft: 10}}
+            onClick={this.handleShowConfirmValidate.bind(this)}
+          />
         </div>
         {events && events.length
           ? <EventDetails locale="nb" dataSource={events} />
@@ -77,6 +109,11 @@ class Events extends React.Component {
           >
             Ingen tidligere leveranser.
           </div>}
+          <ConfirmValidateDialog
+            open={this.state.confirmDialogOpen}
+            handleClose={this.handleCloseConfirmValidate.bind(this)}
+            handleConfirm={this.handleValidate.bind(this)}
+          />
       </div>
     );
   }

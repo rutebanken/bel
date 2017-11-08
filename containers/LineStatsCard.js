@@ -6,6 +6,7 @@ import { filterLines, sortLines, sortIcon } from 'bogu/utils';
 import { color } from 'bogu/styles';
 
 class LineStatsCard extends React.Component {
+
   static propTypes = {
     selectedSegment: PropTypes.string.isRequired,
     daysValid: PropTypes.number.isRequired,
@@ -22,19 +23,19 @@ class LineStatsCard extends React.Component {
   }
 
   handleToggleListItem(line) {
-    let isOpen = !this.state['open' + line];
-    this.saveNestedState(isOpen, line);
+    const isOpen = !this.state['open' + line];
+    this.setNestedState(isOpen, line);
   }
 
   handleToggle(item, line) {
-    let isOpen = !this.state['open' + line] || item.state.open;
-    this.saveNestedState(isOpen, line);
+    const isOpen = !this.state['open' + line] || item.state.open;
+    this.setNestedState(isOpen, line);
   }
 
-  saveNestedState(isOpen, line) {
-    let state = this.state;
-    state['open' + line] = isOpen;
-    this.setState(state);
+  setNestedState(isOpen, line) {
+    let nextState = Object.assign({}, this.state);
+    nextState['open' + line] = isOpen;
+    this.setState(nextState);
   }
 
   changeSorting() {

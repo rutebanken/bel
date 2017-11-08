@@ -96,8 +96,7 @@ AsyncActions.getAllSuppliers = () => (dispatch, getState) => {
 AsyncActions.getLineStats = id => dispatch => {
   dispatch(sendData(null, types.REQUESTED_LINE_STATS));
   return axios({
-    url: `${window.config
-      .timetableAdminBaseUrl}${id}/line_statistics`,
+    url: `${window.config.timetableAdminBaseUrl}${id}/line_statistics`,
     timeout: 10000,
     method: 'get',
     responseType: 'json',
@@ -127,6 +126,22 @@ AsyncActions.getLatestDeliveryForProvider = providerId => dispatch => {
     })
     .catch(response => {
       console.error(response);
+    });
+};
+
+AsyncActions.validateDataSet = providerId => dispatch => {
+  dispatch(sendData(null, types.REQUESTED_VALIDATE_DATASET));
+  const url = window.config.timetableAdminBaseUrl + `${providerId}/validate`;
+  return axios
+    .post(url, null, getConfig())
+    .then(response => {
+      dispatch(sendData(null, types.SUCCESS_VALIDATE_DATASET));
+    })
+    .catch((err)=> {
+      /* no human-readable error message is given anyway */
+      dispatch(sendData({
+        errorMsg: 'En uventet feil har oppstått'
+      }, types.ERROR_VALIDATE_DATASET));
     });
 };
 
