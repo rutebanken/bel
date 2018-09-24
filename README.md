@@ -62,3 +62,4 @@ AUTH_SERVER_URL=https://test.rutebanken.org/auth PORT=9000 PROVIDERS_BASE_URL=ht
 
 ***NB*** Use `PORT=8000` or `PORT=9000` for development against `https://test.rutebanken.org/auth` since these are whitelisted.
 
+
