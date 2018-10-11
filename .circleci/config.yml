@@ -3,9 +3,6 @@ aliases:
 - &install-dependencies
   name: Install Node Dependencies
   command: npm install
-- &test
-  name: Test
-  command: npm run test
 - &build
   name: Build
   command: npm run build
@@ -83,14 +80,10 @@ workflows:
     jobs:
     - install:
         context: org-carbon
-    - test:
-        context: org-carbon
-        requires:
-        - install
     - build:
         context: org-carbon
         requires:
-        - test
+        - install
         filters:
           branches:
             only:
