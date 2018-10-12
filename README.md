@@ -1,4 +1,4 @@
-# Bel
+# Bel [![CircleCI](https://circleci.com/gh/entur/bel/tree/master.svg?style=svg)](https://circleci.com/gh/entur/bel/tree/master)
 
 Operational status, provides the providers with relevant status of their data delivery
 
