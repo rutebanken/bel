@@ -35,19 +35,19 @@ module.exports = new Promise(function(resolve, reject){
     providersBaseUrl: {
       doc: "Base URL for for Providers API including slash",
       format: "url",
-      default: "https://api-test.entur.org/providers/1.0/",
+      default: "https://api.dev.entur.io/timetable-admin/v1/providers/",
       env: "PROVIDERS_BASE_URL"
     },
     eventsBaseUrl: {
       doc: "Base URL for for Events API including slash",
       format: "url",
-      default: "https://api-test.entur.org/events/1.0/",
+      default: "https://api.dev.entur.io/timetable-admin/v1/events/",
       env: "EVENTS_BASE_URL"
     },
     timetableAdminBaseUrl: {
       doc: "Base URL for for Timatable admin API including slash",
       format: "url",
-      default: "https://api-test.entur.org/timetable_admin/1.0/",
+      default: "https://api.dev.entur.io/timetable-admin/v1/timetable/",
       env: "TIMETABLE_ADMIN_BASE_URL"
     },
     endpointBase: {
