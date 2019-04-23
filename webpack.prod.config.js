@@ -28,7 +28,7 @@ module.exports = {
   },
 
   plugins: [
-    new webpack.optimize.CommonsChunkPlugin("react", "react.bundle.js"),
+    new webpack.optimize.CommonsChunkPlugin("react.bundle.js"),
     new webpack.optimize.UglifyJsPlugin({
       minimize: true,
       beautify: false,
