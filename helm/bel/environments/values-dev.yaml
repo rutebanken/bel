@@ -1,0 +1,9 @@
+env: dev
+
+configMap:
+  eventsBaseUrl: https://api.dev.entur.io/timetable-admin/v1/events/
+  authServerUrl: https://kc-dev.devstage.entur.io/auth
+  providersBaseUrl: https://api.dev.entur.io/timetable-admin/v1/providers/
+  endpointBase: /
+  timetableAdminBaseUrl: https://api.dev.entur.io/timetable-admin/v1/timetable/
+  chouetteBaseUrl: https://rutedb.dev.entur.org/
