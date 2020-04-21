@@ -61,18 +61,18 @@ jobs:
     steps:
     - checkout
     - run: *install-dependencies
-    - save-cache: *save-dependency-cache
+    - save_cache: *save-dependency-cache
   test:
     executor: circleci-toolbox
     steps:
     - checkout
-    - restore-cache: *restore-dependency-cache
+    - restore_cache: *restore-dependency-cache
     - run: *test
   build:
     executor: circleci-toolbox
     steps:
     - checkout
-    - restore-cache: *restore-dependency-cache
+    - restore_cache: *restore-dependency-cache
     - run: *build
     - run: *create-image-version
     - run: *tag-git-version
@@ -83,7 +83,6 @@ jobs:
     - run: *docker-build-and-push
 
 workflows:
-  version: 2
   install-test-build-deploy:
     jobs:
     - install:
