@@ -19,12 +19,24 @@ spec:
   rules:
   {{- if eq .Values.env "production"}}
   - host: operator.entur.org
-  {{ else }}
-  - host: operator.{{ .Release.Namespace }}.entur.org
-  {{- end}}
     http:
       paths:
         - backend:
             serviceName: {{ template "app.name" . }}
             servicePort: {{ .Values.service.http.externalPort }}
+  - host: xn--operatr-v1a.entur.org/
+    http:
+      paths:
+        - backend:
+            serviceName: {{ template "app.name" . }}
+            servicePort: {{ .Values.service.http.externalPort }}
+  {{ else }}
+  - host: operator.{{ .Release.Namespace }}.entur.org
+    http:
+      paths:
+        - backend:
+            serviceName: {{ template "app.name" . }}
+            servicePort: {{ .Values.service.http.externalPort }}
+  {{- end}}
+
 {{- end }}
