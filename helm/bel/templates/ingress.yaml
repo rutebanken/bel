@@ -24,7 +24,7 @@ spec:
         - backend:
             serviceName: {{ template "app.name" . }}
             servicePort: {{ .Values.service.http.externalPort }}
-  - host: xn--operatr-v1a.entur.org/
+  - host: xn--operatr-v1a.entur.org
     http:
       paths:
         - backend:
