@@ -99,7 +99,7 @@ class Header extends React.Component {
             >
               <MenuItem
                 leftIcon={<MdHelp color={primaryDarker}/>}
-                href="https://rutebanken.atlassian.net/wiki/spaces/PUBLIC/pages/142639123/Brukerveiledning+-+Operat+rportal"
+                href="https://enturas.atlassian.net/wiki/spaces/PUBLIC/pages/637370715/Brukerveiledning+for+operat+rportal"
                 target="_blank"
                 primaryText={"Brukerveiledning"}
               />
