@@ -70,7 +70,7 @@ jobs:
         password: $DOCKER_PASSWORD
     steps:
     - checkout
-    - restore-cache: *restore-dependency-cache
+    - restore_cache: *restore-dependency-cache
     - run: *build
   test:
     executor: circleci-toolbox
