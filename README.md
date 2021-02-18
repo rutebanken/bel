@@ -2,7 +2,7 @@
 
 Operational status, provides the providers with relevant status of their data delivery
 
-## Run the app 
+## Run the app
 
 ### Dev
 
@@ -13,6 +13,7 @@ npm run dev
 ```
 
 ### Production
+
 ```
 
 npm install
@@ -30,12 +31,14 @@ Uses Nightwatch with Selenium for automated testing, cf. [documentation](http://
 ```
 
 Running the tests locally can be achived by (note: this required a running selenium-hub)
+
 ```
   nightwatch --env local
 
 ```
 
 For testing async action creators (Redux-specific), we are using Mocha alongside with [Nock](https://github.com/node-nock/nock) for intercepting HTTP requests.
+
 ```
   npm test
 
@@ -60,6 +63,4 @@ AUTH_SERVER_URL=https://kc-dev.devstage.entur.io/auth PORT=9000 PROVIDERS_BASE_U
  npm run dev
 ```
 
-***NB*** Use `PORT=8000` or `PORT=9000` for development against `https://kc-dev.devstage.entur.io/auth` since these are whitelisted.
-
-
+**_NB_** Use `PORT=8000` or `PORT=9000` for development against `https://kc-dev.devstage.entur.io/auth` since these are whitelisted.
