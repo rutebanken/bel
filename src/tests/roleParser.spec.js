@@ -14,20 +14,18 @@
  *
  */
 
-const express = require("express");
-const configureApp = require("./server-config").configureApp;
-const port = process.env.port || 9000;
+import { expect } from "chai";
+import organisations from "./mock/organisations";
+import tokenParsed from "./mock/tokenParsed";
+import rolesParser from "../roles/roleParser";
 
-const init = async () => {
-  const app = await configureApp(express());
-
-  app.listen(port, function (error) {
-    if (error) {
-      console.error(error);
-    } else {
-      console.info("==> Listening on port %s.", port);
-    }
+describe("test roleParser mapping functionality", () => {
+  it("should return correct organisations based on roles", () => {
+    let userOrganisations = rolesParser.getUserOrganisations(
+      tokenParsed,
+      organisations
+    );
+    expect(userOrganisations[0].id).to.equal(2);
+    expect(userOrganisations.length).to.equal(1);
   });
-};
-
-init();
+});

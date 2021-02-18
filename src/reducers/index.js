@@ -14,20 +14,6 @@
  *
  */
 
-const express = require("express");
-const configureApp = require("./server-config").configureApp;
-const port = process.env.port || 9000;
-
-const init = async () => {
-  const app = await configureApp(express());
-
-  app.listen(port, function (error) {
-    if (error) {
-      console.error(error);
-    } else {
-      console.info("==> Listening on port %s.", port);
-    }
-  });
-};
-
-init();
+export { default as userReducer } from "./userReducer";
+export { default as asyncReducer } from "./asyncReducer";
+export { default as snackbarReducer } from "./snackbarReducer";

@@ -14,20 +14,34 @@
  *
  */
 
-const express = require("express");
-const configureApp = require("./server-config").configureApp;
-const port = process.env.port || 9000;
-
-const init = async () => {
-  const app = await configureApp(express());
-
-  app.listen(port, function (error) {
-    if (error) {
-      console.error(error);
-    } else {
-      console.info("==> Listening on port %s.", port);
-    }
-  });
+export default {
+  "allowed-origins": [
+    "https://test.rutebanken.org",
+    "http://localhost:8000",
+    "http://localhost:9000",
+  ],
+  realm_access: {
+    roles: [
+      "editOrganisation",
+      "rutebanken",
+      "editRouteData",
+      "editStops",
+      "uma_authorization",
+    ],
+  },
+  resource_access: {
+    account: {
+      roles: ["manage-account", "view-profile"],
+    },
+  },
+  roles: [
+    '{"r":"editStops","o":"RB"}',
+    '{"r":"editRouteData","o":"RUT"}',
+    '{"r":"editOrganisation","o":"RB"}',
+  ],
+  name: "Test Testesen",
+  preferred_username: "test",
+  given_name: "Test ",
+  family_name: "Testesen",
+  email: "test@rutebanken.org",
 };
-
-init();

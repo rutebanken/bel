@@ -1,4 +1,4 @@
-/*
+/*!
  * Licensed under the EUPL, Version 1.2 or – as soon they will be approved by
  * the European Commission - subsequent versions of the EUPL (the "Licence");
  * You may not use this work except in compliance with the Licence.
@@ -14,20 +14,12 @@
  *
  */
 
-const express = require("express");
-const configureApp = require("./server-config").configureApp;
-const port = process.env.port || 9000;
+a {
+  color: #2196f3;
+  text-decoration: none;
+}
 
-const init = async () => {
-  const app = await configureApp(express());
-
-  app.listen(port, function (error) {
-    if (error) {
-      console.error(error);
-    } else {
-      console.info("==> Listening on port %s.", port);
-    }
-  });
-};
-
-init();
+a:hover,
+a:focus {
+  color: #1976d2;
+}

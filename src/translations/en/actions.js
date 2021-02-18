@@ -14,20 +14,12 @@
  *
  */
 
-const express = require("express");
-const configureApp = require("./server-config").configureApp;
-const port = process.env.port || 9000;
-
-const init = async () => {
-  const app = await configureApp(express());
-
-  app.listen(port, function (error) {
-    if (error) {
-      console.error(error);
-    } else {
-      console.info("==> Listening on port %s.", port);
-    }
-  });
+export default {
+  FILE_TRANSFER: "File transfer",
+  IMPORT: "Import",
+  EXPORT: "Export",
+  EXPORT_NETEX: "Netex Export",
+  VALIDATION_LEVEL_1: "Validation level 1",
+  DATASPACE_TRANSFER: "Dataspace transfer",
+  VALIDATION_LEVEL_2: "Validation level 2",
 };
-
-init();
