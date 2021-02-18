@@ -14,7 +14,7 @@
  *
  */
 
-export default [
+module.exports = [
   {
     "id": 1,
     "name": "Østfold / Østfold Kollektivtrafikk",

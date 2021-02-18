@@ -14,7 +14,6 @@
  *
  */
 
-import { it, describe } from 'mocha'
 import { expect } from 'chai'
 import organisations from './mock/organisations'
 import tokenParsed from './mock/tokenParsed'
