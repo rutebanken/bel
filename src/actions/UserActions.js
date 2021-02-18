@@ -14,17 +14,17 @@
  *
  */
 
-import * as types from './actionTypes';
+import * as types from "./actionTypes";
 
 const UserActions = {};
 
-UserActions.openFileUploadDialog = () => dispatch =>
+UserActions.openFileUploadDialog = () => (dispatch) =>
   dispatch({ type: types.OPENED_FILEUPLOAD_MODAL });
 
-UserActions.dismissFileUploadDialog = () => dispatch =>
+UserActions.dismissFileUploadDialog = () => (dispatch) =>
   dispatch({ type: types.DISMISSED_FILEUPLOAD_MODAL });
 
-UserActions.dismissSnackbar = () => dispatch => {
+UserActions.dismissSnackbar = () => (dispatch) => {
   dispatch({ type: types.DISMISSED_SNACKBAR });
 };
 

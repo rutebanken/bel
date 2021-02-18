@@ -14,26 +14,26 @@
  *
  */
 
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
-import React from 'react';
-import { Pie as PieChart } from 'react-chartjs-2';
-import { Card, CardText } from 'material-ui/Card';
-import { color } from 'bogu/styles';
+import React from "react";
+import { Pie as PieChart } from "react-chartjs-2";
+import { Card, CardText } from "material-ui/Card";
+import { color } from "bogu/styles";
 
-import { segmentName, segmentColor } from 'bogu/utils';
+import { segmentName, segmentColor } from "bogu/utils";
 
 class PieCard extends React.Component {
   static propTypes = {
     stats: PropTypes.object.isRequired,
     handlePieOnClick: PropTypes.func.isRequired,
-    handleshowAllClick: PropTypes.func.isRequired
+    handleshowAllClick: PropTypes.func.isRequired,
   };
 
   constructor(props) {
     super(props);
     this.state = {
-      size: 200
+      size: 200,
     };
   }
 
@@ -46,37 +46,37 @@ class PieCard extends React.Component {
   }
 
   componentDidMount() {
-    window.addEventListener('resize', this.updateDimensions);
+    window.addEventListener("resize", this.updateDimensions);
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.updateDimensions);
+    window.removeEventListener("resize", this.updateDimensions);
   }
 
   render() {
     const showAllStyle = {
-      color: 'rgb(17, 105, 167)',
+      color: "rgb(17, 105, 167)",
       fontWeight: 600,
-      textDecoration: 'underline',
-      cursor: 'pointer',
+      textDecoration: "underline",
+      cursor: "pointer",
       marginTop: 10,
-      textAlign: 'center'
+      textAlign: "center",
     };
 
     const pieStyle = {
       width: this.state.size,
       height: this.state.size,
-      marginLeft: 'auto',
-      marginRight: 'auto',
-      display: 'block',
-      cursor: 'pointer'
+      marginLeft: "auto",
+      marginRight: "auto",
+      display: "block",
+      cursor: "pointer",
     };
 
     const pieOptionsFull = {
       animation: false,
       showTooltips: true,
       responsive: true,
-      tooltipTemplate: '<%= label %> - <%= value %>'
+      tooltipTemplate: "<%= label %> - <%= value %>",
     };
 
     const { stats } = this.props;
@@ -87,49 +87,38 @@ class PieCard extends React.Component {
     const dynamic = [];
 
     const pieData = {
-      labels: [
-        segmentName('valid', 0, 'nb'),
-        segmentName('expiring', 0, 'nb')
+      labels: [segmentName("valid", 0, "nb"), segmentName("expiring", 0, "nb")],
+      datasets: [
+        {
+          data: [valid, expiring],
+          backgroundColor: [color.highlight.valid, color.highlight.expiring],
+          hoverBackgroundColor: [color.valid, color.expiring],
+        },
       ],
-      datasets: [{
-        data: [
-          valid,
-          expiring
-        ],
-        backgroundColor: [
-          color.highlight.valid,
-          color.highlight.expiring
-        ],
-        hoverBackgroundColor: [
-          color.valid,
-          color.expiring
-        ]
-      }]
-    }
+    };
 
     for (let i in dynamic) {
       const category = dynamic[i];
       const numDays = category.numDaysAtLeastValid;
       const length = category.lineNumbers.length;
 
-      pieData.labels.push(segmentName('dynamic', numDays, 'nb'));
+      pieData.labels.push(segmentName("dynamic", numDays, "nb"));
       pieData.datasets[0].data.push(length);
       pieData.datasets[0].backgroundColor.push(segmentColor(numDays));
       pieData.datasets[0].hoverBackgroundColor.push(segmentColor(numDays, 20));
     }
 
-    pieData.labels.push(segmentName('invalid', 0, 'nb'));
+    pieData.labels.push(segmentName("invalid", 0, "nb"));
     pieData.datasets[0].data.push(invalid);
     pieData.datasets[0].backgroundColor.push(color.highlight.invalid);
     pieData.datasets[0].hoverBackgroundColor.push(color.invalid);
 
-
     return (
-      <Card style={{ margin: '0.5vh 0.7vw' }}>
+      <Card style={{ margin: "0.5vh 0.7vw" }}>
         <CardText>
           <PieChart
             getElementAtEvent={([element]) => {
-              this.props.handlePieOnClick(element)
+              this.props.handlePieOnClick(element);
             }}
             data={pieData}
             style={pieStyle}

@@ -14,15 +14,15 @@
  *
  */
 
-import * as types from './../actions/actionTypes';
+import * as types from "./../actions/actionTypes";
 
 const intialState = {
   isModalOpen: false,
   fileUpload: {
     progress: 0,
-    state: types.FILE_UPLOAD_NOT_STARTED
+    state: types.FILE_UPLOAD_NOT_STARTED,
   },
-  noOrganisations: false
+  noOrganisations: false,
 };
 
 const userReducer = (state = intialState, action) => {
@@ -31,9 +31,9 @@ const userReducer = (state = intialState, action) => {
       return Object.assign({}, state, {
         fileUpload: {
           progress: 0,
-          state: types.FILE_UPLOAD_NOT_STARTED
+          state: types.FILE_UPLOAD_NOT_STARTED,
         },
-        isModalOpen: false
+        isModalOpen: false,
       });
 
     case types.OPENED_FILEUPLOAD_MODAL:
@@ -46,16 +46,16 @@ const userReducer = (state = intialState, action) => {
       return Object.assign({}, state, {
         fileUpload: {
           ...state.fileUpload,
-          state: action.payLoad
-        }
+          state: action.payLoad,
+        },
       });
 
     case types.UPDATED_FILE_UPLOAD_PROGRESS_BAR:
       return Object.assign({}, state, {
         fileUpload: {
           progress: action.payLoad,
-          state: types.FILE_UPLOAD_UPLOADING
-        }
+          state: types.FILE_UPLOAD_UPLOADING,
+        },
       });
 
     default:

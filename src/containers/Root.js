@@ -14,16 +14,16 @@
  *
  */
 
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
-import React, { Component } from 'react';
-import FileUpload from './FileUpload';
-import Header from '../components/Header';
-import Main from './Main';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import enturTheme from '../styles/themes/entur/';
-import SnackbarWrapper from '../components/SnackbarWrapper';
+import React, { Component } from "react";
+import FileUpload from "./FileUpload";
+import Header from "../components/Header";
+import Main from "./Main";
+import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+import getMuiTheme from "material-ui/styles/getMuiTheme";
+import enturTheme from "../styles/themes/entur/";
+import SnackbarWrapper from "../components/SnackbarWrapper";
 
 export default class Root extends React.Component {
   render() {
@@ -34,7 +34,7 @@ export default class Root extends React.Component {
           <Header />
           <Main />
           <FileUpload />
-          <SnackbarWrapper/>
+          <SnackbarWrapper />
         </div>
       </MuiThemeProvider>
     );

@@ -37,7 +37,7 @@ export default {
     UNKNOWN: "Dette steget er ukjent",
   },
   filename: {
-    undefined: "Direkteleveranse"
+    undefined: "Direkteleveranse",
   },
   states: {
     OK: "Fullført",
@@ -45,7 +45,6 @@ export default {
     STARTED: "Påbegynt",
     FAILED: "Feil",
     DUPLICATE: "Feil - duplikat datasett",
-    IGNORED: "Ikke gjennomført"
-  }
-}
-
+    IGNORED: "Ikke gjennomført",
+  },
+};

@@ -14,49 +14,48 @@
  *
  */
 
-import React from 'react';
-import {render} from 'react-dom';
-import { Provider } from 'react-redux';
-import Root from './containers/Root';
-import configureStore from './store/store';
-import cfgreader from './config/readConfig';
-import Keycloak from 'keycloak-js';
+import React from "react";
+import { render } from "react-dom";
+import { Provider } from "react-redux";
+import Root from "./containers/Root";
+import configureStore from "./store/store";
+import cfgreader from "./config/readConfig";
+import Keycloak from "keycloak-js";
 
-import './styles/css/main.scss';
+import "./styles/css/main.scss";
 
-cfgreader
-  .readConfig(config => {
-    window.config = config;
-    authWithKeyCloak(config.endpointBase);
-  });
+cfgreader.readConfig((config) => {
+  window.config = config;
+  authWithKeyCloak(config.endpointBase);
+});
 
-const authWithKeyCloak = endpointBase => {
-  let kc = new Keycloak(endpointBase + 'config/keycloak.json');
-  kc
-    .init({ onLoad: 'login-required', checkLoginIframe: false })
-    .success(authenticated => {
+const authWithKeyCloak = (endpointBase) => {
+  let kc = new Keycloak(endpointBase + "config/keycloak.json");
+  kc.init({ onLoad: "login-required", checkLoginIframe: false }).success(
+    (authenticated) => {
       if (authenticated) {
-        localStorage.setItem('BEL::jwt', kc.token);
+        localStorage.setItem("BEL::jwt", kc.token);
 
         setInterval(() => {
           kc.updateToken(10).error(() => kc.logout());
-          localStorage.setItem('BEL::jwt', kc.token);
+          localStorage.setItem("BEL::jwt", kc.token);
         }, 10000);
 
         renderIndex(kc);
       } else {
         kc.login();
       }
-    });
-}
+    }
+  );
+};
 
-const renderIndex = kc =>{
+const renderIndex = (kc) => {
   const store = configureStore(kc);
 
   render(
     <Provider store={store}>
       <Root />
     </Provider>,
-    document.getElementById('root')
+    document.getElementById("root")
   );
-}
+};

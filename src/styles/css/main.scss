@@ -18,11 +18,17 @@
 @import "links.scss";
 
 body {
-  font-family: 'Noto Sans Kannada', sans-serif;
+  font-family: "Noto Sans Kannada", sans-serif;
   color: #191919;
 }
 
-p,h1,h2,h3,h4,h5, span {
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+span {
   color: #191919;
 }
 
@@ -47,12 +53,12 @@ p,h1,h2,h3,h4,h5, span {
 }
 
 .active-link {
-  color: #0D3C61;
+  color: #0d3c61;
   text-decoration: underline;
 }
 
 .inactive-link {
-  color: #2196F3;
+  color: #2196f3;
 }
 
 .jobstatus-wrapper {

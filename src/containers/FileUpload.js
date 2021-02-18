@@ -14,32 +14,32 @@
  *
  */
 
-import { connect } from 'react-redux';
-import React from 'react';
-import ModalDialog from '../components/ModalDialog';
-import UserActions from '../actions/UserActions';
-import AsyncActions from '../actions/AsyncActions';
-import Dropzone from 'react-dropzone';
-import RaisedButton from 'material-ui/RaisedButton';
-import LinearProgress from 'material-ui/LinearProgress';
-import MdClose from 'material-ui/svg-icons/navigation/close';
-import '../styles/css/fileUpload.css';
-import * as types from '../actions/actionTypes';
-import MdCheck from 'material-ui/svg-icons/action/check-circle';
-import MdError from 'material-ui/svg-icons/alert/error';
+import { connect } from "react-redux";
+import React from "react";
+import ModalDialog from "../components/ModalDialog";
+import UserActions from "../actions/UserActions";
+import AsyncActions from "../actions/AsyncActions";
+import Dropzone from "react-dropzone";
+import RaisedButton from "material-ui/RaisedButton";
+import LinearProgress from "material-ui/LinearProgress";
+import MdClose from "material-ui/svg-icons/navigation/close";
+import "../styles/css/fileUpload.css";
+import * as types from "../actions/actionTypes";
+import MdCheck from "material-ui/svg-icons/action/check-circle";
+import MdError from "material-ui/svg-icons/alert/error";
 
 class FileUpload extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      files: []
+      files: [],
     };
   }
 
   closeModal() {
     const { dispatch } = this.props;
     this.setState({
-      files: []
+      files: [],
     });
     dispatch(UserActions.dismissFileUploadDialog());
   }
@@ -47,7 +47,7 @@ class FileUpload extends React.Component {
   handleOnDrop(acceptedFiles) {
     if (acceptedFiles.length) {
       this.setState({
-        files: acceptedFiles
+        files: acceptedFiles,
       });
       return false;
     }
@@ -72,33 +72,33 @@ class FileUpload extends React.Component {
     const { progress, state } = fileUpload;
 
     const totalFileSize = files.length
-      ? files.map(file => file.size / 1024).reduce((f1, f2) => f1 + f2)
+      ? files.map((file) => file.size / 1024).reduce((f1, f2) => f1 + f2)
       : 0;
 
     return (
       <ModalDialog isOpen={isModalOpen} onClose={() => this.closeModal()}>
         <div
           style={{
-            display: 'flex',
-            alignItems: 'center',
+            display: "flex",
+            alignItems: "center",
             marginLeft: 10,
             marginTop: 15,
-            justifyContent: 'space-between'
+            justifyContent: "space-between",
           }}
         >
-          <div style={{display: 'flex'}}>
+          <div style={{ display: "flex" }}>
             <div
               style={{
-                fontSize: '1.1em',
+                fontSize: "1.1em",
                 marginLeft: 10,
-                textTransform: 'uppercase'
+                textTransform: "uppercase",
               }}
             >
               Last opp nytt datasett
             </div>
           </div>
           <MdClose
-            style={{ marginRight: 15, cursor: 'pointer' }}
+            style={{ marginRight: 15, cursor: "pointer" }}
             onClick={() => this.closeModal()}
           />
         </div>
@@ -109,7 +109,7 @@ class FileUpload extends React.Component {
           accept=".zip,.rar"
           onDrop={(accepted, rejected) => {
             if (rejected && rejected.length) {
-              console.warn('File not accepted', rejected);
+              console.warn("File not accepted", rejected);
             } else {
               this.handleOnDrop(accepted);
             }
@@ -117,14 +117,14 @@ class FileUpload extends React.Component {
         >
           <div
             style={{
-              color: 'gray',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              height: '100%',
-              fontSize: '0.9em',
-              maxWidth: '65%',
-              margin: 'auto'
+              color: "gray",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              height: "100%",
+              fontSize: "0.9em",
+              maxWidth: "65%",
+              margin: "auto",
             }}
           >
             Slipp filer her, eller klikk her for å velge filer som skal lastes
@@ -135,76 +135,76 @@ class FileUpload extends React.Component {
         <div className="filelist">
           <select className="file-select" multiple>
             {files.map((file, index) => {
-              return <option key={'file-' + index}>{file.name}</option>;
+              return <option key={"file-" + index}>{file.name}</option>;
             })}
           </select>
         </div>
-        {state == types.FILE_UPLOAD_COMPLETED
-          ? <div
+        {state == types.FILE_UPLOAD_COMPLETED ? (
+          <div
+            style={{
+              maxWidth: "65%",
+              margin: "20px auto",
+              display: "flex",
+              padding: 10,
+              background: "rgba(0, 128, 0, 0.1)",
+              alignItems: "middle",
+            }}
+          >
+            <MdCheck color="green" />{" "}
+            <div
               style={{
-                maxWidth: '65%',
-                margin: '20px auto',
-                display: 'flex',
-                padding: 10,
-                background: 'rgba(0, 128, 0, 0.1)',
-                alignItems: 'middle'
+                marginLeft: 5,
+                textTransform: "uppercase",
+                position: "relative",
+                top: 3,
               }}
             >
-              <MdCheck color="green" />
-              {' '}<div
-                style={{
-                  marginLeft: 5,
-                  textTransform: 'uppercase',
-                  position: 'relative',
-                  top: 3
-                }}
-              >
-                Datasett er lastet opp
-              </div>
+              Datasett er lastet opp
             </div>
-          : null}
-        {state == types.FILE_UPLOAD_FAILED
-          ? <div
+          </div>
+        ) : null}
+        {state == types.FILE_UPLOAD_FAILED ? (
+          <div
+            style={{
+              maxWidth: "65%",
+              textAlign: "center",
+              margin: "20px auto",
+              display: "flex",
+              padding: 10,
+              background: "rgba(255, 0, 0, 0.05)",
+              alignItems: "middle",
+            }}
+          >
+            <MdError color="red" />{" "}
+            <div
               style={{
-                maxWidth: '65%',
-                textAlign: 'center',
-                margin: '20px auto',
-                display: 'flex',
-                padding: 10,
-                background: 'rgba(255, 0, 0, 0.05)',
-                alignItems: 'middle'
+                marginLeft: 5,
+                textTransform: "uppercase",
+                position: "relative",
+                top: 3,
               }}
             >
-              <MdError color="red" />
-              {' '}<div
-                style={{
-                  marginLeft: 5,
-                  textTransform: 'uppercase',
-                  position: 'relative',
-                  top: 3
-                }}
-              >
-                Feil ved opplasting av datasett
-              </div>
+              Feil ved opplasting av datasett
             </div>
-          : null}
-        <div style={{ maxWidth: '75%', margin: '20px auto' }}>
-          {state !== types.FILE_UPLOAD_NOT_STARTED
-            ? <LinearProgress mode="determinate" value={progress} />
-            : null}
+          </div>
+        ) : null}
+        <div style={{ maxWidth: "75%", margin: "20px auto" }}>
+          {state !== types.FILE_UPLOAD_NOT_STARTED ? (
+            <LinearProgress mode="determinate" value={progress} />
+          ) : null}
         </div>
         <div
           style={{
             padding: 10,
-            display: 'flex',
-            justifyContent: 'space-between',
-            marginBottom: 10
+            display: "flex",
+            justifyContent: "space-between",
+            marginBottom: 10,
           }}
         >
           <div
             style={{
-              fontSize: '0.9em',
-              visibility: totalFileSize ? 'visible' : 'hidden'
+              fontSize: "0.9em",
+              visibility: totalFileSize ? "visible" : "hidden",
             }}
           >
             Total størrelse: {this.formatFileSize(totalFileSize)}
@@ -222,9 +222,9 @@ class FileUpload extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   isModalOpen: state.userReducer.isModalOpen,
-  fileUpload: state.userReducer.fileUpload
+  fileUpload: state.userReducer.fileUpload,
 });
 
 export default connect(mapStateToProps)(FileUpload);

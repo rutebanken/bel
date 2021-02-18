@@ -1,4 +1,4 @@
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 
 /*
  * Licensed under the EUPL, Version 1.2 or – as soon they will be approved by
@@ -16,12 +16,12 @@ import { connect } from 'react-redux';
  *
  */
 
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
-import React, { Component } from 'react';
-import cfgreader from '../config/readConfig';
-import TabsContainer from './TabsContainer';
-import AsyncActions from '../actions/AsyncActions';
+import React, { Component } from "react";
+import cfgreader from "../config/readConfig";
+import TabsContainer from "./TabsContainer";
+import AsyncActions from "../actions/AsyncActions";
 
 class Main extends React.Component {
   componentDidMount() {
@@ -30,7 +30,7 @@ class Main extends React.Component {
 
   handleLogout() {
     const { kc } = this.props;
-    localStorage.removeItem('BEL::jwt');
+    localStorage.removeItem("BEL::jwt");
     kc.logout();
   }
 
@@ -53,7 +53,7 @@ class Main extends React.Component {
             Ta kontakt med din administrator for å rett tilgang til ditt område.
           </div>
           <a
-            style={{ cursor: 'pointer' }}
+            style={{ cursor: "pointer" }}
             onClick={this.handleLogout.bind(this)}
           >
             Logg ut
@@ -64,9 +64,9 @@ class Main extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   noOrganisations: state.userReducer.noOrganisations,
-  kc: state.userReducer.kc
+  kc: state.userReducer.kc,
 });
 
 export default connect(mapStateToProps)(Main);

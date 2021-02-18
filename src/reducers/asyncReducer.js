@@ -14,7 +14,7 @@
  *
  */
 
-import * as types from './../actions/actionTypes';
+import * as types from "./../actions/actionTypes";
 
 const initialState = {
   currentSupplier: null,
@@ -22,13 +22,13 @@ const initialState = {
   suppliers: [],
   lineStats: {
     isLoading: true,
-    data: null
+    data: null,
   },
   dataDelivery: {
     state: null,
-    date: null
+    date: null,
   },
-  isFetchingEvents: false
+  isFetchingEvents: false,
 };
 
 const asyncReducer = (state = initialState, action) => {
@@ -36,36 +36,41 @@ const asyncReducer = (state = initialState, action) => {
     case types.RECEIVED_EVENTS:
       return Object.assign({}, state, {
         events: action.payLoad,
-        isFetchingEvents: false
+        isFetchingEvents: false,
       });
 
     case types.ERROR_EVENTS:
       return Object.assign({}, state, { isFetchingEvents: false });
 
     case types.CHANGED_ACTIVE_PROVIDER:
-      return Object.assign({}, state, { currentSupplier: state.suppliers.find(
-        supplier => supplier.id == action.payLoad
-      )});
+      return Object.assign({}, state, {
+        currentSupplier: state.suppliers.find(
+          (supplier) => supplier.id == action.payLoad
+        ),
+      });
 
     case types.RECEIVED_SUPPLIERS:
       return Object.assign({}, state, {
         currentSupplier: null,
-        suppliers: action.payLoad
+        suppliers: action.payLoad,
       });
 
     case types.RECEIVED_LINE_STATS:
       return Object.assign({}, state, {
-        lineStats: { isLoading: false, data: action.payLoad }
+        lineStats: { isLoading: false, data: action.payLoad },
       });
 
     case types.REQUESTED_LINE_STATS:
       return Object.assign({}, state, {
-        lineStats: { isLoading: true, data: null }
+        lineStats: { isLoading: true, data: null },
       });
 
     case types.RECEIVED_LATEST_DELIVERY_DATE:
       return Object.assign({}, state, {
-        dataDelivery: { date: action.payLoad.date, state: action.payLoad.state }
+        dataDelivery: {
+          date: action.payLoad.date,
+          state: action.payLoad.state,
+        },
       });
 
     default:

@@ -14,22 +14,21 @@
  *
  */
 
-import { connect } from 'react-redux';
-import React from 'react';
-import UserActions from '../actions/UserActions';
-import RaisedButton from 'material-ui/RaisedButton';
-import Upload from 'material-ui/svg-icons/file/file-upload';
-import { color } from 'bogu/styles';
-import AsyncActions from '../actions/AsyncActions';
-import { EventDetails } from 'bogu';
-import ConfirmValidateDialog from '../components/ConfirmValidateDialog';
+import { connect } from "react-redux";
+import React from "react";
+import UserActions from "../actions/UserActions";
+import RaisedButton from "material-ui/RaisedButton";
+import Upload from "material-ui/svg-icons/file/file-upload";
+import { color } from "bogu/styles";
+import AsyncActions from "../actions/AsyncActions";
+import { EventDetails } from "bogu";
+import ConfirmValidateDialog from "../components/ConfirmValidateDialog";
 
 class Events extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
-      confirmDialogOpen: false
+      confirmDialogOpen: false,
     };
   }
 
@@ -54,7 +53,7 @@ class Events extends React.Component {
   }
 
   startPolling = () => {
-    this.timeout  = setTimeout(() => {
+    this.timeout = setTimeout(() => {
       if (this.props.currentSupplierId) {
         this.props.dispatch(
           AsyncActions.getProviderEvents(this.props.currentSupplierId)
@@ -69,13 +68,13 @@ class Events extends React.Component {
 
   handleShowConfirmValidate() {
     this.setState({
-      confirmDialogOpen: true
+      confirmDialogOpen: true,
     });
   }
 
   handleCloseConfirmValidate() {
     this.setState({
-      confirmDialogOpen: false
+      confirmDialogOpen: false,
     });
   }
 
@@ -92,11 +91,11 @@ class Events extends React.Component {
       <div>
         <div
           style={{
-            display: 'flex',
-            justifyContent: 'center',
+            display: "flex",
+            justifyContent: "center",
             paddingBottom: 0,
             marginTop: 10,
-            marginBottom: 20
+            marginBottom: 20,
           }}
         >
           <RaisedButton
@@ -109,27 +108,29 @@ class Events extends React.Component {
           <RaisedButton
             label="Valider datasett"
             primary={true}
-            style={{marginLeft: 10}}
+            style={{ marginLeft: 10 }}
             onClick={this.handleShowConfirmValidate.bind(this)}
           />
         </div>
-        {events && events.length
-          ? <EventDetails locale="nb" dataSource={events} />
-          : <div
+        {events && events.length ? (
+          <EventDetails locale="nb" dataSource={events} />
+        ) : (
+          <div
             style={{
               padding: 40,
               background: color.tableInfo,
               marginTop: 40,
-              fontWeight: 500
+              fontWeight: 500,
             }}
           >
             Ingen tidligere leveranser.
-          </div>}
-          <ConfirmValidateDialog
-            open={this.state.confirmDialogOpen}
-            handleClose={this.handleCloseConfirmValidate.bind(this)}
-            handleConfirm={this.handleValidate.bind(this)}
-          />
+          </div>
+        )}
+        <ConfirmValidateDialog
+          open={this.state.confirmDialogOpen}
+          handleClose={this.handleCloseConfirmValidate.bind(this)}
+          handleConfirm={this.handleValidate.bind(this)}
+        />
       </div>
     );
   }
@@ -138,7 +139,7 @@ class Events extends React.Component {
 const mapStateToProps = (state, ownProps) => ({
   currentSupplierId: state.asyncReducer.currentSupplier.id,
   events: state.asyncReducer.events,
-  isFetchingEvents: state.asyncReducer.isFetchingEvents
+  isFetchingEvents: state.asyncReducer.isFetchingEvents,
 });
 
 export default connect(mapStateToProps)(Events);
