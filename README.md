@@ -9,7 +9,7 @@ Operational status, provides the providers with relevant status of their data de
 ```
 
 npm install
-npm run dev
+npm start
 ```
 
 ### Production
@@ -18,29 +18,13 @@ npm run dev
 
 npm install
 npm run build
-npm start
+npm run prod
 ```
 
 ## Testing
 
-Uses Nightwatch with Selenium for automated testing, cf. [documentation](http://nightwatchjs.org/)
-
 ```
-  npm run smoke-test
-
-```
-
-Running the tests locally can be achived by (note: this required a running selenium-hub)
-
-```
-  nightwatch --env local
-
-```
-
-For testing async action creators (Redux-specific), we are using Mocha alongside with [Nock](https://github.com/node-nock/nock) for intercepting HTTP requests.
-
-```
-  npm test
+  npm run test
 
 ```
 
