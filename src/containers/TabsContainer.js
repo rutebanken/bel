@@ -1,3 +1,5 @@
+import { connect } from 'react-redux';
+
 /*
  * Licensed under the EUPL, Version 1.2 or – as soon they will be approved by
  * the European Commission - subsequent versions of the EUPL (the "Licence");
@@ -14,8 +16,9 @@
  *
  */
 
-import { connect } from 'react-redux';
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+
+import React, { Component } from 'react';
 import cfgreader from '../config/readConfig';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import Events from './Events';
@@ -45,19 +48,16 @@ class TabsContainer extends React.Component {
     });
   }
 
-  handlePieOnClick(e, chart) {
-    if (chart.getSegmentsAtEvent(e)[0]) {
-      let clickedSegmentLabel = chart.getSegmentsAtEvent(e)[0].label;
-      let clickedSegmentValue = chart.getSegmentsAtEvent(e)[0].value;
-
+  handlePieOnClick(element) {
+    if (element) {
+      let clickedSegmentLabel = element._model.label;
       let selected = segmentName2Key(clickedSegmentLabel, 'nb');
 
       this.setState({
         ...this.state,
         selectedSegment: selected.segment,
         daysValid: selected.daysValid,
-        segmentValue: clickedSegmentValue
-      });
+      })
     }
   }
 

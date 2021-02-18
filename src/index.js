@@ -14,18 +14,15 @@
  *
  */
 
-import 'babel-polyfill';
 import React from 'react';
-import ReactDOM from 'react-dom';
+import {render} from 'react-dom';
 import { Provider } from 'react-redux';
 import Root from './containers/Root';
 import configureStore from './store/store';
 import cfgreader from './config/readConfig';
 import Keycloak from 'keycloak-js';
 
-import injectTapEventPlugin from 'react-tap-event-plugin';
-import './styles/css/main.css';
-injectTapEventPlugin();
+import './styles/css/main.scss';
 
 cfgreader
   .readConfig(config => {
@@ -56,7 +53,7 @@ const authWithKeyCloak = endpointBase => {
 const renderIndex = kc =>{
   const store = configureStore(kc);
 
-  ReactDOM.render(
+  render(
     <Provider store={store}>
       <Root />
     </Provider>,

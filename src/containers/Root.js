@@ -14,7 +14,9 @@
  *
  */
 
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+
+import React, { Component } from 'react';
 import FileUpload from './FileUpload';
 import Header from '../components/Header';
 import Main from './Main';

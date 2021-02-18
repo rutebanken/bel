@@ -7,6 +7,8 @@ ENV port 8000
 
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
-COPY . .
+COPY --chown=appuser:appuser . .
+
+USER appuser
 
 CMD [ "npm", "run", "prod" ]

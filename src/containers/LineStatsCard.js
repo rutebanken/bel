@@ -14,7 +14,9 @@
  *
  */
 
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+
+import React from 'react';
 import { Card, CardText } from 'material-ui/Card';
 import { List, ListItem } from 'material-ui/List';
 import { Timeline, HeaderTimeline } from 'bogu';

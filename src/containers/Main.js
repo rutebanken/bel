@@ -1,3 +1,5 @@
+import { connect } from 'react-redux';
+
 /*
  * Licensed under the EUPL, Version 1.2 or – as soon they will be approved by
  * the European Commission - subsequent versions of the EUPL (the "Licence");
@@ -14,8 +16,9 @@
  *
  */
 
-import { connect } from 'react-redux';
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+
+import React, { Component } from 'react';
 import cfgreader from '../config/readConfig';
 import TabsContainer from './TabsContainer';
 import AsyncActions from '../actions/AsyncActions';

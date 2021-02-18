@@ -83,7 +83,7 @@ class Header extends React.Component {
           showMenuIconButton={true}
           style={{ background: darkColor }}
           iconElementLeft={
-            <IconButton onTouchTap={this.handleTouchTap}>
+            <IconButton onClick={this.handleTouchTap}>
               <Identity />
             </IconButton>
           }

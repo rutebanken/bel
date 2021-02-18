@@ -14,8 +14,10 @@
  *
  */
 
-import React, { PropTypes } from 'react';
-import { Pie as PieChart } from 'react-chartjs';
+import PropTypes from 'prop-types';
+
+import React from 'react';
+import { Pie as PieChart } from 'react-chartjs-2';
 import { Card, CardText } from 'material-ui/Card';
 import { color } from 'bogu/styles';
 
@@ -84,47 +86,50 @@ class PieCard extends React.Component {
     const expiring = stats.expiring.lineNumbers.length;
     const dynamic = [];
 
-    const pieData = [
-      {
-        value: valid,
-        highlight: color.valid,
-        color: color.highlight.valid,
-        label: segmentName('valid', 0, 'nb')
-      },
-      {
-        value: expiring,
-        color: color.expiring,
-        highlight: color.highlight.expiring,
-        label: segmentName('expiring', 0, 'nb')
-      }
-    ];
+    const pieData = {
+      labels: [
+        segmentName('valid', 0, 'nb'),
+        segmentName('expiring', 0, 'nb')
+      ],
+      datasets: [{
+        data: [
+          valid,
+          expiring
+        ],
+        backgroundColor: [
+          color.highlight.valid,
+          color.highlight.expiring
+        ],
+        hoverBackgroundColor: [
+          color.valid,
+          color.expiring
+        ]
+      }]
+    }
 
     for (let i in dynamic) {
       const category = dynamic[i];
       const numDays = category.numDaysAtLeastValid;
       const length = category.lineNumbers.length;
 
-      pieData.push({
-        value: length,
-        color: segmentColor(numDays),
-        highlight: segmentColor(numDays, 20),
-        label: segmentName('dynamic', numDays, 'nb')
-      });
+      pieData.labels.push(segmentName('dynamic', numDays, 'nb'));
+      pieData.datasets[0].data.push(length);
+      pieData.datasets[0].backgroundColor.push(segmentColor(numDays));
+      pieData.datasets[0].hoverBackgroundColor.push(segmentColor(numDays, 20));
     }
-    pieData.push({
-      value: invalid,
-      color: color.invalid,
-      highlight: color.highlight.invalid,
-      label: segmentName('invalid', 0, 'nb')
-    });
+
+    pieData.labels.push(segmentName('invalid', 0, 'nb'));
+    pieData.datasets[0].data.push(invalid);
+    pieData.datasets[0].backgroundColor.push(color.highlight.invalid);
+    pieData.datasets[0].hoverBackgroundColor.push(color.invalid);
+
 
     return (
       <Card style={{ margin: '0.5vh 0.7vw' }}>
         <CardText>
           <PieChart
-            ref="chart"
-            onClick={e => {
-              this.props.handlePieOnClick(e, this.refs.chart.getChart());
+            getElementAtEvent={([element]) => {
+              this.props.handlePieOnClick(element)
             }}
             data={pieData}
             style={pieStyle}

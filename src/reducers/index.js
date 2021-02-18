@@ -14,6 +14,6 @@
  *
  */
 
-export userReducer from './userReducer';
-export asyncReducer from './asyncReducer';
-export snackbarReducer from './snackbarReducer';
+export {default as userReducer} from './userReducer';
+export {default as asyncReducer} from './asyncReducer';
+export {default as snackbarReducer} from './snackbarReducer';
