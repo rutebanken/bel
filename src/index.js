@@ -32,6 +32,10 @@ cfgreader.readConfig((config) => {
 const AuthenticatedApp = () => {
   const auth = useAuth();
 
+  if (auth.isLoading || !auth.isAuthenticated || !auth.roleAssignments) {
+    return null;
+  }
+
   return (
     <Provider store={configureStore(auth)}>
       <Root />
