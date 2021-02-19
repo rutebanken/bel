@@ -62,12 +62,12 @@ class Header extends React.Component {
   }
 
   render() {
-    const { activeSupplier, kc, supplierList } = this.props;
+    const { activeSupplier, auth, supplierList } = this.props;
     let title = activeSupplier ? activeSupplier.name : "";
-    let signOut = "Logg ut " + kc.tokenParsed.preferred_username;
+    let signOut = "Logg ut " + auth?.user?.name;
 
     let userOrganisations = roleParser.getUserOrganisations(
-      kc.tokenParsed,
+      auth.roleAssignments,
       supplierList
     );
 
@@ -112,7 +112,7 @@ class Header extends React.Component {
               <MenuItem
                 leftIcon={<MdAccount color={primaryDarker} />}
                 primaryText={signOut}
-                onClick={() => kc.logout()}
+                onClick={() => auth.logout()}
               />
             </IconMenu>
           }
@@ -151,7 +151,7 @@ class Header extends React.Component {
 const mapStateToProps = (state) => ({
   supplierList: state.asyncReducer.suppliers,
   activeSupplier: state.asyncReducer.currentSupplier,
-  kc: state.userReducer.kc,
+  auth: state.userReducer.auth,
 });
 
 export default connect(mapStateToProps)(Header);

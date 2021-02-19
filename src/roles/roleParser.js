@@ -16,13 +16,13 @@
 
 const rolesParser = {};
 
-rolesParser.getUserOrganisations = (tokenParsed, organisations) => {
-  if (!tokenParsed || !tokenParsed.roles) return [];
+rolesParser.getUserOrganisations = (roleAssignments, organisations) => {
+  if (!roleAssignments) return [];
 
   let allowedOrganisations = [];
   let isAdmin = false;
 
-  tokenParsed.roles.forEach((roleString) => {
+  roleAssignments.forEach((roleString) => {
     let roleJSON = JSON.parse(roleString);
     if (roleJSON.r === "editRouteData") {
       allowedOrganisations.push(roleJSON.o.toUpperCase());

@@ -14,22 +14,30 @@
  *
  */
 
-import { createStore, combineReducers, applyMiddleware, compose } from "redux";
-import React from "react";
-import thunkMiddleware from "redux-thunk";
-import { createLogger } from "redux-logger";
-import * as reducers from "../reducers";
-import * as types from "../actions/actionTypes";
+import { createStore, applyMiddleware, compose } from 'redux';
+import thunkMiddleware from 'redux-thunk';
+import { createLogger } from 'redux-logger';
+import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
+import createRootReducer from '../reducers';
+import * as types from '../actions/actionTypes';
 
-export default function configureStore(kc) {
-  const loggerMiddleware = createLogger();
+export default function configureStore(auth) {
+  let enchancer = {};
 
-  var enchancer = {};
+  if (process.env.NODE_ENV === 'development') {
+    const loggerMiddleware = createLogger({ collapsed: true });
+    const composeEnhancers = composeWithDevTools({});
 
-  if (process.env.NODE_ENV === "development") {
-    enchancer = compose(applyMiddleware(thunkMiddleware, loggerMiddleware));
+    enchancer = composeEnhancers(
+      applyMiddleware(
+        thunkMiddleware,
+        loggerMiddleware
+      )
+    );
   } else {
-    enchancer = compose(applyMiddleware(thunkMiddleware));
+    enchancer = compose(
+      applyMiddleware(thunkMiddleware)
+    );
   }
 
   const initialState = {
@@ -41,21 +49,17 @@ export default function configureStore(kc) {
         progress: 0,
         state: types.FILE_UPLOAD_NOT_STARTED,
       },
-      kc: kc,
+      auth,
     },
   };
 
-  const combinedReducer = combineReducers({
-    ...reducers,
-  });
-
-  let store = createStore(combinedReducer, initialState, enchancer);
+  let store = createStore(createRootReducer(), initialState, enchancer);
 
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers
-    module.hot.accept("../reducers", () => {
-      const nextRootReducer = require("../reducers/");
-      store.replaceReducer(nextRootReducer);
+    module.hot.accept('../reducers', () => {
+      const nextRootReducer = require('../reducers/');
+      store.replaceReducer(nextRootReducer());
     });
   }
 
