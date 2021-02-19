@@ -27,7 +27,7 @@ class Main extends React.Component {
 
   handleLogout() {
     const { auth } = this.props;
-    auth.logout();
+    auth.logout({ returnTo: window.location.origin });
   }
 
   render() {
