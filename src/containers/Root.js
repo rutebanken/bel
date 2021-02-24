@@ -14,9 +14,7 @@
  *
  */
 
-import PropTypes from "prop-types";
-
-import React, { Component } from "react";
+import React from "react";
 import FileUpload from "./FileUpload";
 import Header from "../components/Header";
 import Main from "./Main";
@@ -24,19 +22,24 @@ import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 import enturTheme from "../styles/themes/entur/";
 import SnackbarWrapper from "../components/SnackbarWrapper";
+import { useAuth } from '@entur/auth-provider';
 
-export default class Root extends React.Component {
-  render() {
-    return (
-      <MuiThemeProvider muiTheme={getMuiTheme(enturTheme)}>
+export default () => {
+  const auth = useAuth();
+
+  return (
+    <>
+      {auth.isAuthenticated ? (
+        <MuiThemeProvider muiTheme={getMuiTheme(enturTheme)}>
         <div className="appContent">
-          <div className="version">v{process.env.VERSION}</div>
           <Header />
           <Main />
           <FileUpload />
           <SnackbarWrapper />
         </div>
       </MuiThemeProvider>
-    );
-  }
+      ) : null}
+    </>
+  );
 }
+

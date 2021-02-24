@@ -14,6 +14,17 @@
  *
  */
 
-export { default as userReducer } from "./userReducer";
-export { default as asyncReducer } from "./asyncReducer";
-export { default as snackbarReducer } from "./snackbarReducer";
+import { combineReducers } from 'redux';
+
+import userReducer from './userReducer';
+import asyncReducer from './asyncReducer';
+import snackbarReducer from './snackbarReducer';
+
+const createRootReducer = () =>
+    combineReducers({
+        userReducer,
+        asyncReducer,
+        snackbarReducer
+    });
+
+export default createRootReducer;

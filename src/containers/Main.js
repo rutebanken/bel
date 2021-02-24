@@ -16,10 +16,7 @@ import { connect } from "react-redux";
  *
  */
 
-import PropTypes from "prop-types";
-
-import React, { Component } from "react";
-import cfgreader from "../config/readConfig";
+import React from "react";
 import TabsContainer from "./TabsContainer";
 import AsyncActions from "../actions/AsyncActions";
 
@@ -29,9 +26,8 @@ class Main extends React.Component {
   }
 
   handleLogout() {
-    const { kc } = this.props;
-    localStorage.removeItem("BEL::jwt");
-    kc.logout();
+    const { auth } = this.props;
+    auth.logout({ returnTo: window.location.origin });
   }
 
   render() {
@@ -66,7 +62,7 @@ class Main extends React.Component {
 
 const mapStateToProps = (state) => ({
   noOrganisations: state.userReducer.noOrganisations,
-  kc: state.userReducer.kc,
+  auth: state.userReducer.auth,
 });
 
 export default connect(mapStateToProps)(Main);

@@ -20,42 +20,44 @@ import { Provider } from "react-redux";
 import Root from "./containers/Root";
 import configureStore from "./store/store";
 import cfgreader from "./config/readConfig";
-import Keycloak from "keycloak-js";
+import AuthProvider, { useAuth } from '@entur/auth-provider';
 
 import "./styles/css/main.scss";
 
 cfgreader.readConfig((config) => {
   window.config = config;
-  authWithKeyCloak(config.endpointBase);
+  renderIndex(config);
 });
 
-const authWithKeyCloak = (endpointBase) => {
-  let kc = new Keycloak(endpointBase + "config/keycloak.json");
-  kc.init({ onLoad: "login-required", checkLoginIframe: false }).success(
-    (authenticated) => {
-      if (authenticated) {
-        localStorage.setItem("BEL::jwt", kc.token);
+const AuthenticatedApp = () => {
+  const auth = useAuth();
 
-        setInterval(() => {
-          kc.updateToken(10).error(() => kc.logout());
-          localStorage.setItem("BEL::jwt", kc.token);
-        }, 10000);
+  if (auth.isLoading || !auth.isAuthenticated || !auth.roleAssignments) {
+    return null;
+  }
 
-        renderIndex(kc);
-      } else {
-        kc.login();
-      }
-    }
-  );
-};
-
-const renderIndex = (kc) => {
-  const store = configureStore(kc);
-
-  render(
-    <Provider store={store}>
+  return (
+    <Provider store={configureStore(auth)}>
       <Root />
-    </Provider>,
-    document.getElementById("root")
+    </Provider>
   );
 };
+
+function renderIndex(config) {
+  render(
+    <AuthProvider
+      keycloakConfigUrl={config.endpointBase + 'config/keycloak.json'}
+      auth0Config={{
+        domain: config.auth0Domain,
+        clientId: config.auth0ClientId,
+        audience: config.auth0Audience,
+        redirectUri: window.location.origin,
+      }}
+      auth0ClaimsNamespace={config.auth0ClaimsNamespace}
+      defaultAuthMethod="kc"
+    >
+      <AuthenticatedApp />
+    </AuthProvider>,
+    document.getElementById('root')
+  );
+}

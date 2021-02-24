@@ -22,7 +22,7 @@ import rolesParser from "../roles/roleParser";
 describe("test roleParser mapping functionality", () => {
   it("should return correct organisations based on roles", () => {
     let userOrganisations = rolesParser.getUserOrganisations(
-      tokenParsed,
+      tokenParsed.roles,
       organisations
     );
     expect(userOrganisations[0].id).to.equal(2);

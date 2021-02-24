@@ -24,20 +24,18 @@ import { formatLineStats } from "bogu/utils";
 
 const AsyncActions = {};
 
-const getConfig = () => {
+const getConfig = async auth => {
   let config = {};
-  let token = localStorage.getItem("BEL::jwt");
-
+  const accessToken = await auth.getAccessToken();
   config.headers = {
-    "Content-Type": "application/json",
-    Accept: "application/json",
-    Authorization: "Bearer " + token,
+    'Content-Type': 'application/json',
+    Accept: 'application/json',
+    Authorization: 'Bearer ' + accessToken
   };
-
   return config;
 };
 
-AsyncActions.getProviderStatus = (id) => (dispatch) => {
+AsyncActions.getProviderStatus = (id) => async (dispatch, getState) => {
   const url = `${window.config.eventsBaseUrl}timetable/${id}`;
   dispatch(sendData(null, types.REQUESTED_EVENTS));
   dispatch(sendData(id, types.CHANGED_ACTIVE_PROVIDER));
@@ -46,7 +44,7 @@ AsyncActions.getProviderStatus = (id) => (dispatch) => {
     timeout: 20000,
     method: "get",
     responseType: "json",
-    ...getConfig(),
+    ...(await getConfig(getState().userReducer.auth)),
   })
     .then((response) => {
       let providerStatus = formatProviderStatusDate(response.data);
@@ -59,7 +57,7 @@ AsyncActions.getProviderStatus = (id) => (dispatch) => {
     });
 };
 
-AsyncActions.getProviderEvents = (id) => (dispatch) => {
+AsyncActions.getProviderEvents = (id) => async (dispatch, getState) => {
   const url = `${window.config.eventsBaseUrl}timetable/${id}`;
   dispatch(sendData(null, types.REQUESTED_EVENTS));
   return axios({
@@ -67,7 +65,7 @@ AsyncActions.getProviderEvents = (id) => (dispatch) => {
     timeout: 20000,
     method: "get",
     responseType: "json",
-    ...getConfig(),
+    ...(await getConfig(getState().userReducer.auth)),
   })
     .then((response) => {
       let providerStatus = formatProviderStatusDate(response.data);
@@ -78,9 +76,8 @@ AsyncActions.getProviderEvents = (id) => (dispatch) => {
     });
 };
 
-AsyncActions.getAllSuppliers = () => (dispatch, getState) => {
+AsyncActions.getAllSuppliers = () => async (dispatch, getState) => {
   dispatch(sendData(null, types.REQUESTED_SUPPLIERS));
-
   const url = window.config.providersBaseUrl;
   const state = getState();
 
@@ -89,12 +86,12 @@ AsyncActions.getAllSuppliers = () => (dispatch, getState) => {
     timeout: 20000,
     method: "get",
     responseType: "json",
-    ...getConfig(),
+    ...(await getConfig(state.userReducer.auth)),
   })
     .then((response) => {
       dispatch(sendData(response.data, types.RECEIVED_SUPPLIERS));
       const userOrganisations = roleParser.getUserOrganisations(
-        state.userReducer.kc.tokenParsed,
+        state.userReducer.auth?.roleAssignments,
         response.data
       );
 
@@ -109,14 +106,14 @@ AsyncActions.getAllSuppliers = () => (dispatch, getState) => {
     });
 };
 
-AsyncActions.getLineStats = (id) => (dispatch) => {
+AsyncActions.getLineStats = (id) => async (dispatch, getState) => {
   dispatch(sendData(null, types.REQUESTED_LINE_STATS));
   return axios({
     url: `${window.config.timetableAdminBaseUrl}${id}/line_statistics`,
     timeout: 10000,
     method: "get",
     responseType: "json",
-    ...getConfig(),
+    ...(await getConfig(getState().userReducer.auth)),
   })
     .then((response) => {
       let formattedLines = formatLineStats(response.data);
@@ -127,7 +124,7 @@ AsyncActions.getLineStats = (id) => (dispatch) => {
     });
 };
 
-AsyncActions.getLatestDeliveryForProvider = (providerId) => (dispatch) => {
+AsyncActions.getLatestDeliveryForProvider = (providerId) => async (dispatch, getState) => {
   dispatch(sendData(null, types.REQUESTED_LATEST_DELIVERY_DATE));
 
   return axios({
@@ -135,7 +132,7 @@ AsyncActions.getLatestDeliveryForProvider = (providerId) => (dispatch) => {
     timeout: 1000,
     method: "get",
     responseTYpe: "json",
-    ...getConfig(),
+    ...(await getConfig(getState().userReducer.auth)),
   })
     .then((response) => {
       dispatch(sendData(response.data, types.RECEIVED_LATEST_DELIVERY_DATE));
@@ -145,11 +142,11 @@ AsyncActions.getLatestDeliveryForProvider = (providerId) => (dispatch) => {
     });
 };
 
-AsyncActions.validateDataSet = (providerId) => (dispatch) => {
+AsyncActions.validateDataSet = (providerId) => async (dispatch, getState) => {
   dispatch(sendData(null, types.REQUESTED_VALIDATE_DATASET));
   const url = window.config.timetableAdminBaseUrl + `${providerId}/validate`;
   return axios
-    .post(url, null, getConfig())
+    .post(url, null, await getConfig(getState().userReducer.auth))
     .then((response) => {
       dispatch(sendData(null, types.SUCCESS_VALIDATE_DATASET));
     })
@@ -166,7 +163,7 @@ AsyncActions.validateDataSet = (providerId) => (dispatch) => {
     });
 };
 
-AsyncActions.uploadFiles = (files) => (dispatch, getState) => {
+AsyncActions.uploadFiles = (files) => async (dispatch, getState) => {
   const state = getState();
   const id = state.asyncReducer.currentSupplier.id;
 
@@ -187,7 +184,7 @@ AsyncActions.uploadFiles = (files) => (dispatch, getState) => {
         sendData(percentCompleted, types.UPDATED_FILE_UPLOAD_PROGRESS_BAR)
       );
     },
-    ...getConfig(),
+    ...(await getConfig(getState().userReducer.auth)),
   };
 
   return axios
