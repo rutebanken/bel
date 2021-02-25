@@ -7,11 +7,4 @@ metadata:
   {{- include "common.labels" . | indent 4 }}
 data:
   config.json: |
-      {
-        "eventsBaseUrl": "{{ .Values.configMap.eventsBaseUrl }}",
-        "authServerUrl": "{{ .Values.configMap.authServerUrl }}",
-        "providersBaseUrl": "{{ .Values.configMap.providersBaseUrl }}",
-        "endpointBase": "{{ .Values.configMap.endpointBase }}",
-        "timetableAdminBaseUrl": "{{ .Values.configMap.timetableAdminBaseUrl }}",
-        "chouetteBaseUrl": "{{ .Values.configMap.chouetteBaseUrl }}"
-      }
+    {{ .Values.configMap | toJson }}

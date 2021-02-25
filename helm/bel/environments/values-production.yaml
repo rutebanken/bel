@@ -1,9 +1,9 @@
 env: production
 
 configMap:
+  endpointBase: /
   eventsBaseUrl: https://api.entur.io/timetable-admin/v1/events/
   authServerUrl: https://auth.entur.org/auth/
   providersBaseUrl: https://api.entur.io/timetable-admin/v1/providers/
-  endpointBase: /
   timetableAdminBaseUrl: https://api.entur.io/timetable-admin/v1/timetable/
   chouetteBaseUrl: https://rutedb.entur.org/

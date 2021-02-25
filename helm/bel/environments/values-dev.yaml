@@ -1,9 +1,13 @@
 env: dev
 
 configMap:
+  endpointBase: /
   eventsBaseUrl: https://api.dev.entur.io/timetable-admin/v1/events/
   authServerUrl: https://kc-dev.devstage.entur.io/auth
   providersBaseUrl: https://api.dev.entur.io/timetable-admin/v1/providers/
-  endpointBase: /
   timetableAdminBaseUrl: https://api.dev.entur.io/timetable-admin/v1/timetable/
   chouetteBaseUrl: https://rutedb.dev.entur.org/
+  auth0Domain: ror-entur-dev.eu.auth0.com
+  auth0ClientId: ZFz0whLRMzf8Qk3wjXesHbhtLrvd0zkD
+  auth0Audience: https://ror.api.dev.entur.io
+  auth0ClaimsNamespace: https://ror.entur.io/role_assignments
