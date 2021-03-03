@@ -7,7 +7,7 @@ configMap:
   providersBaseUrl: https://api.entur.io/timetable-admin/v1/providers/
   timetableAdminBaseUrl: https://api.entur.io/timetable-admin/v1/timetable/
   chouetteBaseUrl: https://rutedb.entur.org/
-  auth0Domain: ror-entur.eu.auth0.com
+  auth0Domain: auth2.entur.org
   auth0ClientId: ZvAJ8bvxn71Rj0pogxm5zUXaQj46K2bm
   auth0Audience: https://ror.api.entur.io
   auth0ClaimsNamespace: https://ror.entur.io/role_assignments
