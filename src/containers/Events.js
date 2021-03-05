@@ -113,7 +113,7 @@ class Events extends React.Component {
           />
         </div>
         {events && events.length ? (
-          <EventDetails locale="nb" dataSource={events} />
+          <EventDetails locale="nb" dataSource={events} hideIgnoredExportNetexBlocks />
         ) : (
           <div
             style={{
