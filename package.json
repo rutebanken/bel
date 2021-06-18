@@ -12,7 +12,7 @@
   },
   "license": "EUPL",
   "dependencies": {
-    "@entur/auth-provider": "^0.3.0",
+    "@entur/auth-provider": "^0.4.0",
     "axios": "^0.21.1",
     "bogu": "git://github.com/entur/bogu.git#1.0.7",
     "chart.js": "^2.9.4",
