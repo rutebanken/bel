@@ -18,7 +18,6 @@ import axios from "axios";
 import * as types from "./actionTypes";
 import moment from "moment";
 import actionNames from "../translations/no/actions";
-import roleParser from "../roles/roleParser";
 
 import { formatLineStats } from "bogu/utils";
 
@@ -90,10 +89,7 @@ AsyncActions.getAllSuppliers = () => async (dispatch, getState) => {
   })
     .then((response) => {
       dispatch(sendData(response.data, types.RECEIVED_SUPPLIERS));
-      const userOrganisations = roleParser.getUserOrganisations(
-        state.userReducer.auth?.roleAssignments,
-        response.data
-      );
+      const userOrganisations = response.data;
 
       if (userOrganisations.length) {
         dispatch(AsyncActions.getProviderStatus(userOrganisations[0].id));

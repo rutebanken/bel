@@ -27,7 +27,6 @@ import Popover from "material-ui/Popover";
 import Menu from "material-ui/Menu";
 import { connect } from "react-redux";
 import AsyncActions from "../actions/AsyncActions";
-import roleParser from "../roles/roleParser";
 import logo from "../static/logo/logo_entur.png";
 import { darkColor, primaryDarker } from "../styles/themes/entur/";
 
