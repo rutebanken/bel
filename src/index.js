@@ -46,7 +46,6 @@ const AuthenticatedApp = () => {
 function renderIndex(config) {
   render(
     <AuthProvider
-      keycloakConfigUrl={config.endpointBase + 'config/keycloak.json'}
       auth0Config={{
         domain: config.auth0Domain,
         clientId: config.auth0ClientId,
@@ -54,7 +53,6 @@ function renderIndex(config) {
         redirectUri: window.location.origin,
       }}
       auth0ClaimsNamespace={config.auth0ClaimsNamespace}
-      defaultAuthMethod={config.defaultAuthMethod}
     >
       <AuthenticatedApp />
     </AuthProvider>,

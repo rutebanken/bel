@@ -40,11 +40,6 @@ endpoints. E.g.
 
 ## Authentication
 
-Uses Keycloak to authenticate user and read JWT for authorization, set `auth-server-url`:
+Uses Auth0 to authenticate user and read JWT for authorization.
 
-```
-AUTH_SERVER_URL=https://kc-dev.devstage.entur.io/auth PORT=9000 PROVIDERS_BASE_URL=http://localhost:11601/services/providers/  EVENTS_BASE_URL=http://localhost:10001/services/events/ TIMETABLE_ADMIN_BASE_URL=http://localhost:11002/services/timetable_admin/ npm start dev
- npm run dev
-```
-
-**_NB_** Use `PORT=8000` or `PORT=9000` for development against `https://kc-dev.devstage.entur.io/auth` since these are whitelisted.
+**_NB_** Use `PORT=9000` for development since this is whitelisted.

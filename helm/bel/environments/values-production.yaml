@@ -3,7 +3,6 @@ env: production
 configMap:
   endpointBase: /
   eventsBaseUrl: https://api.entur.io/timetable-admin/v1/events/
-  authServerUrl: https://auth.entur.org/auth/
   providersBaseUrl: https://api.entur.io/timetable-admin/v1/providers/
   timetableAdminBaseUrl: https://api.entur.io/timetable-admin/v1/timetable/
   chouetteBaseUrl: https://rutedb.entur.org/
@@ -11,4 +10,3 @@ configMap:
   auth0ClientId: ZvAJ8bvxn71Rj0pogxm5zUXaQj46K2bm
   auth0Audience: https://ror.api.entur.io
   auth0ClaimsNamespace: https://ror.entur.io/role_assignments
-  defaultAuthMethod: auth0

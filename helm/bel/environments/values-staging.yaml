@@ -3,7 +3,6 @@ env: staging
 configMap:
   endpointBase: /
   eventsBaseUrl: https://api.staging.entur.io/timetable-admin/v1/events/
-  authServerUrl: https://kc-stage.devstage.entur.io/auth
   providersBaseUrl: https://api.staging.entur.io/timetable-admin/v1/providers/
   timetableAdminBaseUrl: https://api.staging.entur.io/timetable-admin/v1/timetable/
   chouetteBaseUrl: https://rutedb.staging.entur.org/
@@ -11,4 +10,3 @@ configMap:
   auth0ClientId: Mj0umIJgASVkJjshc37hhatqqszUVXU4
   auth0Audience: https://ror.api.staging.entur.io
   auth0ClaimsNamespace: https://ror.entur.io/role_assignments
-  defaultAuthMethod: auth0
