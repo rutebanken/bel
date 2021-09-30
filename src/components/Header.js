@@ -66,10 +66,7 @@ class Header extends React.Component {
     let title = activeSupplier ? activeSupplier.name : "";
     let signOut = "Logg ut " + auth?.user?.name;
 
-    let userOrganisations = roleParser.getUserOrganisations(
-      auth.roleAssignments,
-      supplierList
-    );
+    let userOrganisations = supplierList;
 
     return (
       <div>
