@@ -26,6 +26,3 @@ service:
 
 ingress:
     enabled: true
-    devIp: 35.205.134.173
-    stagingIp: 35.233.47.68
-    productionIp: 104.199.93.228
