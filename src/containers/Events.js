@@ -84,6 +84,15 @@ class Events extends React.Component {
     dispatch(AsyncActions.validateDataSet(currentSupplierId));
   }
 
+  filterPreValidationEvents(events) {
+    return events
+      .map(row => ({
+        ...row,
+        events: row.events
+          .filter(({action}) => action !== 'PREVALIDATION')
+      }))
+  }
+
   render() {
     const { events } = this.props;
 
@@ -113,7 +122,7 @@ class Events extends React.Component {
           />
         </div>
         {events && events.length ? (
-          <EventDetails locale="nb" dataSource={events} hideIgnoredExportNetexBlocks />
+          <EventDetails locale="nb" dataSource={this.filterPreValidationEvents(events)} hideIgnoredExportNetexBlocks />
         ) : (
           <div
             style={{
