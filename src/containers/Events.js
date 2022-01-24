@@ -24,6 +24,11 @@ import AsyncActions from "../actions/AsyncActions";
 import { EventDetails } from "bogu";
 import ConfirmValidateDialog from "../components/ConfirmValidateDialog";
 
+const FILTER_EVENTS = [
+  'PREVALIDATION',
+  'EXPORT_NETEX_POSTVALIDATION'
+];
+
 class Events extends React.Component {
   constructor(props) {
     super(props);
@@ -86,10 +91,10 @@ class Events extends React.Component {
 
   filterPreValidationEvents(events) {
     return events
-      .map(row => ({
-        ...row,
-        events: row.events
-          .filter(({action}) => action !== 'PREVALIDATION')
+      .map(({ events, ...rest }) => ({
+        events: events
+          .filter(({action}) => !FILTER_EVENTS.includes(action)),
+        ...rest,
       }))
   }
 
