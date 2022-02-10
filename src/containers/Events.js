@@ -26,7 +26,8 @@ import ConfirmValidateDialog from "../components/ConfirmValidateDialog";
 
 const FILTER_EVENTS = [
   'PREVALIDATION',
-  'EXPORT_NETEX_POSTVALIDATION'
+  'EXPORT_NETEX_POSTVALIDATION',
+  'EXPORT_NETEX_BLOCKS_POSTVALIDATION'
 ];
 
 class Events extends React.Component {
