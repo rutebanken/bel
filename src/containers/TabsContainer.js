@@ -42,7 +42,7 @@ class TabsContainer extends React.Component {
   }
 
   handleChange(value) {
-    this.props.history.push(`/${value}`); 
+    this.props.history.push(`/${value}`);
   }
 
   handlePieOnClick(element) {

@@ -28,11 +28,11 @@ class Main extends React.Component {
 
   render() {
     const { noOrganisations, match } = this.props;
-    let tab = 'status';
+    let tab = "status";
 
     if (match.params.tab) {
-      if (match.params.tab === 'events') {
-        tab = 'events'
+      if (match.params.tab === "events") {
+        tab = "events";
       }
     }
 
