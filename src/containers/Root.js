@@ -27,6 +27,7 @@ import { MicroFrontend } from "@entur/micro-frontend";
 import { Route, Switch } from "react-router-dom";
 import { connect } from "react-redux";
 import AsyncActions from "../actions/AsyncActions";
+import MicroFrontendWrapper from "./MicroFrontendWrapper";
 
 const FetchStatus = props => {
   if (props.status !== 'SUCCESS' && props.status !== 'LOADING') {
@@ -43,6 +44,7 @@ const Root = ({ dispatch }) => {
     dispatch(AsyncActions.getAllSuppliers());
   }, []);
 
+
   return (
     <>
       {auth.isAuthenticated ? (
@@ -51,24 +53,25 @@ const Root = ({ dispatch }) => {
           <Header />
           <Switch>
             <Route exact path="/" component={Main} />
-            <Route path="/netex-validation-reports">
-              {window.config.udugMicroFrontendUrl && (
-                <MicroFrontend
-                  id="ror-udug"
-                  host={window.config.udugMicroFrontendUrl}
-                  path="/netex-validation-reports"
-                  staticPath=""
-                  name="NeTEx validation reports"
-                  payload={{
-                    getToken: auth.getAccessToken
-                  }}
-                  FetchStatus={FetchStatus}
-                  handleError={(e) => console.log(e)}
-                />
-              )}
+            <Route path="/netex-validation-reports/report/:codespace/:reportId">
+              <MicroFrontendWrapper>
+                {window.config.udugMicroFrontendUrl && (
+                  <MicroFrontend
+                    id="ror-udug"
+                    host={window.config.udugMicroFrontendUrl}
+                    path="/netex-validation-reports"
+                    staticPath=""
+                    name="NeTEx validation reports"
+                    payload={{
+                      getToken: auth.getAccessToken
+                    }}
+                    FetchStatus={FetchStatus}
+                    handleError={(e) => console.log(e)}
+                  />
+                )}
+              </MicroFrontendWrapper>
             </Route>
           </Switch>
-          
           <FileUpload />
           <SnackbarWrapper />
         </div>
