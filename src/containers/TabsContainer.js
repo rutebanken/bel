@@ -30,22 +30,19 @@ import PieCard from "./PieCard";
 
 import { color } from "bogu/styles";
 import { segmentName, segmentName2Key } from "bogu/utils";
+import { withRouter } from "react-router-dom";
 
 class TabsContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: "status",
       selectedSegment: "all",
       daysValid: 0,
     };
   }
 
   handleChange(value) {
-    this.setState({
-      ...this.state,
-      value: value,
-    });
+    this.props.history.push(`/${value}`); 
   }
 
   handlePieOnClick(element) {
@@ -227,7 +224,7 @@ class TabsContainer extends React.Component {
 
     return (
       <Tabs
-        value={this.state.value}
+        value={this.props.tab}
         onChange={this.handleChange.bind(this)}
         inkBarStyle={{ height: 7, bottom: 5, background: "#FF5959" }}
       >
@@ -275,7 +272,7 @@ class TabsContainer extends React.Component {
           label="Dataleveranser"
           style={{ marginTop: 10 }}
         >
-          {this.state.value === "events" && <Events />}
+          {this.props.tab === "events" && <Events />}
         </Tab>
       </Tabs>
     );
@@ -287,4 +284,4 @@ const mapStateToProps = (state) => ({
   lastDeliveredDate: state.asyncReducer.dataDelivery.date,
 });
 
-export default connect(mapStateToProps)(TabsContainer);
+export default withRouter(connect(mapStateToProps)(TabsContainer));

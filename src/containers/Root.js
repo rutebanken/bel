@@ -70,6 +70,7 @@ const Root = ({ dispatch }) => {
                   )}
                 </MicroFrontendWrapper>
               </Route>
+              <Route path="/:tab" component={Main} />
             </Switch>
             <FileUpload />
             <SnackbarWrapper />

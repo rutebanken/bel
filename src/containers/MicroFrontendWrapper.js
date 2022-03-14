@@ -4,8 +4,6 @@ import { withRouter } from "react-router-dom";
 import AsyncActions from "../actions/AsyncActions";
 
 const MicroFrontendWrapper = ({ dispatch, match, supplierList, children }) => {
-  console.log(match);
-
   useEffect(() => {
     if (match.params.codespace) {
       const supplier = supplierList.find(

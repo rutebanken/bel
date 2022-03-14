@@ -18,6 +18,7 @@ import { connect } from "react-redux";
 
 import React from "react";
 import TabsContainer from "./TabsContainer";
+import { withRouter } from "react-router-dom";
 
 class Main extends React.Component {
   handleLogout() {
@@ -26,12 +27,19 @@ class Main extends React.Component {
   }
 
   render() {
-    const { noOrganisations } = this.props;
+    const { noOrganisations, match } = this.props;
+    let tab = 'status';
+
+    if (match.params.tab) {
+      if (match.params.tab === 'events') {
+        tab = 'events'
+      }
+    }
 
     if (!noOrganisations) {
       return (
         <div>
-          <TabsContainer />
+          <TabsContainer tab={tab} />
         </div>
       );
     } else {
@@ -60,4 +68,4 @@ const mapStateToProps = (state) => ({
   auth: state.userReducer.auth,
 });
 
-export default connect(mapStateToProps)(Main);
+export default withRouter(connect(mapStateToProps)(Main));
