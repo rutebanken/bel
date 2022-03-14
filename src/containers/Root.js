@@ -22,15 +22,15 @@ import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 import enturTheme from "../styles/themes/entur/";
 import SnackbarWrapper from "../components/SnackbarWrapper";
-import { useAuth } from '@entur/auth-provider';
+import { useAuth } from "@entur/auth-provider";
 import { MicroFrontend } from "@entur/micro-frontend";
 import { Route, Switch } from "react-router-dom";
 import { connect } from "react-redux";
 import AsyncActions from "../actions/AsyncActions";
 import MicroFrontendWrapper from "./MicroFrontendWrapper";
 
-const FetchStatus = props => {
-  if (props.status !== 'SUCCESS' && props.status !== 'LOADING') {
+const FetchStatus = (props) => {
+  if (props.status !== "SUCCESS" && props.status !== "LOADING") {
     return <pre>{JSON.stringify(props)}</pre>;
   } else {
     return null;
@@ -44,41 +44,40 @@ const Root = ({ dispatch }) => {
     dispatch(AsyncActions.getAllSuppliers());
   }, []);
 
-
   return (
     <>
       {auth.isAuthenticated ? (
         <MuiThemeProvider muiTheme={getMuiTheme(enturTheme)}>
-        <div className="appContent">
-          <Header />
-          <Switch>
-            <Route exact path="/" component={Main} />
-            <Route path="/netex-validation-reports/report/:codespace/:reportId">
-              <MicroFrontendWrapper>
-                {window.config.udugMicroFrontendUrl && (
-                  <MicroFrontend
-                    id="ror-udug"
-                    host={window.config.udugMicroFrontendUrl}
-                    path="/netex-validation-reports"
-                    staticPath=""
-                    name="NeTEx validation reports"
-                    payload={{
-                      getToken: auth.getAccessToken
-                    }}
-                    FetchStatus={FetchStatus}
-                    handleError={(e) => console.log(e)}
-                  />
-                )}
-              </MicroFrontendWrapper>
-            </Route>
-          </Switch>
-          <FileUpload />
-          <SnackbarWrapper />
-        </div>
-      </MuiThemeProvider>
+          <div className="appContent">
+            <Header />
+            <Switch>
+              <Route exact path="/" component={Main} />
+              <Route path="/netex-validation-reports/report/:codespace/:reportId">
+                <MicroFrontendWrapper>
+                  {window.config.udugMicroFrontendUrl && (
+                    <MicroFrontend
+                      id="ror-udug"
+                      host={window.config.udugMicroFrontendUrl}
+                      path="/netex-validation-reports"
+                      staticPath=""
+                      name="NeTEx validation reports"
+                      payload={{
+                        getToken: auth.getAccessToken,
+                      }}
+                      FetchStatus={FetchStatus}
+                      handleError={(e) => console.log(e)}
+                    />
+                  )}
+                </MicroFrontendWrapper>
+              </Route>
+            </Switch>
+            <FileUpload />
+            <SnackbarWrapper />
+          </div>
+        </MuiThemeProvider>
       ) : null}
     </>
   );
-}
+};
 
 export default connect()(Root);

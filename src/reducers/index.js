@@ -14,17 +14,17 @@
  *
  */
 
-import { combineReducers } from 'redux';
+import { combineReducers } from "redux";
 
-import userReducer from './userReducer';
-import asyncReducer from './asyncReducer';
-import snackbarReducer from './snackbarReducer';
+import userReducer from "./userReducer";
+import asyncReducer from "./asyncReducer";
+import snackbarReducer from "./snackbarReducer";
 
 const createRootReducer = () =>
-    combineReducers({
-        userReducer,
-        asyncReducer,
-        snackbarReducer
-    });
+  combineReducers({
+    userReducer,
+    asyncReducer,
+    snackbarReducer,
+  });
 
 export default createRootReducer;

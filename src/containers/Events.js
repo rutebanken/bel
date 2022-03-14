@@ -119,7 +119,7 @@ class Events extends React.Component {
             dataSource={events}
             hideIgnoredExportNetexBlocks
             hideAntuValidationSteps={false}
-            navigate={url => history.push(url)}
+            navigate={(url) => history.push(url)}
           />
         ) : (
           <div

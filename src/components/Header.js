@@ -108,7 +108,9 @@ class Header extends React.Component {
               <MenuItem
                 leftIcon={<MdAccount color={primaryDarker} />}
                 primaryText={signOut}
-                onClick={() => auth.logout({ returnTo: window.location.origin })}
+                onClick={() =>
+                  auth.logout({ returnTo: window.location.origin })
+                }
               />
             </IconMenu>
           }

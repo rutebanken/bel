@@ -23,13 +23,13 @@ import { formatLineStats } from "bogu/utils";
 
 const AsyncActions = {};
 
-const getConfig = async auth => {
+const getConfig = async (auth) => {
   let config = {};
   const accessToken = await auth.getAccessToken();
   config.headers = {
-    'Content-Type': 'application/json',
-    Accept: 'application/json',
-    Authorization: 'Bearer ' + accessToken
+    "Content-Type": "application/json",
+    Accept: "application/json",
+    Authorization: "Bearer " + accessToken,
   };
   return config;
 };
@@ -120,7 +120,10 @@ AsyncActions.getLineStats = (id) => async (dispatch, getState) => {
     });
 };
 
-AsyncActions.getLatestDeliveryForProvider = (providerId) => async (dispatch, getState) => {
+AsyncActions.getLatestDeliveryForProvider = (providerId) => async (
+  dispatch,
+  getState
+) => {
   dispatch(sendData(null, types.REQUESTED_LATEST_DELIVERY_DATE));
 
   return axios({

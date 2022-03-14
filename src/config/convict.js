@@ -63,40 +63,40 @@ module.exports = new Promise(function (resolve, reject) {
       env: "CHOUETTE_BASE_URL",
     },
     udugBaseUrl: {
-      doc: 'URL for linking to NeTEx validation reports',
+      doc: "URL for linking to NeTEx validation reports",
       format: String,
-      default: '/netex-validation-reports/',
-      env: 'UDUG_BASE_URL'
+      default: "/netex-validation-reports/",
+      env: "UDUG_BASE_URL",
     },
     udugMicroFrontendUrl: {
-      doc: 'URL to Udug micro frontend',
+      doc: "URL to Udug micro frontend",
       format: String,
-      default: 'https://netex-validation-reports.dev.entur.org',
-      env: 'UDUG_MICRO_FRONTEND_URL'
+      default: "https://netex-validation-reports.dev.entur.org",
+      env: "UDUG_MICRO_FRONTEND_URL",
     },
     auth0Domain: {
-      doc: 'Auth0 domain',
+      doc: "Auth0 domain",
       format: String,
-      default: 'ror-entur-dev.eu.auth0.com',
-      env: 'AUTH0_DOMAIN'
+      default: "ror-entur-dev.eu.auth0.com",
+      env: "AUTH0_DOMAIN",
     },
     auth0ClientId: {
-      doc: 'Auth0 Client Id',
+      doc: "Auth0 Client Id",
       format: String,
-      default: 'ZFz0whLRMzf8Qk3wjXesHbhtLrvd0zkD',
-      env: 'AUTH0_CLIENT_ID'
+      default: "ZFz0whLRMzf8Qk3wjXesHbhtLrvd0zkD",
+      env: "AUTH0_CLIENT_ID",
     },
     auth0Audience: {
-      doc: 'Auth0 Audience',
+      doc: "Auth0 Audience",
       format: String,
-      default: 'https://ror.api.dev.entur.io',
-      env: 'AUTH0_AUDIENCE'
+      default: "https://ror.api.dev.entur.io",
+      env: "AUTH0_AUDIENCE",
     },
     auth0ClaimsNamespace: {
-      doc: 'Namespace for auth0 ID token custom roles claims',
+      doc: "Namespace for auth0 ID token custom roles claims",
       format: String,
-      default: 'https://ror.entur.io/role_assignments',
-      env: 'AUTH0_CLAIMS_NAMESPACE'
+      default: "https://ror.entur.io/role_assignments",
+      env: "AUTH0_CLAIMS_NAMESPACE",
     },
   });
 
