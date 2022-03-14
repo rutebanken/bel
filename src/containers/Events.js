@@ -23,12 +23,7 @@ import { color } from "bogu/styles";
 import AsyncActions from "../actions/AsyncActions";
 import { EventDetails } from "bogu";
 import ConfirmValidateDialog from "../components/ConfirmValidateDialog";
-
-const FILTER_EVENTS = [
-  'PREVALIDATION',
-  'EXPORT_NETEX_POSTVALIDATION',
-  'EXPORT_NETEX_BLOCKS_POSTVALIDATION'
-];
+import { withRouter } from "react-router-dom";
 
 class Events extends React.Component {
   constructor(props) {
@@ -90,17 +85,8 @@ class Events extends React.Component {
     dispatch(AsyncActions.validateDataSet(currentSupplierId));
   }
 
-  filterPreValidationEvents(events) {
-    return events
-      .map(({ events, ...rest }) => ({
-        events: events
-          .filter(({action}) => !FILTER_EVENTS.includes(action)),
-        ...rest,
-      }))
-  }
-
   render() {
-    const { events } = this.props;
+    const { events, history } = this.props;
 
     return (
       <div>
@@ -128,7 +114,13 @@ class Events extends React.Component {
           />
         </div>
         {events && events.length ? (
-          <EventDetails locale="nb" dataSource={this.filterPreValidationEvents(events)} hideIgnoredExportNetexBlocks />
+          <EventDetails
+            locale="nb"
+            dataSource={events}
+            hideIgnoredExportNetexBlocks
+            hideAntuValidationSteps={false}
+            navigate={url => history.push(url)}
+          />
         ) : (
           <div
             style={{
@@ -157,4 +149,4 @@ const mapStateToProps = (state, ownProps) => ({
   isFetchingEvents: state.asyncReducer.isFetchingEvents,
 });
 
-export default connect(mapStateToProps)(Events);
+export default withRouter(connect(mapStateToProps)(Events));

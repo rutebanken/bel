@@ -23,6 +23,7 @@ import cfgreader from "./config/readConfig";
 import AuthProvider, { useAuth } from '@entur/auth-provider';
 
 import "./styles/css/main.scss";
+import { BrowserRouter } from "react-router-dom";
 
 cfgreader.readConfig((config) => {
   window.config = config;
@@ -54,7 +55,9 @@ function renderIndex(config) {
       }}
       auth0ClaimsNamespace={config.auth0ClaimsNamespace}
     >
-      <AuthenticatedApp />
+      <BrowserRouter>
+        <AuthenticatedApp />
+      </BrowserRouter>
     </AuthProvider>,
     document.getElementById('root')
   );

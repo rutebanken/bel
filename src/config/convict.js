@@ -62,6 +62,18 @@ module.exports = new Promise(function (resolve, reject) {
       default: "https://rutedb-test.entur.org/",
       env: "CHOUETTE_BASE_URL",
     },
+    udugBaseUrl: {
+      doc: 'URL for linking to NeTEx validation reports',
+      format: String,
+      default: '/netex-validation-reports/',
+      env: 'UDUG_BASE_URL'
+    },
+    udugMicroFrontendUrl: {
+      doc: 'URL to Udug micro frontend',
+      format: String,
+      default: 'https://netex-validation-reports.dev.entur.org',
+      env: 'UDUG_MICRO_FRONTEND_URL'
+    },
     auth0Domain: {
       doc: 'Auth0 domain',
       format: String,

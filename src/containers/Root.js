@@ -23,6 +23,16 @@ import getMuiTheme from "material-ui/styles/getMuiTheme";
 import enturTheme from "../styles/themes/entur/";
 import SnackbarWrapper from "../components/SnackbarWrapper";
 import { useAuth } from '@entur/auth-provider';
+import { MicroFrontend } from "@entur/micro-frontend";
+import { Route, Switch } from "react-router-dom";
+
+const FetchStatus = props => {
+  if (props.status !== 'SUCCESS' && props.status !== 'LOADING') {
+    return <pre>{JSON.stringify(props)}</pre>;
+  } else {
+    return null;
+  }
+};
 
 export default () => {
   const auth = useAuth();
@@ -33,7 +43,27 @@ export default () => {
         <MuiThemeProvider muiTheme={getMuiTheme(enturTheme)}>
         <div className="appContent">
           <Header />
-          <Main />
+          <Switch>
+            <Route exact path="/" component={Main} />
+            <Route path="/netex-validation-reports">
+              {/* {window.config.udugMicroFrontendUrl && ( */}
+                <MicroFrontend
+                  id="ror-udug"
+                  // host={window.config.udugMicroFrontendUrl}
+                  host="https://netex-validation-reports.dev.entur.org"
+                  path="/netex-validation-reports"
+                  staticPath=""
+                  name="NeTEx validation reports"
+                  payload={{
+                    getToken: auth.getAccessToken
+                  }}
+                  FetchStatus={FetchStatus}
+                  handleError={(e) => console.log(e)}
+                />
+              {/* )} */}
+            </Route>
+          </Switch>
+          
           <FileUpload />
           <SnackbarWrapper />
         </div>

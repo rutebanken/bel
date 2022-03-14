@@ -13,8 +13,9 @@
   "license": "EUPL",
   "dependencies": {
     "@entur/auth-provider": "^1.0.0",
+    "@entur/micro-frontend": "^0.2.0",
     "axios": "^0.21.1",
-    "bogu": "git://github.com/entur/bogu.git#v1.3.0",
+    "bogu": "git://github.com/entur/bogu.git#v1.3.2",
     "chart.js": "^2.9.4",
     "classnames": "2.2.5",
     "convict": "3.0.0",
@@ -29,6 +30,7 @@
     "react-dropzone": "4.1.3",
     "react-icons": "2.2.3",
     "react-redux": "^7.2.2",
+    "react-router-dom": "^5.2.1",
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
     "redux-logger": "3.0.1",
