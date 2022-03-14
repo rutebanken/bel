@@ -147,7 +147,7 @@ class Events extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  currentSupplierId: state.asyncReducer.currentSupplier.id,
+  currentSupplierId: state.asyncReducer.currentSupplier?.id,
   events: state.asyncReducer.events,
   isFetchingEvents: state.asyncReducer.isFetchingEvents,
 });
