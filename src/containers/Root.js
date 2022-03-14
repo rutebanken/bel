@@ -14,7 +14,7 @@
  *
  */
 
-import React from "react";
+import React, { useEffect } from "react";
 import FileUpload from "./FileUpload";
 import Header from "../components/Header";
 import Main from "./Main";
@@ -25,6 +25,8 @@ import SnackbarWrapper from "../components/SnackbarWrapper";
 import { useAuth } from '@entur/auth-provider';
 import { MicroFrontend } from "@entur/micro-frontend";
 import { Route, Switch } from "react-router-dom";
+import { connect } from "react-redux";
+import AsyncActions from "../actions/AsyncActions";
 
 const FetchStatus = props => {
   if (props.status !== 'SUCCESS' && props.status !== 'LOADING') {
@@ -34,8 +36,12 @@ const FetchStatus = props => {
   }
 };
 
-export default () => {
+const Root = ({ dispatch }) => {
   const auth = useAuth();
+
+  useEffect(() => {
+    dispatch(AsyncActions.getAllSuppliers());
+  }, []);
 
   return (
     <>
@@ -73,3 +79,4 @@ export default () => {
   );
 }
 
+export default connect()(Root);

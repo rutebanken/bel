@@ -18,13 +18,8 @@ import { connect } from "react-redux";
 
 import React from "react";
 import TabsContainer from "./TabsContainer";
-import AsyncActions from "../actions/AsyncActions";
 
 class Main extends React.Component {
-  componentDidMount() {
-    this.props.dispatch(AsyncActions.getAllSuppliers());
-  }
-
   handleLogout() {
     const { auth } = this.props;
     auth.logout({ returnTo: window.location.origin });
