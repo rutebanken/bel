@@ -89,14 +89,17 @@ class Events extends React.Component {
     const { events, history } = this.props;
 
     return (
-      <div>
+      <div style={{
+        marginLeft: '1rem',
+        marginRight: '1rem'
+      }}>
         <div
           style={{
             display: "flex",
             justifyContent: "center",
             paddingBottom: 0,
             marginTop: 10,
-            marginBottom: 20,
+            marginBottom: 20
           }}
         >
           <RaisedButton
