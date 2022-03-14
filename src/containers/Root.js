@@ -52,11 +52,10 @@ const Root = ({ dispatch }) => {
           <Switch>
             <Route exact path="/" component={Main} />
             <Route path="/netex-validation-reports">
-              {/* {window.config.udugMicroFrontendUrl && ( */}
+              {window.config.udugMicroFrontendUrl && (
                 <MicroFrontend
                   id="ror-udug"
-                  // host={window.config.udugMicroFrontendUrl}
-                  host="https://netex-validation-reports.dev.entur.org"
+                  host={window.config.udugMicroFrontendUrl}
                   path="/netex-validation-reports"
                   staticPath=""
                   name="NeTEx validation reports"
@@ -66,7 +65,7 @@ const Root = ({ dispatch }) => {
                   FetchStatus={FetchStatus}
                   handleError={(e) => console.log(e)}
                 />
-              {/* )} */}
+              )}
             </Route>
           </Switch>
           
