@@ -1,5 +1,5 @@
 {
-  "name": "Bel",
+  "name": "bel",
   "version": "1.0.0",
   "description": "Bel",
   "main": "index.js",
@@ -13,13 +13,15 @@
   },
   "license": "EUPL",
   "dependencies": {
+    "@entur/alert": "^0.10.4",
     "@entur/auth-provider": "^1.0.0",
+    "@entur/loader": "^0.4.6",
     "@entur/micro-frontend": "^0.2.0",
     "axios": "^0.21.1",
     "bogu": "https://github.com/entur/bogu.git#v1.3.2",
     "chart.js": "^2.9.4",
     "classnames": "2.2.5",
-    "convict": "6.0.0",
+    "convict": "4.4.1",
     "express": "^4.17.1",
     "express-history-api-fallback": "^2.2.1",
     "material-ui": "^0.19.4",

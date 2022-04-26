@@ -20,7 +20,7 @@ import React from "react";
 import { Card, CardText } from "material-ui/Card";
 import { List, ListItem } from "material-ui/List";
 import { Timeline, HeaderTimeline } from "bogu";
-import { filterLines, sortLines, sortIcon } from "bogu/utils";
+import { sortLines, sortIcon } from "bogu/utils";
 import { color } from "bogu/styles";
 
 class LineStatsCard extends React.Component {

@@ -11,3 +11,4 @@ configMap:
   auth0ClientId: Mj0umIJgASVkJjshc37hhatqqszUVXU4
   auth0Audience: https://ror.api.staging.entur.io
   auth0ClaimsNamespace: https://ror.entur.io/role_assignments
+  ninsarMicroFrontendUrl: https://line-statistics.staging.entur.org

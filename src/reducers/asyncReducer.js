@@ -20,14 +20,6 @@ const initialState = {
   currentSupplier: null,
   events: [],
   suppliers: [],
-  lineStats: {
-    isLoading: true,
-    data: null,
-  },
-  dataDelivery: {
-    state: null,
-    date: null,
-  },
   isFetchingEvents: false,
 };
 
@@ -49,28 +41,16 @@ const asyncReducer = (state = initialState, action) => {
         ),
       });
 
+    case types.REQUESTED_SUPPLIERS:
+      return Object.assign({}, state, {
+        requestedCurrentSupplier: true,
+      });
+
     case types.RECEIVED_SUPPLIERS:
       return Object.assign({}, state, {
+        requestedCurrentSupplier: false,
         currentSupplier: null,
         suppliers: action.payLoad,
-      });
-
-    case types.RECEIVED_LINE_STATS:
-      return Object.assign({}, state, {
-        lineStats: { isLoading: false, data: action.payLoad },
-      });
-
-    case types.REQUESTED_LINE_STATS:
-      return Object.assign({}, state, {
-        lineStats: { isLoading: true, data: null },
-      });
-
-    case types.RECEIVED_LATEST_DELIVERY_DATE:
-      return Object.assign({}, state, {
-        dataDelivery: {
-          date: action.payLoad.date,
-          state: action.payLoad.state,
-        },
       });
 
     default:
