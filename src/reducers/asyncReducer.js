@@ -17,7 +17,7 @@
 import * as types from "./../actions/actionTypes";
 
 const initialState = {
-  currentSupplier: null,
+  isLoading: false,
   events: [],
   suppliers: [],
   isFetchingEvents: false,
@@ -25,10 +25,16 @@ const initialState = {
 
 const asyncReducer = (state = initialState, action) => {
   switch (action.type) {
+    case types.REQUESTED_EVENTS:
+      return Object.assign({}, state, {
+        isLoading: true
+      });
+
     case types.RECEIVED_EVENTS:
       return Object.assign({}, state, {
         events: action.payLoad,
         isFetchingEvents: false,
+        isLoading: false
       });
 
     case types.ERROR_EVENTS:
@@ -37,18 +43,12 @@ const asyncReducer = (state = initialState, action) => {
     case types.CHANGED_ACTIVE_PROVIDER:
       return Object.assign({}, state, {
         currentSupplier: state.suppliers.find(
-          (supplier) => supplier.id == action.payLoad
+          (supplier) => supplier.id === action.payLoad
         ),
-      });
-
-    case types.REQUESTED_SUPPLIERS:
-      return Object.assign({}, state, {
-        requestedCurrentSupplier: true,
       });
 
     case types.RECEIVED_SUPPLIERS:
       return Object.assign({}, state, {
-        requestedCurrentSupplier: false,
         currentSupplier: null,
         suppliers: action.payLoad,
       });

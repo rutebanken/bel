@@ -34,9 +34,7 @@ class TabsContainer extends React.Component {
   }
 
   render() {
-    const { currentSupplier, auth } = this.props;
-
-    console.log('currentSupplier', currentSupplier);
+    const { currentSupplier, auth, isLoading } = this.props;
 
     return (
       <Tabs
@@ -45,7 +43,7 @@ class TabsContainer extends React.Component {
         inkBarStyle={{ height: 7, bottom: 5, background: "#FF5959" }}
       >
         <Tab value="status" label="Linjestatus" style={{ marginTop: 10 }}>
-          {currentSupplier ?
+          {!isLoading && currentSupplier ?
             <>
               {window.config.ninsarMicroFrontendUrl && (
                 <MicroFrontend
@@ -56,7 +54,10 @@ class TabsContainer extends React.Component {
                   payload={{
                     providerId: `${currentSupplier.id}`,
                     getToken: auth.getAccessToken,
-                    locale: 'NO'
+                    locale: 'NO',
+                    showNumberOfLinesCard: true,
+                    showDeliveryDateCard: true,
+                    showExpiringDaysCard: true
                   }}
                   FetchStatus={props => (
                     <MicroFrontendFetchStatus
@@ -87,7 +88,7 @@ class TabsContainer extends React.Component {
 
 const mapStateToProps = (state) => ({
   currentSupplier: state.asyncReducer.currentSupplier,
-  requestedCurrentSupplier: state.asyncReducer.requestedCurrentSupplier,
+  isLoading: state.asyncReducer.isLoading,
   auth: state.userReducer.auth
 });
 
