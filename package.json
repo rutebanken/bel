@@ -1,5 +1,5 @@
 {
-  "name": "Bel",
+  "name": "bel",
   "version": "1.0.0",
   "description": "Bel",
   "main": "index.js",
@@ -13,7 +13,9 @@
   },
   "license": "EUPL",
   "dependencies": {
+    "@entur/alert": "^0.10.4",
     "@entur/auth-provider": "^1.0.0",
+    "@entur/loader": "^0.4.6",
     "@entur/micro-frontend": "^0.2.0",
     "axios": "^0.21.1",
     "bogu": "https://github.com/entur/bogu.git#v1.3.2",
