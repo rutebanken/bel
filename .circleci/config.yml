@@ -64,13 +64,13 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - dep-cache-{{ checksum "package-lock.json" }}
-            - dep-cache-
+            - dep-cache-v1-{{ checksum "package-lock.json" }}
+            - dep-cache-v1-
       - run: *install
       - save_cache:
           paths:
-            - ~/node_modules
-          key: dep-cache-{{ checksum "package-lock.json" }}
+            - ~/project/node_modules
+          key: dep-cache-v1-{{ checksum "package-lock.json" }}
       - run: *test
       - run: *build
       - run:
