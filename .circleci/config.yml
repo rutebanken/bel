@@ -90,8 +90,8 @@ jobs:
     docker:
       - image: google/cloud-sdk:alpine
         auth:
-          username: _json_key
-          password: $DOCKER_PASSWORD
+          username: $DOCKERHUB_LOGIN
+          password: $DOCKERHUB_PASSWORD
     steps:
       - *attach_workspace
       - checkout
