@@ -1,4 +1,4 @@
-env: production
+env: prod
 
 configMap:
   endpointBase: /

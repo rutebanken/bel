@@ -34,4 +34,5 @@ team: ror
 slack: talk-ror
 type: bel
 namespace: {{ .Release.Namespace }}
+environment: {{ .Values.env }}
 {{- end }}
