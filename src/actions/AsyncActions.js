@@ -19,8 +19,6 @@ import * as types from "./actionTypes";
 import moment from "moment";
 import actionNames from "../translations/no/actions";
 
-import { formatLineStats } from "bogu/utils";
-
 const AsyncActions = {};
 
 const getConfig = async (auth) => {
@@ -47,8 +45,6 @@ AsyncActions.getProviderStatus = (id) => async (dispatch, getState) => {
   })
     .then((response) => {
       let providerStatus = formatProviderStatusDate(response.data);
-      dispatch(AsyncActions.getLineStats(id));
-      dispatch(AsyncActions.getLatestDeliveryForProvider(id));
       dispatch(sendData(providerStatus, types.RECEIVED_EVENTS));
     })
     .catch((response) => {
@@ -99,45 +95,6 @@ AsyncActions.getAllSuppliers = () => async (dispatch, getState) => {
     })
     .catch((response) => {
       dispatch(sendData(response.data, types.ERROR_SUPPLIERS));
-    });
-};
-
-AsyncActions.getLineStats = (id) => async (dispatch, getState) => {
-  dispatch(sendData(null, types.REQUESTED_LINE_STATS));
-  return axios({
-    url: `${window.config.timetableAdminBaseUrl}${id}/line_statistics`,
-    timeout: 10000,
-    method: "get",
-    responseType: "json",
-    ...(await getConfig(getState().userReducer.auth)),
-  })
-    .then((response) => {
-      let formattedLines = formatLineStats(response.data);
-      dispatch(sendData(formattedLines, types.RECEIVED_LINE_STATS));
-    })
-    .catch((response) => {
-      console.error(response);
-    });
-};
-
-AsyncActions.getLatestDeliveryForProvider = (providerId) => async (
-  dispatch,
-  getState
-) => {
-  dispatch(sendData(null, types.REQUESTED_LATEST_DELIVERY_DATE));
-
-  return axios({
-    url: `${window.config.eventsBaseUrl}latest_upload/${providerId}`,
-    timeout: 1000,
-    method: "get",
-    responseTYpe: "json",
-    ...(await getConfig(getState().userReducer.auth)),
-  })
-    .then((response) => {
-      dispatch(sendData(response.data, types.RECEIVED_LATEST_DELIVERY_DATE));
-    })
-    .catch((response) => {
-      console.error(response);
     });
 };
 

@@ -11,3 +11,4 @@ configMap:
   auth0ClientId: ZFz0whLRMzf8Qk3wjXesHbhtLrvd0zkD
   auth0Audience: https://ror.api.dev.entur.io
   auth0ClaimsNamespace: https://ror.entur.io/role_assignments
+  ninsarMicroFrontendUrl: https://line-statistics.dev.entur.org
