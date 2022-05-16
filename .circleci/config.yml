@@ -43,9 +43,11 @@ aliases:
     git tag $VERSION
     git push origin $VERSION
 - &create-image-version
-      name: Create new image version and store to env var and as file in workspace
-      command: |
-        echo "export VERSION=$CIRCLE_BRANCH-v$CIRCLE_BUILD_NUM-$(echo -n $CIRCLE_SHA1 | tail -c 8)"  >> $BASH_ENV
+  name: Create new image version and store to env var and as file in workspace
+  command: |
+    echo "export VERSION=$CIRCLE_BRANCH-v$CIRCLE_BUILD_NUM-$(echo -n $CIRCLE_SHA1 | tail -c 8)"  >> $BASH_ENV
+    echo "$CIRCLE_BRANCH-v$CIRCLE_BUILD_NUM-$(echo -n $CIRCLE_SHA1 | tail -c 8)" > version
+    cp ./version /tmp/workspace
 - &read-image-version
   name: Read new image version from workspace
   command: |
