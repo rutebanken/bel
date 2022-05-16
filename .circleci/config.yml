@@ -11,30 +11,25 @@ references:
       at: *workspace_root
 
 aliases:
+- &install
+  name: Install dependencies
+  command: npm install
 - &test
   name: Test
   command: npm run test
 - &build
   name: Build
   command: npm run build
-- &GCP-auth
-  name: GCP Authenticate
+- &google-sdk-container-config
+  docker:
+    - image: google/cloud-sdk:alpine
+      auth:
+        username: $DOCKERHUB_LOGIN
+        password: $DOCKERHUB_PASSWORD
+- &GCP-auth-docker
+  name: GCP authentication with docker
   command: |
-    echo 'export GCLOUD_SERVICE_KEY="$GCLOUD_SERVICE_KEY"' >> $BASH_ENV
-    /tools/gcp_authenticate.sh
-- &docker-login
-  name: Docker login
-  command: |
-    docker login -u _json_key -p"$DOCKER_PASSWORD" https://eu.gcr.io
-- &docker-build-and-push
-  name: Docker build and push
-  command: |
-    echo 'export CIRCLE_PROJECT_REPONAME="$CIRCLE_PROJECT_REPONAME"' >> $BASH_ENV
-    echo 'export VERSION="$VERSION"' >> $BASH_ENV
-    IMAGE="eu.gcr.io/entur-system-1287/${CIRCLE_PROJECT_REPONAME}"
-    docker build -t ${IMAGE} .
-    docker tag "${IMAGE}" "${IMAGE}":"${VERSION}"
-    docker push "${IMAGE}"
+    echo $DOCKER_PASSWORD > ${HOME}/account-auth.json
 - &tag-git-version
   name: Tag git commit with build version and push to github
   command: |
@@ -47,33 +42,35 @@ aliases:
   command: |
     echo "export VERSION=$CIRCLE_BRANCH-v$CIRCLE_BUILD_NUM-$(echo -n $CIRCLE_SHA1 | tail -c 8)"  >> $BASH_ENV
     echo "$CIRCLE_BRANCH-v$CIRCLE_BUILD_NUM-$(echo -n $CIRCLE_SHA1 | tail -c 8)" > version
-    cp ./version /tmp/workspace
-- &read-image-version
-  name: Read new image version from workspace
+- &docker-build-and-push
+  name: Docker build and push
   command: |
-    echo "export VERSION=$(cat /tmp/workspace/version)" >> $BASH_ENV
-
-executors:
-    node:
-      docker:
-        - image: mpde(d)
-          auth:
-            username: _json_key
-            password: $DOCKER_PASSWORD
+    IMAGE="eu.gcr.io/entur-system-1287/lamassu"
+    echo "Image: ${IMAGE}"
+    docker build -t $IMAGE --build-arg ARTIFACTORY_USER=$ARTIFACTORY_USER --build-arg ARTIFACTORY_PASSWORD=$ARTIFACTORY_PASSWORD .
+    docker tag $IMAGE "${IMAGE}":"${VERSION}"
+    docker login -u _json_key --password-stdin https://eu.gcr.io < ${HOME}/account-auth.json
+    docker push "${IMAGE}":"${VERSION}"
 
 jobs:
   build:
-    executor:
-      name: node/default
-      tag: '14.16.1'
+    docker:
+      - image: cimg/node@14.16.1
+        auth:
+          username: _json_key
+          password: $DOCKER_PASSWORD
     steps:
       - *attach_workspace
       - checkout
-      - node/with-cache:
-          cache-key: package-lock.json
-          cache-version: v1
-          steps:
-            - run: npm install
+      - restore_cache:
+          keys:
+            - dep-cache-{{ checksum "package-lock.json" }}
+            - dep-cache-
+      - run: *install
+      - save_cache:
+          paths:
+            - ~/node_modules
+          key: dep-cache-{{ checksum "package-lock.json" }}
       - run: *test
       - run: *build
       - run:
@@ -88,45 +85,26 @@ jobs:
             - build/*
             - node_modules/*
 
-  tag:
-    docker:
-      - image: google/cloud-sdk:alpine
-        auth:
-          username: $DOCKERHUB_LOGIN
-          password: $DOCKERHUB_PASSWORD
+  deploy-docker:
+    <<: *google-sdk-container-config
     steps:
+      - setup_remote_docker:
+          version: 19.03.13
       - *attach_workspace
-      - checkout
+      - run: |
+          mv /tmp/workspace/build .
+          mv /tmp/workspace/node_modules .
+      - run: *GCP-auth-docker
       - run: *create-image-version
+      - run: *docker-build-and-push
       - run: *tag-git-version
-      - persist_to_workspace:
-          root: *workspace_root
-          paths:
-            - ./version
 
 workflows:
   'Build Pipeline':
     jobs:
       - build
-      - tag:
+      - deploy-docker:
           context: global
           filters:
             branches:
               only: master
-      - docker-publish/publish:
-          context: global
-          filters:
-            branches:
-              only: master
-          requires:
-            - build
-            - tag
-          image: $CIRCLE_PROJECT_REPONAME
-          tag: $VERSION
-          registry: $DOCKER_REGISTRY
-          before_build:
-            - *attach_workspace
-            - run: *read-image-version
-            - run: |
-                mv /tmp/workspace/build .
-                mv /tmp/workspace/node_modules .
