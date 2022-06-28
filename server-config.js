@@ -15,18 +15,19 @@ const configureApp = async (app) => {
 
   app.get(endpointBase + "config.json", function (req, res) {
     var cfg = {
+      appEnv: convict.get("appEnv"),
       providersBaseUrl: convict.get("providersBaseUrl"),
       eventsBaseUrl: convict.get("eventsBaseUrl"),
       endpointBase: convict.get("endpointBase"),
       timetableAdminBaseUrl: convict.get("timetableAdminBaseUrl"),
       chouetteBaseUrl: convict.get("chouetteBaseUrl"),
-      udugBaseUrl: convict.get('udugBaseUrl'),
-      udugMicroFrontendUrl: convict.get('udugMicroFrontendUrl'),
-      ninsarMicroFrontendUrl: convict.get('ninsarMicroFrontendUrl'),
-      auth0Domain: convict.get('auth0Domain'),
-      auth0ClientId: convict.get('auth0ClientId'),
-      auth0Audience: convict.get('auth0Audience'),
-      auth0ClaimsNamespace: convict.get('auth0ClaimsNamespace'),
+      udugBaseUrl: convict.get("udugBaseUrl"),
+      udugMicroFrontendUrl: convict.get("udugMicroFrontendUrl"),
+      ninsarMicroFrontendUrl: convict.get("ninsarMicroFrontendUrl"),
+      auth0Domain: convict.get("auth0Domain"),
+      auth0ClientId: convict.get("auth0ClientId"),
+      auth0Audience: convict.get("auth0Audience"),
+      auth0ClaimsNamespace: convict.get("auth0ClaimsNamespace"),
     };
 
     res.send(cfg);

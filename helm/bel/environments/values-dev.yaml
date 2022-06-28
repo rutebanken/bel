@@ -1,6 +1,7 @@
 env: dev
 
 configMap:
+  appEnv: dev
   endpointBase: /
   eventsBaseUrl: https://api.dev.entur.io/timetable-admin/v1/events/
   providersBaseUrl: https://api.dev.entur.io/timetable-admin/v1/providers/

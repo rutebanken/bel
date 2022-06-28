@@ -63,6 +63,8 @@ const Root = ({ dispatch }) => {
                       name="NeTEx validation reports"
                       payload={{
                         getToken: auth.getAccessToken,
+                        locale: "nb",
+                        env: window.config.appEnv,
                       }}
                       FetchStatus={FetchStatus}
                       handleError={(e) => console.log(e)}

@@ -1,6 +1,7 @@
 env: prod
 
 configMap:
+  appEnv: prod
   endpointBase: /
   eventsBaseUrl: https://api.entur.io/timetable-admin/v1/events/
   providersBaseUrl: https://api.entur.io/timetable-admin/v1/providers/

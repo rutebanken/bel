@@ -1,6 +1,7 @@
-env: staging
+env: test
 
 configMap:
+  appEnv: test
   endpointBase: /
   eventsBaseUrl: https://api.staging.entur.io/timetable-admin/v1/events/
   providersBaseUrl: https://api.staging.entur.io/timetable-admin/v1/providers/

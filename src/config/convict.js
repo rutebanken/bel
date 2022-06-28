@@ -20,11 +20,11 @@ var fs = require("fs");
 
 module.exports = new Promise(function (resolve, reject) {
   var conf = convict({
-    env: {
-      doc: "The applicaton environment.",
-      format: ["production", "development"],
-      default: "development",
-      env: "NODE_ENV",
+    appEnv: {
+      doc: "The application environment",
+      format: ["dev", "test", "prod"],
+      default: "dev",
+      env: "APP_ENV",
     },
     configUrl: {
       doc: "URL for where to read the configuration",
@@ -75,16 +75,16 @@ module.exports = new Promise(function (resolve, reject) {
       env: "UDUG_MICRO_FRONTEND_URL",
     },
     ninsarBaseUrl: {
-      doc: 'URL for linking to NeTEx validation reports',
+      doc: "URL for linking to NeTEx validation reports",
       format: String,
-      default: '/line-statistics/',
-      env: 'NINSAR_BASE_URL'
+      default: "/line-statistics/",
+      env: "NINSAR_BASE_URL",
     },
     ninsarMicroFrontendUrl: {
-      doc: 'URL to Ninsar micro frontend',
+      doc: "URL to Ninsar micro frontend",
       format: String,
-      default: 'https://line-statistics.dev.entur.org',
-      env: 'NINSAR_MICRO_FRONTEND_URL'
+      default: "https://line-statistics.dev.entur.org",
+      env: "NINSAR_MICRO_FRONTEND_URL",
     },
     auth0Domain: {
       doc: "Auth0 domain",
