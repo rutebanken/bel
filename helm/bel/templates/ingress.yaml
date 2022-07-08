@@ -1,5 +1,5 @@
 {{- if .Values.ingress.enabled }}
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   labels:
@@ -15,22 +15,31 @@ spec:
   - host: operator.entur.org
     http:
       paths:
-        - backend:
-            serviceName: {{ template "app.name" . }}
-            servicePort: {{ .Values.service.http.externalPort }}
+        - pathType: ImplementationSpecific
+          backend:
+            service:
+              name: {{ template "app.name" . }}
+              port:
+                number: {{ .Values.service.http.externalPort }}
   - host: xn--operatr-v1a.entur.org
     http:
       paths:
-        - backend:
-            serviceName: {{ template "app.name" . }}
-            servicePort: {{ .Values.service.http.externalPort }}
+        - pathType: ImplementationSpecific
+          backend:
+            service:
+              name: {{ template "app.name" . }}
+              port:
+                number: {{ .Values.service.http.externalPort }}
   {{ else }}
   - host: operator.{{ .Release.Namespace }}.entur.org
     http:
       paths:
-        - backend:
-            serviceName: {{ template "app.name" . }}
-            servicePort: {{ .Values.service.http.externalPort }}
+        - pathType: ImplementationSpecific
+          backend:
+            service:
+              name: {{ template "app.name" . }}
+              port:
+                number: {{ .Values.service.http.externalPort }}
   {{- end}}
 
 {{- end }}
