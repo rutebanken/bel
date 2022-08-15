@@ -28,6 +28,7 @@ const getConfig = async (auth) => {
     "Content-Type": "application/json",
     Accept: "application/json",
     Authorization: "Bearer " + accessToken,
+    "Et-Client-Name": "entur-bel",
   };
   return config;
 };
