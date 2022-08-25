@@ -43,7 +43,7 @@ class TabsContainer extends React.Component {
         inkBarStyle={{ height: 7, bottom: 5, background: "#FF5959" }}
       >
         <Tab value="status" label="Linjestatus" style={{ marginTop: 10 }}>
-          {!isLoading && currentSupplier ?
+          {(currentSupplier && (
             <>
               {window.config.ninsarMicroFrontendUrl && (
                 <MicroFrontend
@@ -54,12 +54,12 @@ class TabsContainer extends React.Component {
                   payload={{
                     providerId: `${currentSupplier.id}`,
                     getToken: auth.getAccessToken,
-                    locale: 'NO',
+                    locale: "NO",
                     showNumberOfLinesCard: true,
                     showDeliveryDateCard: true,
-                    showExpiringDaysCard: true
+                    showExpiringDaysCard: true,
                   }}
-                  FetchStatus={props => (
+                  FetchStatus={(props) => (
                     <MicroFrontendFetchStatus
                       {...props}
                       label="Error loading line statistics"
@@ -69,9 +69,7 @@ class TabsContainer extends React.Component {
                 />
               )}
             </>
-            :
-            <Loader style={{ width: '100%' }}>Laster</Loader>
-          }
+          )) || <Loader style={{ width: "100%" }}>Laster</Loader>}
         </Tab>
         <Tab
           className="event-header"
@@ -89,7 +87,7 @@ class TabsContainer extends React.Component {
 const mapStateToProps = (state) => ({
   currentSupplier: state.asyncReducer.currentSupplier,
   isLoading: state.asyncReducer.isLoading,
-  auth: state.userReducer.auth
+  auth: state.userReducer.auth,
 });
 
 export default withRouter(connect(mapStateToProps)(TabsContainer));
