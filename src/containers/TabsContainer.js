@@ -43,7 +43,7 @@ class TabsContainer extends React.Component {
         inkBarStyle={{ height: 7, bottom: 5, background: "#FF5959" }}
       >
         <Tab value="status" label="Linjestatus" style={{ marginTop: 10 }}>
-          {(currentSupplier && (
+          {this.props.tab === "status" && currentSupplier && !isLoading ? (
             <>
               {window.config.ninsarMicroFrontendUrl && (
                 <MicroFrontend
@@ -69,7 +69,9 @@ class TabsContainer extends React.Component {
                 />
               )}
             </>
-          )) || <Loader style={{ width: "100%" }}>Laster</Loader>}
+          ) : (
+            <Loader style={{ width: "100%" }}>Laster</Loader>
+          )}
         </Tab>
         <Tab
           className="event-header"
