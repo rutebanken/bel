@@ -14,7 +14,7 @@
   "license": "EUPL",
   "dependencies": {
     "@entur/alert": "^0.10.4",
-    "@entur/auth-provider": "^1.0.0",
+    "@entur/auth-provider": "^1.1.0",
     "@entur/loader": "^0.4.6",
     "@entur/micro-frontend": "^0.2.0",
     "@sentry/react": "^7.16.0",
