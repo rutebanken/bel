@@ -18,7 +18,6 @@ import { connect } from "react-redux";
 
 import React from "react";
 import { Tabs, Tab } from "material-ui/Tabs";
-import Events from "./Events";
 import { withRouter } from "react-router-dom";
 import { MicroFrontendFetchStatus } from "../components/MicroFrontendFetchStatus";
 import { MicroFrontend } from "@entur/micro-frontend";

@@ -74,7 +74,6 @@ const Root = ({ dispatch }) => {
               </Route>
               <Route path="/:tab" component={Main} />
             </Switch>
-            <FileUpload />
             <SnackbarWrapper />
           </div>
         </MuiThemeProvider>
