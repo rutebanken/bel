@@ -15,7 +15,6 @@
  */
 
 import React, { useEffect } from "react";
-import FileUpload from "./FileUpload";
 import Header from "../components/Header";
 import Main from "./Main";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
