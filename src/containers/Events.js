@@ -24,6 +24,8 @@ import AsyncActions from "../actions/AsyncActions";
 import { EventDetails } from "bogu";
 import ConfirmValidateDialog from "../components/ConfirmValidateDialog";
 import { withRouter } from "react-router-dom";
+import { MicroFrontend } from "@entur/micro-frontend";
+import { MicroFrontendFetchStatus } from "../components/MicroFrontendFetchStatus";
 
 class Events extends React.Component {
   constructor(props) {
@@ -54,13 +56,13 @@ class Events extends React.Component {
   }
 
   startPolling = () => {
-    this.timeout = setTimeout(() => {
-      if (this.props.currentSupplierId) {
-        this.props.dispatch(
-          AsyncActions.getProviderEvents(this.props.currentSupplierId)
-        );
-      }
-    }, 5000);
+    // this.timeout = setTimeout(() => {
+    //   if (this.props.currentSupplierId) {
+    //     this.props.dispatch(
+    //       AsyncActions.getProviderEvents(this.props.currentSupplierId)
+    //     );
+    //   }
+    // }, 5000);
   };
 
   handleUploadFile() {
@@ -86,20 +88,22 @@ class Events extends React.Component {
   }
 
   render() {
-    const { events, history } = this.props;
+    const { events, history, currentSupplierId, auth } = this.props;
 
     return (
-      <div style={{
-        marginLeft: '1rem',
-        marginRight: '1rem'
-      }}>
+      <div
+        style={{
+          marginLeft: "1rem",
+          marginRight: "1rem",
+        }}
+      >
         <div
           style={{
             display: "flex",
             justifyContent: "center",
             paddingBottom: 0,
             marginTop: 10,
-            marginBottom: 20
+            marginBottom: 20,
           }}
         >
           <RaisedButton
@@ -116,6 +120,29 @@ class Events extends React.Component {
             onClick={this.handleShowConfirmValidate.bind(this)}
           />
         </div>
+        <MicroFrontend
+          id="ror-zagmuk"
+          host="https://timetable-admin.dev.entur.org"
+          staticPath=""
+          name="Events"
+          payload={{
+            providerId: currentSupplierId,
+            getToken: auth.getAccessToken,
+            locale: "nb",
+            env: "dev",
+            hideIgnoredExportNetexBlocks: true,
+            hideAntuValidationSteps: false,
+            navigate: (url) => history.push(url),
+            refreshHook: (refresh) => {
+              //this.timeout = setInterval(refresh, 5000);
+            },
+          }}
+          FetchStatus={(props) => (
+            <MicroFrontendFetchStatus {...props} label="Error loading events" />
+          )}
+          handleError={(error) => console.log(error)}
+        />
+        {/* 
         {events && events.length ? (
           <EventDetails
             locale="nb"
@@ -134,8 +161,8 @@ class Events extends React.Component {
             }}
           >
             Ingen tidligere leveranser.
-          </div>
-        )}
+          </div> */}
+        {/* )} */}
         <ConfirmValidateDialog
           open={this.state.confirmDialogOpen}
           handleClose={this.handleCloseConfirmValidate.bind(this)}
@@ -150,6 +177,7 @@ const mapStateToProps = (state, ownProps) => ({
   currentSupplierId: state.asyncReducer.currentSupplier?.id,
   events: state.asyncReducer.events,
   isFetchingEvents: state.asyncReducer.isFetchingEvents,
+  auth: state.userReducer.auth,
 });
 
 export default withRouter(connect(mapStateToProps)(Events));

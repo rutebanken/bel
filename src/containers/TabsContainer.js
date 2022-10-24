@@ -79,7 +79,30 @@ class TabsContainer extends React.Component {
           label="Dataleveranser"
           style={{ marginTop: 10 }}
         >
-          {this.props.tab === "events" && <Events />}
+          {this.props.tab === "events" && currentSupplier && !isLoading ? (
+            <MicroFrontend
+              id="ror-zagmuk"
+              host="https://timetable-admin.dev.entur.org"
+              staticPath=""
+              name="Events"
+              payload={{
+                providerId: `${currentSupplier.id}`,
+                getToken: auth.getAccessToken,
+                locale: "nb",
+                env: "dev",
+                hideIgnoredExportNetexBlocks: true,
+                hideAntuValidationSteps: false,
+                navigate: (url) => history.push(url),
+              }}
+              FetchStatus={(props) => (
+                <MicroFrontendFetchStatus
+                  {...props}
+                  label="Error loading events"
+                />
+              )}
+              handleError={(error) => console.log(error)}
+            />
+          ) : null}
         </Tab>
       </Tabs>
     );

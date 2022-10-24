@@ -17,6 +17,12 @@
     "@entur/auth-provider": "^1.0.0",
     "@entur/loader": "^0.4.6",
     "@entur/micro-frontend": "^0.2.0",
+    "@sentry/react": "^7.16.0",
+    "@sentry/tracing": "^7.16.0",
+    "@types/jest": "^29.2.0",
+    "@types/node": "^18.11.4",
+    "@types/react": "^18.0.21",
+    "@types/react-dom": "^18.0.6",
     "axios": "^0.21.1",
     "bogu": "https://github.com/entur/bogu.git#v1.3.2",
     "chart.js": "^2.9.4",
@@ -37,7 +43,8 @@
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
     "redux-logger": "3.0.6",
-    "redux-thunk": "2.2.0"
+    "redux-thunk": "2.2.0",
+    "typescript": "^4.8.4"
   },
   "devDependencies": {
     "chai": "3.5.0",
