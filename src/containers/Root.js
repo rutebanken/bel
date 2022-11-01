@@ -14,13 +14,14 @@
  *
  */
 
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import Header from "../components/Header";
 import Main from "./Main";
-import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-import getMuiTheme from "material-ui/styles/getMuiTheme";
-import enturTheme from "../styles/themes/entur/";
-import SnackbarWrapper from "../components/SnackbarWrapper";
+import {
+  ThemeProvider,
+  createTheme,
+} from "@mui/material/styles";
+import { getTheme } from "../styles/themes/entur/";
 import { useAuth } from "@entur/auth-provider";
 import { MicroFrontend } from "@entur/micro-frontend";
 import { Route, Switch } from "react-router-dom";
@@ -46,7 +47,7 @@ const Root = ({ dispatch }) => {
   return (
     <>
       {auth.isAuthenticated ? (
-        <MuiThemeProvider muiTheme={getMuiTheme(enturTheme)}>
+        <ThemeProvider theme={createTheme(getTheme())}>
           <div className="appContent">
             <Header />
             <Switch>
@@ -73,9 +74,8 @@ const Root = ({ dispatch }) => {
               </Route>
               <Route path="/:tab" component={Main} />
             </Switch>
-            <SnackbarWrapper />
           </div>
-        </MuiThemeProvider>
+        </ThemeProvider>
       ) : null}
     </>
   );

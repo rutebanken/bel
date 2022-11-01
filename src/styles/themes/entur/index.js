@@ -14,7 +14,7 @@
  *
  */
 
-import { fade } from "material-ui/utils/colorManipulator";
+//import { fade } from "material-ui/utils/colorManipulator";
 
 export const primary = "#5AC39A";
 export const primaryDarker = "#51af8a";
@@ -24,7 +24,7 @@ const grey100 = "#f5f5f5";
 const grey300 = "#e0e0e0";
 const grey400 = "#bdbdbd";
 const grey500 = "#9e9e9e";
-const white = "#ffffff";
+export const white = "#ffffff";
 const darkBlack = "rgba(0, 0, 0, 0.87)";
 const fullBlack = "rgba(0, 0, 0, 1)";
 
@@ -41,9 +41,9 @@ export default {
     alternateTextColor: white,
     canvasColor: white,
     borderColor: grey300,
-    disabledColor: fade(darkBlack, 0.3),
+    //disabledColor: fade(darkBlack, 0.3),
     pickerHeaderColor: primary,
-    clockCircleColor: fade(darkBlack, 0.07),
+    //clockCircleColor: fade(darkBlack, 0.07),
     shadowColor: fullBlack,
   },
   datePicker: {
@@ -63,3 +63,21 @@ export default {
     backgroundColor: darkColor,
   },
 };
+
+export const getTheme = () => ({
+  fontFamily: "Roboto, sans-serif",
+  palette: {
+    primary: {
+      main: primary,
+    },
+  },
+  components: {
+    MuiTab: {
+      styleOverrides: {
+        root: {
+          color: "#fff",
+        }, 
+      }
+    },
+  },
+});

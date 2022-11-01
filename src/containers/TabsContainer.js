@@ -17,18 +17,19 @@ import { connect } from "react-redux";
  */
 
 import React from "react";
-import { Tabs, Tab } from "material-ui/Tabs";
 import { withRouter } from "react-router-dom";
 import { MicroFrontendFetchStatus } from "../components/MicroFrontendFetchStatus";
 import { MicroFrontend } from "@entur/micro-frontend";
-import { Loader } from "@entur/loader";
+import { Tab, Tabs } from "@mui/material";
+import { darkColor } from "../styles/themes/entur";
+import { TabContext, TabList, TabPanel } from "@mui/lab";
 
 class TabsContainer extends React.Component {
   constructor(props) {
     super(props);
   }
 
-  handleChange(value) {
+  handleChange(_e, value) {
     this.props.history.push(`/${value}`);
   }
 
@@ -36,14 +37,18 @@ class TabsContainer extends React.Component {
     const { currentSupplier, auth, isLoading } = this.props;
 
     return (
-      <Tabs
-        value={this.props.tab}
+      <TabContext value={this.props.tab}>
+      <TabList
         onChange={this.handleChange.bind(this)}
-        inkBarStyle={{ height: 7, bottom: 5, background: "#FF5959" }}
-      >
-        <Tab value="status" label="Linjestatus" style={{ marginTop: 10 }}>
-          {this.props.tab === "status" && currentSupplier && !isLoading ? (
-            <>
+        variant="fullWidth"
+        sx={{ background: darkColor, marginTop: '64px' }}>
+          <Tab value="status" label="Linjestatus" />
+          <Tab value="events" label="Dataleveranser" />
+      </TabList>
+      
+             {this.props.tab === "status" && currentSupplier && !isLoading ? (
+              <TabPanel value={this.props.tab} index={0}>
+            
               {window.config.ninsarMicroFrontendUrl && (
                 <MicroFrontend
                   id="ror-ninsar"
@@ -67,18 +72,12 @@ class TabsContainer extends React.Component {
                   handleError={(error) => console.log(error)}
                 />
               )}
-            </>
-          ) : (
-            <Loader style={{ width: "100%" }}>Laster</Loader>
-          )}
-        </Tab>
-        <Tab
-          className="event-header"
-          value="events"
-          label="Dataleveranser"
-          style={{ marginTop: 10 }}
-        >
-          {this.props.tab === "events" && currentSupplier && !isLoading ? (
+            </TabPanel>
+          ) : null}
+      
+      
+             {this.props.tab === "events" && currentSupplier && !isLoading ? (
+              <TabPanel value={this.props.tab} index={0}>
             <MicroFrontend
               id="ror-zagmuk"
               host="https://timetable-admin.dev.entur.org"
@@ -101,9 +100,10 @@ class TabsContainer extends React.Component {
               )}
               handleError={(error) => console.log(error)}
             />
+            </TabPanel>
           ) : null}
-        </Tab>
-      </Tabs>
+      
+      </TabContext>
     );
   }
 }
