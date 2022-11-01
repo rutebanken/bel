@@ -76,8 +76,16 @@ export const getTheme = () => ({
       styleOverrides: {
         root: {
           color: "#fff",
-        }, 
-      }
+        },
+      },
+    },
+    MuiTabs: {
+      styleOverrides: {
+        indicator: {
+          backgroundColor: "rgb(255, 89, 89)",
+          height: "7px",
+        },
+      },
     },
   },
 });

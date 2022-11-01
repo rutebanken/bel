@@ -41,10 +41,24 @@ class TabsContainer extends React.Component {
         <TabList
           onChange={this.handleChange.bind(this)}
           variant="fullWidth"
-          sx={{ background: darkColor, marginTop: "64px" }}
+          sx={{ background: darkColor, marginTop: "64px", height: "58px" }}
         >
-          <Tab value="status" label="Linjestatus" />
-          <Tab value="events" label="Dataleveranser" />
+          <Tab
+            value="status"
+            label={
+              <span style={{ color: "white", paddingTop: "12px" }}>
+                Linjestatus
+              </span>
+            }
+          />
+          <Tab
+            value="events"
+            label={
+              <span style={{ color: "white", paddingTop: "12px" }}>
+                Dataleveranser
+              </span>
+            }
+          />
         </TabList>
 
         {this.props.tab === "status" && currentSupplier && !isLoading ? (
