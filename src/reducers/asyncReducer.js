@@ -50,7 +50,7 @@ const asyncReducer = (state = initialState, action) => {
     case types.RECEIVED_SUPPLIERS:
       return Object.assign({}, state, {
         currentSupplier: null,
-        suppliers: action.payLoad,
+        suppliers: action.payLoad.sort((a, b) => a.name.localeCompare(b.name)),
       });
 
     default:
