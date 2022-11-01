@@ -27,14 +27,14 @@ const asyncReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.REQUESTED_EVENTS:
       return Object.assign({}, state, {
-        isLoading: true
+        isLoading: true,
       });
 
     case types.RECEIVED_EVENTS:
       return Object.assign({}, state, {
         events: action.payLoad,
         isFetchingEvents: false,
-        isLoading: false
+        isLoading: false,
       });
 
     case types.ERROR_EVENTS:

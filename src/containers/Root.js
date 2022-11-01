@@ -17,10 +17,7 @@
 import { useEffect } from "react";
 import Header from "../components/Header";
 import Main from "./Main";
-import {
-  ThemeProvider,
-  createTheme,
-} from "@mui/material/styles";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { getTheme } from "../styles/themes/entur/";
 import { useAuth } from "@entur/auth-provider";
 import { MicroFrontend } from "@entur/micro-frontend";

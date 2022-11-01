@@ -38,46 +38,45 @@ class TabsContainer extends React.Component {
 
     return (
       <TabContext value={this.props.tab}>
-      <TabList
-        onChange={this.handleChange.bind(this)}
-        variant="fullWidth"
-        sx={{ background: darkColor, marginTop: '64px' }}>
+        <TabList
+          onChange={this.handleChange.bind(this)}
+          variant="fullWidth"
+          sx={{ background: darkColor, marginTop: "64px" }}
+        >
           <Tab value="status" label="Linjestatus" />
           <Tab value="events" label="Dataleveranser" />
-      </TabList>
-      
-             {this.props.tab === "status" && currentSupplier && !isLoading ? (
-              <TabPanel value={this.props.tab} index={0}>
-            
-              {window.config.ninsarMicroFrontendUrl && (
-                <MicroFrontend
-                  id="ror-ninsar"
-                  host={window.config.ninsarMicroFrontendUrl}
-                  staticPath=""
-                  name="Line statistics"
-                  payload={{
-                    providerId: `${currentSupplier.id}`,
-                    getToken: auth.getAccessToken,
-                    locale: "NO",
-                    showNumberOfLinesCard: true,
-                    showDeliveryDateCard: true,
-                    showExpiringDaysCard: true,
-                  }}
-                  FetchStatus={(props) => (
-                    <MicroFrontendFetchStatus
-                      {...props}
-                      label="Error loading line statistics"
-                    />
-                  )}
-                  handleError={(error) => console.log(error)}
-                />
-              )}
-            </TabPanel>
-          ) : null}
-      
-      
-             {this.props.tab === "events" && currentSupplier && !isLoading ? (
-              <TabPanel value={this.props.tab} index={0}>
+        </TabList>
+
+        {this.props.tab === "status" && currentSupplier && !isLoading ? (
+          <TabPanel value={this.props.tab} index={0}>
+            {window.config.ninsarMicroFrontendUrl && (
+              <MicroFrontend
+                id="ror-ninsar"
+                host={window.config.ninsarMicroFrontendUrl}
+                staticPath=""
+                name="Line statistics"
+                payload={{
+                  providerId: `${currentSupplier.id}`,
+                  getToken: auth.getAccessToken,
+                  locale: "NO",
+                  showNumberOfLinesCard: true,
+                  showDeliveryDateCard: true,
+                  showExpiringDaysCard: true,
+                }}
+                FetchStatus={(props) => (
+                  <MicroFrontendFetchStatus
+                    {...props}
+                    label="Error loading line statistics"
+                  />
+                )}
+                handleError={(error) => console.log(error)}
+              />
+            )}
+          </TabPanel>
+        ) : null}
+
+        {this.props.tab === "events" && currentSupplier && !isLoading ? (
+          <TabPanel value={this.props.tab} index={0}>
             <MicroFrontend
               id="ror-zagmuk"
               host="https://timetable-admin.dev.entur.org"
@@ -100,9 +99,8 @@ class TabsContainer extends React.Component {
               )}
               handleError={(error) => console.log(error)}
             />
-            </TabPanel>
-          ) : null}
-      
+          </TabPanel>
+        ) : null}
       </TabContext>
     );
   }

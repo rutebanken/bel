@@ -15,13 +15,32 @@
  */
 
 import React from "react";
-import AppBar from '@mui/material/AppBar';
+import AppBar from "@mui/material/AppBar";
 import { connect } from "react-redux";
 import AsyncActions from "../actions/AsyncActions";
 import logo from "../static/logo/logo_entur.png";
-import { darkColor, white, primaryDarker, primary } from "../styles/themes/entur/";
-import { IconButton, ListItemIcon, ListItemText, Menu, MenuItem, Popover, Toolbar, Typography } from "@mui/material";
-import { PermIdentity, MoreVert, Help, AccountCircle } from "@mui/icons-material";
+import {
+  darkColor,
+  white,
+  primaryDarker,
+  primary,
+} from "../styles/themes/entur/";
+import {
+  IconButton,
+  ListItemIcon,
+  ListItemText,
+  Menu,
+  MenuItem,
+  Popover,
+  Toolbar,
+  Typography,
+} from "@mui/material";
+import {
+  PermIdentity,
+  MoreVert,
+  Help,
+  AccountCircle,
+} from "@mui/icons-material";
 
 class Header extends React.Component {
   constructor(props) {
@@ -62,83 +81,93 @@ class Header extends React.Component {
     let userOrganisations = supplierList;
 
     return (
-        <AppBar style={{ background: darkColor }}>
-          <Toolbar>
-            <IconButton onClick={(e) => this.handleTouchTap(e)} sx={{ marginLeft: '-16px', marginRight: '8px' }}>
-              <PermIdentity sx={{ color: white}} />
-            </IconButton>
-            <Typography variant="h5" component="div" sx={{ flexGrow: 1, color: white, fontSize: '24px', fontWeight: 400 }}>
-              {title}
-            </Typography>
-            <img src={logo} style={{ width: 40, height: "auto" }} />
-            <IconButton onClick={(e) => this.setState({ anchorElMenu: e.currentTarget})}>
-              <MoreVert sx={{ color: white }} />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={this.state.anchorElMenu}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(this.state.anchorElMenu)}
-              onClose={() => this.setState({ anchorElMenu: null })}>
+      <AppBar style={{ background: darkColor }}>
+        <Toolbar>
+          <IconButton
+            onClick={(e) => this.handleTouchTap(e)}
+            sx={{ marginLeft: "-16px", marginRight: "8px" }}
+          >
+            <PermIdentity sx={{ color: white }} />
+          </IconButton>
+          <Typography
+            variant="h5"
+            component="div"
+            sx={{
+              flexGrow: 1,
+              color: white,
+              fontSize: "24px",
+              fontWeight: 400,
+            }}
+          >
+            {title}
+          </Typography>
+          <img src={logo} style={{ width: 40, height: "auto" }} />
+          <IconButton
+            onClick={(e) => this.setState({ anchorElMenu: e.currentTarget })}
+          >
+            <MoreVert sx={{ color: white }} />
+          </IconButton>
+          <Menu
+            id="menu-appbar"
+            anchorEl={this.state.anchorElMenu}
+            anchorOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            open={Boolean(this.state.anchorElMenu)}
+            onClose={() => this.setState({ anchorElMenu: null })}
+          >
+            <MenuItem
+              component="a"
+              href="https://enturas.atlassian.net/wiki/spaces/PUBLIC/pages/637370715/Brukerveiledning+for+operat+rportal"
+              target="_blank"
+            >
+              <ListItemIcon>
+                <Help color="primary" />
+              </ListItemIcon>
+              <ListItemText>Brukerveiledning</ListItemText>
+            </MenuItem>
+            <MenuItem
+              onClick={() => auth.logout({ returnTo: window.location.origin })}
+            >
+              <ListItemIcon>
+                <AccountCircle color="primary" />
+              </ListItemIcon>
+              <ListItemText>{signOut}</ListItemText>
+            </MenuItem>
+          </Menu>
+        </Toolbar>
+        {this.props.supplierList ? (
+          <Menu
+            open={this.state.open}
+            anchorEl={this.state.anchorEl}
+            anchorOrigin={{ horizontal: "left", vertical: "bottom" }}
+            targetOrigin={{ horizontal: "left", vertical: "top" }}
+            onClose={this.handleRequestClose.bind(this)}
+          >
+            {userOrganisations.map((supplier, index) => (
               <MenuItem
-                component="a"
-                href="https://enturas.atlassian.net/wiki/spaces/PUBLIC/pages/637370715/Brukerveiledning+for+operat+rportal"
-                target="_blank"
+                key={"supplier" + index}
+                onClick={() => {
+                  this.handleSupplierChange(supplier.id);
+                }}
               >
-                <ListItemIcon>
-                  <Help color="primary" />
-                </ListItemIcon>
-                <ListItemText>
-                  Brukerveiledning
-                </ListItemText>
+                <ListItemText>{supplier.name}</ListItemText>
+                <Typography variant="body2" color="text.secondary">
+                  {supplier.id}
+                </Typography>
               </MenuItem>
-              <MenuItem
-                onClick={() =>
-                  auth.logout({ returnTo: window.location.origin })
-                }
-              >
-                <ListItemIcon>
-                  <AccountCircle color="primary" />
-                </ListItemIcon>
-                <ListItemText>
-                  {signOut}
-                </ListItemText>
-              </MenuItem>
-            </Menu>
-          </Toolbar>
-            {this.props.supplierList ? (
-              <Menu
-                open={this.state.open} 
-                anchorEl={this.state.anchorEl}
-                anchorOrigin={{ horizontal: "left", vertical: "bottom" }}
-                targetOrigin={{ horizontal: "left", vertical: "top" }}
-                onClose={this.handleRequestClose.bind(this)}>
-                {userOrganisations.map((supplier, index) => (
-                  <MenuItem
-                    key={"supplier" + index}
-                    onClick={() => {
-                      this.handleSupplierChange(supplier.id);
-                    }}
-                  >
-                    <ListItemText>{supplier.name}</ListItemText>
-                    <Typography variant="body2" color="text.secondary">
-                      {supplier.id}
-                    </Typography>
-                  </MenuItem>
-                ))}
-              </Menu>
-            ) : (
-              <div style={{ padding: 20 }}>Ingen forhandlere</div>
-            )}
-        </AppBar>
+            ))}
+          </Menu>
+        ) : (
+          <div style={{ padding: 20 }}>Ingen forhandlere</div>
+        )}
+      </AppBar>
     );
   }
 }
