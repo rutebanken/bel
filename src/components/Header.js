@@ -81,7 +81,7 @@ class Header extends React.Component {
     let userOrganisations = supplierList;
 
     return (
-      <AppBar style={{ background: darkColor }}>
+      <AppBar style={{ background: darkColor }} position="sticky">
         <Toolbar>
           <IconButton
             onClick={(e) => this.handleTouchTap(e)}

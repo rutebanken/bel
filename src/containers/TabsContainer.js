@@ -41,7 +41,7 @@ class TabsContainer extends React.Component {
         <TabList
           onChange={this.handleChange.bind(this)}
           variant="fullWidth"
-          sx={{ background: darkColor, marginTop: "64px", height: "58px" }}
+          sx={{ background: darkColor }}
         >
           <Tab
             value="status"
