@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import AsyncActions from "../actions/AsyncActions";
+import AsyncActions, { sendData } from "../actions/AsyncActions";
 
 const MicroFrontendWrapper = ({ dispatch, match, supplierList, children }) => {
   useEffect(() => {
@@ -10,10 +10,8 @@ const MicroFrontendWrapper = ({ dispatch, match, supplierList, children }) => {
         (supplier) =>
           supplier.chouetteInfo.referential === match.params.codespace
       );
-      console.log(supplier);
       if (supplier) {
-        console.log(supplier.id);
-        dispatch(AsyncActions.getProviderStatus(supplier.id));
+        dispatch(sendData(supplier.id, "CHANGED_ACTIVE_PROVIDER"));
       }
     }
   }, [match, supplierList]);

@@ -17,7 +17,7 @@
 import React from "react";
 import AppBar from "@mui/material/AppBar";
 import { connect } from "react-redux";
-import AsyncActions from "../actions/AsyncActions";
+import AsyncActions, { sendData } from "../actions/AsyncActions";
 import logo from "../static/logo/logo_entur.png";
 import {
   darkColor,
@@ -53,7 +53,7 @@ class Header extends React.Component {
 
   handleSupplierChange(id) {
     if (id > -1) {
-      this.props.dispatch(AsyncActions.getProviderStatus(id));
+      this.props.dispatch(sendData(id, types.CHANGED_ACTIVE_PROVIDER));
     }
     this.handleRequestClose();
   }

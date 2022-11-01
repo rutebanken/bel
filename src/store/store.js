@@ -37,13 +37,6 @@ export default function configureStore(auth) {
 
   const initialState = {
     userReducer: {
-      isModalOpen: false,
-      isReportModalOpen: false,
-      reportViewType: "ALL",
-      fileUpload: {
-        progress: 0,
-        state: types.FILE_UPLOAD_NOT_STARTED,
-      },
       auth,
     },
   };
