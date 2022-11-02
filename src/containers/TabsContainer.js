@@ -103,7 +103,7 @@ class TabsContainer extends React.Component {
                 env: "dev",
                 hideIgnoredExportNetexBlocks: true,
                 hideAntuValidationSteps: false,
-                navigate: (url) => history.push(url),
+                navigate: (url) => this.props.history.push(url),
               }}
               FetchStatus={(props) => (
                 <MicroFrontendFetchStatus
