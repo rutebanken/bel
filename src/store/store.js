@@ -39,7 +39,7 @@ export default function configureStore(auth, config) {
     userReducer: {
       auth,
     },
-    config
+    config,
   };
 
   let store = createStore(createRootReducer(), initialState, enchancer);

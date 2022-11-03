@@ -124,7 +124,7 @@ const mapStateToProps = (state) => ({
   currentSupplier: state.asyncReducer.currentSupplier,
   isLoading: state.asyncReducer.isLoading,
   auth: state.userReducer.auth,
-  config: state.config
+  config: state.config,
 });
 
 export default withRouter(connect(mapStateToProps)(TabsContainer));

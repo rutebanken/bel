@@ -24,7 +24,7 @@ const createRootReducer = () =>
   combineReducers({
     userReducer,
     asyncReducer,
-    config: configReducer
+    config: configReducer,
   });
 
 export default createRootReducer;
