@@ -51,9 +51,10 @@ class Header extends React.Component {
     };
   }
 
-  handleSupplierChange(id) {
+  async handleSupplierChange(id) {
     if (id > -1) {
-      this.props.dispatch(sendData(id, types.CHANGED_ACTIVE_PROVIDER));
+      await this.props.dispatch(AsyncActions.changeActiveProvider(null));
+      await this.props.dispatch(AsyncActions.changeActiveProvider(id));
     }
     this.handleRequestClose();
   }

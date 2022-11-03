@@ -26,7 +26,7 @@ const asyncReducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         currentSupplier: state.suppliers.find(
           (supplier) => supplier.id === action.payLoad
-        ),
+        ) || null,
       });
 
     case types.RECEIVED_SUPPLIERS:
