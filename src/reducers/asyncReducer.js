@@ -24,9 +24,9 @@ const asyncReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.CHANGED_ACTIVE_PROVIDER:
       return Object.assign({}, state, {
-        currentSupplier: state.suppliers.find(
-          (supplier) => supplier.id === action.payLoad
-        ) || null,
+        currentSupplier:
+          state.suppliers.find((supplier) => supplier.id === action.payLoad) ||
+          null,
       });
 
     case types.RECEIVED_SUPPLIERS:

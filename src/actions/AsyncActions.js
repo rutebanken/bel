@@ -33,7 +33,7 @@ const getConfig = async (auth) => {
 
 AsyncActions.changeActiveProvider = (id) => async (dispatch) => {
   dispatch(sendData(id, types.CHANGED_ACTIVE_PROVIDER));
-}
+};
 
 AsyncActions.getAllSuppliers = () => async (dispatch, getState) => {
   dispatch(sendData(null, types.REQUESTED_SUPPLIERS));
