@@ -21,7 +21,7 @@ import { composeWithDevTools } from "redux-devtools-extension/developmentOnly";
 import createRootReducer from "../reducers";
 import * as types from "../actions/actionTypes";
 
-export default function configureStore(auth) {
+export default function configureStore(auth, config) {
   let enchancer = {};
 
   if (process.env.NODE_ENV === "development") {
@@ -39,6 +39,7 @@ export default function configureStore(auth) {
     userReducer: {
       auth,
     },
+    config
   };
 
   let store = createStore(createRootReducer(), initialState, enchancer);

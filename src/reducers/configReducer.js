@@ -14,17 +14,6 @@
  *
  */
 
-import { combineReducers } from "redux";
+const configReducer = (state = {}, action) => state;
 
-import userReducer from "./userReducer";
-import asyncReducer from "./asyncReducer";
-import configReducer from "./configReducer";
-
-const createRootReducer = () =>
-  combineReducers({
-    userReducer,
-    asyncReducer,
-    config: configReducer
-  });
-
-export default createRootReducer;
+export default configReducer;

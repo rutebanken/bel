@@ -51,7 +51,7 @@ const AuthenticatedApp = () => {
 
   return (
     <Sentry.ErrorBoundary showDialog>
-      <Provider store={configureStore(auth)}>
+      <Provider store={configureStore(auth, config)}>
         <Root />
       </Provider>
     </Sentry.ErrorBoundary>
@@ -80,6 +80,5 @@ function renderIndex(config) {
 }
 
 cfgreader.readConfig((config) => {
-  window.config = config;
   renderIndex(config);
 });

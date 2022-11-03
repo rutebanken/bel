@@ -33,8 +33,9 @@ const getConfig = async (auth) => {
 
 AsyncActions.getAllSuppliers = () => async (dispatch, getState) => {
   dispatch(sendData(null, types.REQUESTED_SUPPLIERS));
-  const url = window.config.providersBaseUrl;
+
   const state = getState();
+  const url = state.config.providersBaseUrl;
 
   return axios({
     url: url,

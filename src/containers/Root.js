@@ -14,7 +14,7 @@
  *
  */
 
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import Header from "../components/Header";
 import Main from "./Main";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
@@ -25,6 +25,7 @@ import { Route, Switch } from "react-router-dom";
 import { connect } from "react-redux";
 import AsyncActions from "../actions/AsyncActions";
 import MicroFrontendWrapper from "./MicroFrontendWrapper";
+import { ConfigContext } from "../config/ConfigContext";
 
 const FetchStatus = (props) => {
   if (props.status !== "SUCCESS" && props.status !== "LOADING") {
@@ -36,6 +37,7 @@ const FetchStatus = (props) => {
 
 const Root = ({ dispatch }) => {
   const auth = useAuth();
+  const config = useContext(ConfigContext);
 
   useEffect(() => {
     dispatch(AsyncActions.getAllSuppliers());
@@ -51,17 +53,17 @@ const Root = ({ dispatch }) => {
               <Route exact path="/" component={Main} />
               <Route path="/netex-validation-reports/report/:codespace/:reportId">
                 <MicroFrontendWrapper>
-                  {window.config.udugMicroFrontendUrl && (
+                  {config.udugMicroFrontendUrl && (
                     <MicroFrontend
                       id="ror-udug"
-                      host={window.config.udugMicroFrontendUrl}
+                      host={config.udugMicroFrontendUrl}
                       path="/netex-validation-reports"
                       staticPath=""
                       name="NeTEx validation reports"
                       payload={{
                         getToken: auth.getAccessToken,
                         locale: "nb",
-                        env: window.config.appEnv,
+                        env: config.appEnv,
                       }}
                       FetchStatus={FetchStatus}
                       handleError={(e) => console.log(e)}

@@ -34,7 +34,7 @@ class TabsContainer extends React.Component {
   }
 
   render() {
-    const { currentSupplier, auth, isLoading } = this.props;
+    const { currentSupplier, auth, isLoading, config } = this.props;
 
     return (
       <TabContext value={this.props.tab}>
@@ -63,10 +63,10 @@ class TabsContainer extends React.Component {
 
         {this.props.tab === "status" && currentSupplier && !isLoading ? (
           <TabPanel value={this.props.tab} index={0}>
-            {window.config.ninsarMicroFrontendUrl && (
+            {config.ninsarMicroFrontendUrl && (
               <MicroFrontend
                 id="ror-ninsar"
-                host={window.config.ninsarMicroFrontendUrl}
+                host={config.ninsarMicroFrontendUrl}
                 staticPath=""
                 name="Line statistics"
                 payload={{
@@ -93,14 +93,14 @@ class TabsContainer extends React.Component {
           <TabPanel value={this.props.tab} index={0}>
             <MicroFrontend
               id="ror-zagmuk"
-              host="https://timetable-admin.dev.entur.org"
+              host={config.zagmukMicroFrontendUrl}
               staticPath=""
               name="Events"
               payload={{
                 providerId: `${currentSupplier.id}`,
                 getToken: auth.getAccessToken,
                 locale: "nb",
-                env: "dev",
+                env: config.appEnv,
                 hideIgnoredExportNetexBlocks: true,
                 hideAntuValidationSteps: false,
                 navigate: (url) => this.props.history.push(url),
@@ -124,6 +124,7 @@ const mapStateToProps = (state) => ({
   currentSupplier: state.asyncReducer.currentSupplier,
   isLoading: state.asyncReducer.isLoading,
   auth: state.userReducer.auth,
+  config: state.config
 });
 
 export default withRouter(connect(mapStateToProps)(TabsContainer));
