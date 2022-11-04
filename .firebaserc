@@ -1,5 +1,7 @@
 {
   "projects": {
-    "default": "ent-bel-dev"
+    "dev": "ent-bel-dev",
+    "test": "ent-bel-tst",
+    "prod": "ent-bel-prd"
   }
 }
