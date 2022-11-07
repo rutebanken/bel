@@ -58,4 +58,4 @@ jobs:
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_ENT_BEL_DEV }}'
-          projectId: ent-zagmuk-dev
+          projectId: ent-bel-dev
