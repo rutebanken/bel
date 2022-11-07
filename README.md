@@ -1,4 +1,4 @@
-# Bel [![CircleCI](https://circleci.com/gh/entur/bel/tree/master.svg?style=svg)](https://circleci.com/gh/entur/bel/tree/master)
+# Bel ![GitHub Workflow](https://github.com/entur/bel/actions/workflows/firebase-hosting-merge.yml/badge.svg?branch=master)
 
 Operational status, provides the providers with relevant status of their data delivery
 
