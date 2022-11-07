@@ -17,71 +17,105 @@ import { connect } from "react-redux";
  */
 
 import React from "react";
-import { Tabs, Tab } from "material-ui/Tabs";
-import Events from "./Events";
 import { withRouter } from "react-router-dom";
 import { MicroFrontendFetchStatus } from "../components/MicroFrontendFetchStatus";
 import { MicroFrontend } from "@entur/micro-frontend";
-import { Loader } from "@entur/loader";
+import { Tab, Tabs } from "@mui/material";
+import { darkColor } from "../styles/themes/entur";
+import { TabContext, TabList, TabPanel } from "@mui/lab";
 
 class TabsContainer extends React.Component {
   constructor(props) {
     super(props);
   }
 
-  handleChange(value) {
+  handleChange(_e, value) {
     this.props.history.push(`/${value}`);
   }
 
   render() {
-    const { currentSupplier, auth, isLoading } = this.props;
+    const { currentSupplier, auth, isLoading, config } = this.props;
 
     return (
-      <Tabs
-        value={this.props.tab}
-        onChange={this.handleChange.bind(this)}
-        inkBarStyle={{ height: 7, bottom: 5, background: "#FF5959" }}
-      >
-        <Tab value="status" label="Linjestatus" style={{ marginTop: 10 }}>
-          {this.props.tab === "status" && currentSupplier && !isLoading ? (
-            <>
-              {window.config.ninsarMicroFrontendUrl && (
-                <MicroFrontend
-                  id="ror-ninsar"
-                  host={window.config.ninsarMicroFrontendUrl}
-                  staticPath=""
-                  name="Line statistics"
-                  payload={{
-                    providerId: `${currentSupplier.id}`,
-                    getToken: auth.getAccessToken,
-                    locale: "NO",
-                    showNumberOfLinesCard: true,
-                    showDeliveryDateCard: true,
-                    showExpiringDaysCard: true,
-                  }}
-                  FetchStatus={(props) => (
-                    <MicroFrontendFetchStatus
-                      {...props}
-                      label="Error loading line statistics"
-                    />
-                  )}
-                  handleError={(error) => console.log(error)}
+      <TabContext value={this.props.tab}>
+        <TabList
+          onChange={this.handleChange.bind(this)}
+          variant="fullWidth"
+          sx={{ background: darkColor }}
+        >
+          <Tab
+            value="status"
+            label={
+              <span style={{ color: "white", paddingTop: "12px" }}>
+                Linjestatus
+              </span>
+            }
+          />
+          <Tab
+            value="events"
+            label={
+              <span style={{ color: "white", paddingTop: "12px" }}>
+                Dataleveranser
+              </span>
+            }
+          />
+        </TabList>
+
+        {this.props.tab === "status" && currentSupplier && !isLoading ? (
+          <TabPanel value={this.props.tab} index={0}>
+            {config.ninsarMicroFrontendUrl && (
+              <MicroFrontend
+                id="ror-ninsar"
+                host={config.ninsarMicroFrontendUrl}
+                staticPath=""
+                name="Line statistics"
+                payload={{
+                  providerId: `${currentSupplier.id}`,
+                  getToken: auth.getAccessToken,
+                  locale: "NO",
+                  showNumberOfLinesCard: true,
+                  showDeliveryDateCard: true,
+                  showExpiringDaysCard: true,
+                }}
+                FetchStatus={(props) => (
+                  <MicroFrontendFetchStatus
+                    {...props}
+                    label="Error loading line statistics"
+                  />
+                )}
+                handleError={(error) => console.log(error)}
+              />
+            )}
+          </TabPanel>
+        ) : null}
+
+        {this.props.tab === "events" && currentSupplier && !isLoading ? (
+          <TabPanel value={this.props.tab} index={0}>
+            <MicroFrontend
+              id="ror-zagmuk"
+              host={config.zagmukMicroFrontendUrl}
+              staticPath=""
+              name="Events"
+              payload={{
+                providerId: `${currentSupplier.id}`,
+                getToken: auth.getAccessToken,
+                locale: "nb",
+                env: config.appEnv,
+                hideIgnoredExportNetexBlocks: true,
+                hideAntuValidationSteps: false,
+                navigate: (url) => this.props.history.push(url),
+              }}
+              FetchStatus={(props) => (
+                <MicroFrontendFetchStatus
+                  {...props}
+                  label="Error loading events"
                 />
               )}
-            </>
-          ) : (
-            <Loader style={{ width: "100%" }}>Laster</Loader>
-          )}
-        </Tab>
-        <Tab
-          className="event-header"
-          value="events"
-          label="Dataleveranser"
-          style={{ marginTop: 10 }}
-        >
-          {this.props.tab === "events" && <Events />}
-        </Tab>
-      </Tabs>
+              handleError={(error) => console.log(error)}
+            />
+          </TabPanel>
+        ) : null}
+      </TabContext>
     );
   }
 }
@@ -90,6 +124,7 @@ const mapStateToProps = (state) => ({
   currentSupplier: state.asyncReducer.currentSupplier,
   isLoading: state.asyncReducer.isLoading,
   auth: state.userReducer.auth,
+  config: state.config,
 });
 
 export default withRouter(connect(mapStateToProps)(TabsContainer));

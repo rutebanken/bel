@@ -18,13 +18,13 @@ import { combineReducers } from "redux";
 
 import userReducer from "./userReducer";
 import asyncReducer from "./asyncReducer";
-import snackbarReducer from "./snackbarReducer";
+import configReducer from "./configReducer";
 
 const createRootReducer = () =>
   combineReducers({
     userReducer,
     asyncReducer,
-    snackbarReducer,
+    config: configReducer,
   });
 
 export default createRootReducer;

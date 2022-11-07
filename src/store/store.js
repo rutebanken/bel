@@ -21,7 +21,7 @@ import { composeWithDevTools } from "redux-devtools-extension/developmentOnly";
 import createRootReducer from "../reducers";
 import * as types from "../actions/actionTypes";
 
-export default function configureStore(auth) {
+export default function configureStore(auth, config) {
   let enchancer = {};
 
   if (process.env.NODE_ENV === "development") {
@@ -37,15 +37,9 @@ export default function configureStore(auth) {
 
   const initialState = {
     userReducer: {
-      isModalOpen: false,
-      isReportModalOpen: false,
-      reportViewType: "ALL",
-      fileUpload: {
-        progress: 0,
-        state: types.FILE_UPLOAD_NOT_STARTED,
-      },
       auth,
     },
+    config,
   };
 
   let store = createStore(createRootReducer(), initialState, enchancer);

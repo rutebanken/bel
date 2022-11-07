@@ -1,15 +1,13 @@
-import React from 'react';
-import { BannerAlertBox } from "@entur/alert";
+import React from "react";
+import { Alert, AlertTitle } from "@mui/material";
 
-export const MicroFrontendFetchStatus = props => {
-  if (props.status !== 'SUCCESS' && props.status !== 'LOADING') {
+export const MicroFrontendFetchStatus = (props) => {
+  if (props.status !== "SUCCESS" && props.status !== "LOADING") {
     return (
-      <BannerAlertBox
-        title="Oops!!"
-        variant="error"
-      >
-        {props.label || 'Error loading micro frontend'}
-      </BannerAlertBox>
+      <Alert severity="error">
+        <AlertTitle>Oops!!</AlertTitle>
+        {props.label || "Error loading micro frontend"}
+      </Alert>
     );
   } else {
     return null;

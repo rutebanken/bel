@@ -14,20 +14,18 @@
  *
  */
 
-import React, { useEffect } from "react";
-import FileUpload from "./FileUpload";
+import { useContext, useEffect } from "react";
 import Header from "../components/Header";
 import Main from "./Main";
-import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-import getMuiTheme from "material-ui/styles/getMuiTheme";
-import enturTheme from "../styles/themes/entur/";
-import SnackbarWrapper from "../components/SnackbarWrapper";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { getTheme } from "../styles/themes/entur/";
 import { useAuth } from "@entur/auth-provider";
 import { MicroFrontend } from "@entur/micro-frontend";
 import { Route, Switch } from "react-router-dom";
 import { connect } from "react-redux";
 import AsyncActions from "../actions/AsyncActions";
 import MicroFrontendWrapper from "./MicroFrontendWrapper";
+import { ConfigContext } from "../config/ConfigContext";
 
 const FetchStatus = (props) => {
   if (props.status !== "SUCCESS" && props.status !== "LOADING") {
@@ -39,6 +37,7 @@ const FetchStatus = (props) => {
 
 const Root = ({ dispatch }) => {
   const auth = useAuth();
+  const config = useContext(ConfigContext);
 
   useEffect(() => {
     dispatch(AsyncActions.getAllSuppliers());
@@ -47,24 +46,24 @@ const Root = ({ dispatch }) => {
   return (
     <>
       {auth.isAuthenticated ? (
-        <MuiThemeProvider muiTheme={getMuiTheme(enturTheme)}>
+        <ThemeProvider theme={createTheme(getTheme())}>
           <div className="appContent">
             <Header />
             <Switch>
               <Route exact path="/" component={Main} />
               <Route path="/netex-validation-reports/report/:codespace/:reportId">
                 <MicroFrontendWrapper>
-                  {window.config.udugMicroFrontendUrl && (
+                  {config.udugMicroFrontendUrl && (
                     <MicroFrontend
                       id="ror-udug"
-                      host={window.config.udugMicroFrontendUrl}
+                      host={config.udugMicroFrontendUrl}
                       path="/netex-validation-reports"
                       staticPath=""
                       name="NeTEx validation reports"
                       payload={{
                         getToken: auth.getAccessToken,
                         locale: "nb",
-                        env: window.config.appEnv,
+                        env: config.appEnv,
                       }}
                       FetchStatus={FetchStatus}
                       handleError={(e) => console.log(e)}
@@ -74,10 +73,8 @@ const Root = ({ dispatch }) => {
               </Route>
               <Route path="/:tab" component={Main} />
             </Switch>
-            <FileUpload />
-            <SnackbarWrapper />
           </div>
-        </MuiThemeProvider>
+        </ThemeProvider>
       ) : null}
     </>
   );

@@ -14,33 +14,47 @@
  *
  */
 
-import React from "react";
+import React, { useContext } from "react";
 import { render } from "react-dom";
 import { Provider } from "react-redux";
 import Root from "./containers/Root";
 import configureStore from "./store/store";
 import cfgreader from "./config/readConfig";
-import AuthProvider, { useAuth } from '@entur/auth-provider';
+import AuthProvider, { useAuth } from "@entur/auth-provider";
+import * as Sentry from "@sentry/react";
+import { BrowserTracing } from "@sentry/tracing";
 
 import "./styles/css/main.scss";
 import { BrowserRouter } from "react-router-dom";
-
-cfgreader.readConfig((config) => {
-  window.config = config;
-  renderIndex(config);
-});
+import { ConfigContext } from "./config/ConfigContext";
 
 const AuthenticatedApp = () => {
+  const config = useContext(ConfigContext);
   const auth = useAuth();
+
+  if (process.env.NODE_ENV === "production") {
+    Sentry.init({
+      dsn: config.sentryDSN,
+      integrations: [new BrowserTracing()],
+
+      // We recommend adjusting this value in production, or using tracesSampler
+      // for finer control
+      tracesSampleRate: 1.0,
+      environment: config.appEnv,
+      release: `bel@${process.env.REACT_APP_VERSION}`,
+    });
+  }
 
   if (auth.isLoading || !auth.isAuthenticated || !auth.roleAssignments) {
     return null;
   }
 
   return (
-    <Provider store={configureStore(auth)}>
-      <Root />
-    </Provider>
+    <Sentry.ErrorBoundary showDialog>
+      <Provider store={configureStore(auth, config)}>
+        <Root />
+      </Provider>
+    </Sentry.ErrorBoundary>
   );
 };
 
@@ -55,10 +69,16 @@ function renderIndex(config) {
       }}
       auth0ClaimsNamespace={config.auth0ClaimsNamespace}
     >
-      <BrowserRouter>
-        <AuthenticatedApp />
-      </BrowserRouter>
+      <ConfigContext.Provider value={config}>
+        <BrowserRouter>
+          <AuthenticatedApp />
+        </BrowserRouter>
+      </ConfigContext.Provider>
     </AuthProvider>,
-    document.getElementById('root')
+    document.getElementById("root")
   );
 }
+
+cfgreader.readConfig((config) => {
+  renderIndex(config);
+});

@@ -10,10 +10,8 @@ const MicroFrontendWrapper = ({ dispatch, match, supplierList, children }) => {
         (supplier) =>
           supplier.chouetteInfo.referential === match.params.codespace
       );
-      console.log(supplier);
       if (supplier) {
-        console.log(supplier.id);
-        dispatch(AsyncActions.getProviderStatus(supplier.id));
+        dispatch(AsyncActions.changeActiveProvider(supplier.id));
       }
     }
   }, [match, supplierList]);

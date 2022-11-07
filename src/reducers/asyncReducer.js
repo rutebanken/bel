@@ -17,40 +17,22 @@
 import * as types from "./../actions/actionTypes";
 
 const initialState = {
-  isLoading: false,
-  events: [],
   suppliers: [],
-  isFetchingEvents: false,
 };
 
 const asyncReducer = (state = initialState, action) => {
   switch (action.type) {
-    case types.REQUESTED_EVENTS:
-      return Object.assign({}, state, {
-        isLoading: true
-      });
-
-    case types.RECEIVED_EVENTS:
-      return Object.assign({}, state, {
-        events: action.payLoad,
-        isFetchingEvents: false,
-        isLoading: false
-      });
-
-    case types.ERROR_EVENTS:
-      return Object.assign({}, state, { isFetchingEvents: false });
-
     case types.CHANGED_ACTIVE_PROVIDER:
       return Object.assign({}, state, {
-        currentSupplier: state.suppliers.find(
-          (supplier) => supplier.id === action.payLoad
-        ),
+        currentSupplier:
+          state.suppliers.find((supplier) => supplier.id === action.payLoad) ||
+          null,
       });
 
     case types.RECEIVED_SUPPLIERS:
       return Object.assign({}, state, {
         currentSupplier: null,
-        suppliers: action.payLoad,
+        suppliers: action.payLoad.sort((a, b) => a.name.localeCompare(b.name)),
       });
 
     default:
