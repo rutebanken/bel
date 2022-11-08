@@ -4,9 +4,7 @@ export const getEnvironment = () => {
     window.location.hostname === "xn--operatr-v1a.entur.org"
   ) {
     return "prod";
-  } else if (
-    window.location.hostname === "operator.staging.entur.org"
-  ) {
+  } else if (window.location.hostname === "operator.staging.entur.org") {
     return "test";
   } else {
     return "dev";
