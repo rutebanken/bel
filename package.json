@@ -47,7 +47,7 @@
     "jsdom": "12.2.0",
     "jsdom-global": "3.0.2",
     "lint-staged": "10.5.4",
-    "mocha": "3.5.3",
+    "mocha": "4.0.0",
     "prettier": "2.7.1",
     "react-scripts": "5.0.1",
     "redux-mock-store": "1.5.4",
