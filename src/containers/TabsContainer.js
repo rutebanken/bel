@@ -20,7 +20,7 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import { MicroFrontendFetchStatus } from "../components/MicroFrontendFetchStatus";
 import { MicroFrontend } from "@entur/micro-frontend";
-import { Tab, Tabs } from "@mui/material";
+import { Tab } from "@mui/material";
 import { darkColor } from "../styles/themes/entur";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 
@@ -103,6 +103,7 @@ class TabsContainer extends React.Component {
                 env: config.appEnv,
                 hideIgnoredExportNetexBlocks: true,
                 hideAntuValidationSteps: false,
+                hideFlexDataImport: false,
                 navigate: (url) => this.props.history.push(url),
               }}
               FetchStatus={(props) => (
