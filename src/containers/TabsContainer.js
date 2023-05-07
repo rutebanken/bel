@@ -103,7 +103,7 @@ class TabsContainer extends React.Component {
                 env: config.appEnv,
                 hideIgnoredExportNetexBlocks: true,
                 hideAntuValidationSteps: false,
-                hideFlexDataImport: false,
+                hideFlexDataImport: config.appEnv === "prod",
                 navigate: (url) => this.props.history.push(url),
               }}
               FetchStatus={(props) => (
