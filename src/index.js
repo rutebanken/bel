@@ -35,7 +35,7 @@ const AuthenticatedApp = () => {
   if (process.env.NODE_ENV === "production") {
     Sentry.init({
       dsn: config.sentryDSN,
-      integrations: [new BrowserTracing()],
+      // integrations: [new BrowserTracing()],
 
       // We recommend adjusting this value in production, or using tracesSampler
       // for finer control
