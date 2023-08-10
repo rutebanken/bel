@@ -42,7 +42,7 @@
   "devDependencies": {
     "chai": "3.5.0",
     "describe": "1.2.0",
-    "expect": "1.20.2",
+    "expect": "29.6.2",
     "husky": "5.2.0",
     "jsdom": "12.2.0",
     "jsdom-global": "3.0.2",
