@@ -46,7 +46,7 @@
     "husky": "5.2.0",
     "jsdom": "12.2.0",
     "jsdom-global": "3.0.2",
-    "lint-staged": "10.5.4",
+    "lint-staged": "13.3.0",
     "mocha": "3.5.3",
     "prettier": "2.8.8",
     "react-scripts": "5.0.1",
