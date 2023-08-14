@@ -40,17 +40,10 @@
     "typescript": "4.9.5"
   },
   "devDependencies": {
-    "chai": "3.5.0",
-    "describe": "1.2.0",
-    "expect": "1.20.2",
     "husky": "5.2.0",
-    "jsdom": "12.2.0",
-    "jsdom-global": "3.0.2",
     "lint-staged": "10.5.4",
-    "mocha": "3.5.3",
     "prettier": "2.8.8",
     "react-scripts": "5.0.1",
-    "redux-mock-store": "1.5.4",
     "sass": "1.65.1"
   },
   "husky": {
