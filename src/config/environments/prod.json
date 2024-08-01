@@ -4,6 +4,7 @@
   "auth0Domain": "auth2.entur.org",
   "auth0ClientId": "ZvAJ8bvxn71Rj0pogxm5zUXaQj46K2bm",
   "auth0Audience": "https://ror.api.entur.io",
+  "auth0ClaimsNamespace": "https://ror.entur.io/role_assignments",
   "udugMicroFrontendUrl": "https://netex-validation-reports.entur.org",
   "ninsarMicroFrontendUrl": "https://line-statistics.entur.org",
   "zagmukMicroFrontendUrl": "https://timetable-admin.entur.org"

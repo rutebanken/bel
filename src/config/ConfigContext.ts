@@ -7,6 +7,7 @@ interface Config {
   auth0Domain?: string;
   auth0ClientId?: string;
   auth0Audience?: string;
+  auth0ClaimsNamespace?: string;
   udugMicroFrontendUrl?: string;
   ninsarMicroFrontendUrl?: string;
   zagmukMicroFrontendUrl?: string;

@@ -4,6 +4,7 @@
   "auth0Domain": "ror-entur-staging.eu.auth0.com",
   "auth0ClientId": "Mj0umIJgASVkJjshc37hhatqqszUVXU4",
   "auth0Audience": "https://ror.api.staging.entur.io",
+  "auth0ClaimsNamespace": "https://ror.entur.io/role_assignments",
   "udugMicroFrontendUrl": "https://netex-validation-reports.staging.entur.org",
   "ninsarMicroFrontendUrl": "https://line-statistics.staging.entur.org",
   "zagmukMicroFrontendUrl": "https://timetable-admin.staging.entur.org"
